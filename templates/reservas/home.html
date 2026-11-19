@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{{ brand.nombre }} · {% trans "Reserva tu mesa" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  {# ---------- Hero ---------- #}
+  <section class="hero-brand mb-4">
+    <span class="blob" style="width:220px;height:220px;right:-40px;top:-40px;background:var(--brand)"></span>
+    <span class="blob" style="width:120px;height:120px;right:22%;bottom:-30px;background:#fff;animation-delay:-3s"></span>
+    <div class="row g-4 align-items-center position-relative">
+      <div class="col-lg-6">
+        <span class="pill mb-3" style="background:rgba(255,255,255,.14);color:#fff"><i class="bi bi-lightning-charge-fill"></i> {% trans "Confirmación al instante" %}</span>
+        <h1 class="mb-3">{% trans "Tu mesa lista," %}<br><em>{% trans "sin llamadas ni filas." %}</em></h1>
+        <p class="lead mb-0">{% blocktrans with n=brand.nombre %}Reserva en {{ n }} en menos de un minuto. Te avisamos por correo o WhatsApp y puedes cambiar o cancelar cuando quieras.{% endblocktrans %}</p>
+      </div>
+      <div class="col-lg-6">
+        <form class="quickbook" method="get" action="{% url 'reservas:seleccionar_sucursal' %}">
+          <div class="row g-2">
+            <div class="col-6 col-md-4">
+              <label class="form-label small mb-1" for="qb-date">{% trans "Fecha" %}</label>
+              <input id="qb-date" type="date" name="date" class="form-control" value="{{ hoy|date:'Y-m-d' }}" min="{{ hoy|date:'Y-m-d' }}">
+            </div>
+            <div class="col-6 col-md-4">
+              <label class="form-label small mb-1" for="qb-party">{% trans "Personas" %}</label>
+              <select id="qb-party" name="party" class="form-select">
+                {% for n in party_range %}<option value="{{ n }}" {% if n|stringformat:'s' == party_default %}selected{% endif %}>{{ n }} {% if n == 1 %}{% trans "persona" %}{% else %}{% trans "personas" %}{% endif %}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label small mb-1" for="qb-time">{% trans "Hora" %}</label>
+              <input id="qb-time" type="time" name="time" class="form-control" value="14:00" step="900">
+            </div>
+            <div class="col-12">
+              <label class="form-label small mb-1" for="qb-q">{% trans "¿Dónde?" %}</label>
+              <div class="d-flex gap-2">
+                <input id="qb-q" type="search" name="q" class="form-control" placeholder="{% trans 'Sucursal, colonia o tipo de cocina' %}">
+                <button class="btn btn-primary px-4" type="submit"><i class="bi bi-search"></i><span class="d-none d-md-inline ms-1">{% trans "Buscar" %}</span></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {# ---------- Accesos ---------- #}
+  {% if user.is_authenticated and not is_admin_staff %}
+  <div class="row g-3 mb-2">
+    <div class="col-md-4 reveal"><a class="feature lift d-block text-decoration-none text-reset" href="{% url 'reservas:mis_reservas' %}"><div class="ico"><i class="bi bi-calendar2-check"></i></div><strong>{% trans "Mis reservaciones" %}</strong><div class="small text-muted">{% trans "Consulta, cambia o cancela." %}</div></a></div>
+    <div class="col-md-4 reveal reveal-d1"><a class="feature lift d-block text-decoration-none text-reset" href="{% url 'reservas:seleccionar_sucursal' %}"><div class="ico"><i class="bi bi-plus-lg"></i></div><strong>{% trans "Nueva reservación" %}</strong><div class="small text-muted">{% trans "Elige sucursal y horario." %}</div></a></div>
+    <div class="col-md-4 reveal reveal-d2"><a class="feature lift d-block text-decoration-none text-reset" href="{% url 'reservas:perfil' %}"><div class="ico"><i class="bi bi-person"></i></div><strong>{% trans "Mi perfil" %}</strong><div class="small text-muted">{% trans "Datos y preferencias." %}</div></a></div>
+  </div>
+  {% endif %}
+
+  {% if is_admin_staff %}
+  <div class="card p-3 mb-2 d-flex flex-row align-items-center justify-content-between flex-wrap gap-2 reveal">
+    <div><strong>{% trans "Hola, equipo" %} 👋</strong> <span class="text-muted">{% trans "Tu panel del día está listo." %}</span></div>
+    <div class="d-flex gap-2">
+      <a class="btn btn-primary" href="{% url 'reservas:panel_hoy' %}"><i class="bi bi-sun"></i> {% trans "Ver hoy" %}</a>
+      {% if es_dueno %}<a class="btn btn-soft" href="{% url 'reservas:resumen_negocio' %}"><i class="bi bi-graph-up-arrow"></i> {% trans "Resumen" %}</a>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ---------- Disponibles hoy ---------- #}
+  <div class="section-head">
+    <div><span class="pill mb-2"><i class="bi bi-clock"></i> {% trans "Hoy" %}</span><h2>{% trans "Mesas disponibles ahora" %}</h2></div>
+    <a href="{% url 'reservas:seleccionar_sucursal' %}" class="fw-semibold text-decoration-none">{% trans "Ver todas" %} <i class="bi bi-arrow-right"></i></a>
+  </div>
+
+  <div class="row g-3">
+    {% for s in sucursales %}
+    <div class="col-sm-6 col-lg-4 reveal {% cycle '' 'reveal-d1' 'reveal-d2' %}">
+      <div class="card suc-card lift">
+        <a class="cover" href="{% url 'reservas:reservar_publico' s.slug %}">
+          {% if s.portada %}<img src="{{ s.portada.url }}" alt="{{ s.portada_alt|default:s.nombre }}" loading="lazy">{% else %}<i class="bi bi-shop"></i>{% endif %}
+        </a>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <h3 class="h5 mb-1" style="font-family:var(--font-ui);font-weight:700">{{ s.nombre }}</h3>
+            {% if s.rating %}<span class="small fw-bold text-nowrap"><i class="bi bi-star-fill" style="color:var(--warn)"></i> {{ s.rating|floatformat:1 }}</span>{% endif %}
+          </div>
+          <div class="small text-muted mb-3">{% if s.cocina %}{{ s.cocina }} · {% endif %}{{ s.direccion|truncatechars:42 }}</div>
+          {% if s.dia_txt and s.sugerencias %}<div class="small fw-semibold text-muted mb-1">{{ s.dia_txt }}</div>{% endif %}
+          <div class="d-flex flex-wrap gap-2">
+            {% for h in s.sugerencias %}
+              <a class="slot-chip" href="{% url 'reservas:reservar_publico' s.slug %}?fecha={{ h.fecha }}&hora={{ h.txt }}&party=2">{{ h.txt }}</a>
+            {% empty %}
+              <a class="slot-chip empty" href="{% url 'reservas:reservar_publico' s.slug %}">{% trans "Ver otros días" %}</a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12"><div class="card empty-state"><i class="bi bi-shop"></i>{% trans "Aún no hay sucursales publicadas." %}</div></div>
+    {% endfor %}
+  </div>
+
+  {% if sucursales_recomendadas %}
+  <div class="section-head"><h2>{% trans "Cerca de ti" %}</h2></div>
+  <div class="row g-3">
+    {% for s in sucursales_recomendadas|slice:":6" %}
+    <div class="col-md-6 col-lg-4 reveal"><a class="feature lift d-block text-decoration-none text-reset" href="{% url 'reservas:reservar_publico' s.slug %}">
+      <div class="ico"><i class="bi bi-geo-alt"></i></div><strong>{{ s.nombre }}</strong><div class="small text-muted">{{ s.direccion|truncatechars:60 }}</div></a></div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# ---------- Cómo funciona ---------- #}
+  <div class="section-head"><h2>{% trans "Así de fácil" %}</h2></div>
+  <div class="row g-3 mb-4">
+    <div class="col-md-4 reveal"><div class="feature"><div class="ico">1</div><strong>{% trans "Elige horario" %}</strong><p class="small text-muted mb-0">{% trans "Solo te mostramos horarios con mesa real disponible." %}</p></div></div>
+    <div class="col-md-4 reveal reveal-d1"><div class="feature"><div class="ico">2</div><strong>{% trans "Confirma en segundos" %}</strong><p class="small text-muted mb-0">{% trans "Sin crear cuenta. Recibes tu código y un QR." %}</p></div></div>
+    <div class="col-md-4 reveal reveal-d2"><div class="feature"><div class="ico">3</div><strong>{% trans "Llega y disfruta" %}</strong><p class="small text-muted mb-0">{% trans "Te recordamos antes de tu visita. ¿Cambio de planes? Cancela con un clic." %}</p></div></div>
+  </div>
+</div>
+{% endblock %}

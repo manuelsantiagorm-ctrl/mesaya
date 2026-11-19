@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Equipo" %}{% endblock %}
+{% block nav_negocio %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+<div class="page-head">
+  <div>
+    <h1><i class="bi bi-people"></i> {% trans "Tu equipo" %}</h1>
+    <p class="text-muted mb-0">{{ empresa.nombre }} · {% trans "Cada persona solo ve el área de su puesto. Un cocinero nunca verá reservas ni datos de clientes." %}</p>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    {% for m in miembros %}
+    <div class="card shadow-sm mb-2 p-3">
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <span class="area-ico" style="--area:{{ m.puesto.color|default:'#888' }};width:48px;height:48px;font-size:1.4rem;border-radius:14px;background:var(--area)"><i class="bi {{ m.puesto.icono|default:'bi-person' }}"></i></span>
+        <div class="flex-grow-1">
+          <div class="fw-bold">{{ m.user.get_full_name|default:m.user.email }}{% if m.user_id == request.user.id %} <span class="text-muted small">({% trans "tú" %})</span>{% endif %}</div>
+          <div class="small text-muted">{{ m.user.email }}</div>
+          <div class="mt-1 d-flex flex-wrap gap-1 align-items-center">
+            <span class="badge-puesto" style="--area:{{ m.puesto.color|default:'#888' }}">{{ m.get_rol_display }}</span>
+            {% if m.rol in por_sucursal %}
+              {% for n in m.suc_nombres %}<span class="badge text-bg-light"><i class="bi bi-shop"></i> {{ n }}</span>{% empty %}<span class="badge text-bg-warning">{% trans "Sin sucursal: no puede entrar" %}</span>{% endfor %}
+            {% else %}<span class="badge text-bg-light">{% trans "Todas las sucursales" %}</span>{% endif %}
+            {% if not m.activo or not m.user.is_active %}<span class="badge text-bg-secondary">{% trans "inactivo" %}</span>{% endif %}
+          </div>
+        </div>
+        {% if m.editable %}
+        <div class="d-flex gap-2">
+          <button class="btn btn-soft" type="button" data-bs-toggle="collapse" data-bs-target="#edit-{{ m.pk }}"><i class="bi bi-pencil"></i> {% trans "Cambiar puesto" %}</button>
+          <form method="post" data-confirm="{% trans '¿Quitar a esta persona del equipo? Ya no podrá entrar.' %}">{% csrf_token %}
+            <input type="hidden" name="quitar" value="{{ m.pk }}">
+            <button class="btn btn-light" type="submit" aria-label="{% trans 'Quitar' %}"><i class="bi bi-trash"></i></button></form>
+        </div>
+        {% endif %}
+      </div>
+      {% if m.editable %}
+      <form method="post" class="collapse mt-3" id="edit-{{ m.pk }}" data-puesto-form data-por-sucursal="{{ por_sucursal|join:',' }}">{% csrf_token %}
+        <input type="hidden" name="editar" value="{{ m.pk }}">
+        <div class="puesto-grid mb-2">
+          {% for r in roles %}
+          <div class="puesto-opt" style="--area:{{ r.color }}">
+            <input type="radio" name="m{{ m.pk }}-rol" id="m{{ m.pk }}-rol-{{ r.valor }}" value="{{ r.valor }}" {% if r.valor == m.rol %}checked{% endif %}>
+            <label for="m{{ m.pk }}-rol-{{ r.valor }}"><i class="bi {{ r.icono }}"></i><span><b>{{ r.nombre }}</b><small>{{ r.desc }}</small></span></label>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="suc-step mb-2">
+          <div class="small fw-semibold mb-1">{% trans "¿En qué sucursal trabaja?" %}</div>
+          <div class="suc-checks">
+            {% for s in sucursales %}<label><input type="checkbox" name="m{{ m.pk }}-sucursales" value="{{ s.pk }}" {% if s.pk in m.suc_ids %}checked{% endif %}>{{ s.nombre }}</label>{% endfor %}
+          </div>
+        </div>
+        <button class="btn btn-primary">{% trans "Guardar puesto" %}</button>
+      </form>
+      {% endif %}
+    </div>
+    {% empty %}
+      <div class="card empty-state"><i class="bi bi-people"></i>{% trans "Todavía no hay nadie. Agrega a tu primera persona a la derecha." %}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-lg-5">
+    <form method="post" class="card card-body shadow-sm" data-puesto-form data-por-sucursal="{{ por_sucursal|join:',' }}" style="position:sticky;top:80px">
+      {% csrf_token %}<input type="hidden" name="nuevo" value="1">
+      <h2 class="h5 mb-3"><i class="bi bi-person-plus"></i> {% trans "Agregar a alguien" %}</h2>
+      {% if form.non_field_errors %}<div class="alert alert-danger small">{{ form.non_field_errors }}</div>{% endif %}
+
+      <div class="paso"><span class="paso-n">1</span> {% trans "¿Quién es?" %}</div>
+      <div class="mb-2"><label class="form-label small" for="{{ form.nombre.id_for_label }}">{{ form.nombre.label }}</label>{{ form.nombre }}{% for e in form.nombre.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+      <div class="mb-2"><label class="form-label small" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>{{ form.email }}{% for e in form.email.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+      <div class="mb-3"><label class="form-label small" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>{{ form.password }}<div class="form-text">{{ form.password.help_text }}</div>{% for e in form.password.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+
+      <div class="paso"><span class="paso-n">2</span> {% trans "¿Qué puesto tiene?" %}</div>
+      <div class="puesto-grid mb-3">
+        {% for r in roles %}
+        <div class="puesto-opt" style="--area:{{ r.color }}">
+          <input type="radio" name="rol" id="nuevo-rol-{{ r.valor }}" value="{{ r.valor }}" {% if r.valor == rol_elegido %}checked{% endif %}>
+          <label for="nuevo-rol-{{ r.valor }}"><i class="bi {{ r.icono }}"></i><span><b>{{ r.nombre }}</b><small>{{ r.desc }}</small></span></label>
+        </div>
+        {% endfor %}
+      </div>
+      {% for e in form.rol.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+
+      <div class="suc-step mb-3">
+        <div class="paso"><span class="paso-n">3</span> {% trans "¿En qué sucursal trabaja?" %}</div>
+        <div class="suc-checks">
+          {% for s in sucursales %}<label><input type="checkbox" name="sucursales" value="{{ s.pk }}" {% if s.pk in suc_elegidas %}checked{% endif %}>{{ s.nombre }}</label>{% empty %}<span class="text-muted small">{% trans "Primero crea una sucursal." %}</span>{% endfor %}
+        </div>
+        {% for e in form.sucursales.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+      </div>
+
+      <button class="btn btn-primary btn-lg w-100">{% trans "Agregar al equipo" %}</button>
+      <p class="small text-muted mt-2 mb-0"><i class="bi bi-shield-lock"></i> {% trans "La primera vez que entre, el sistema le pedirá activar la verificación en dos pasos con su celular." %}</p>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

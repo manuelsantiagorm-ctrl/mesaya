@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Aviso de privacidad" %}{% endblock %}
+
+{% block content %}
+<div class="mx-auto" style="max-width:780px">
+  <h1 class="h3 mb-1">{% trans "Aviso de privacidad" %}</h1>
+  <p class="text-muted small">{{ brand.nombre }}</p>
+
+  {% if empresa and empresa.aviso_privacidad %}
+    <div class="card card-body">{{ empresa.aviso_privacidad|linebreaks }}</div>
+  {% else %}
+  <div class="card card-body lh-lg">
+    <p><strong>{% trans "Responsable." %}</strong>
+      {{ empresa.razon_social|default:brand.nombre }}{% if brand.email %}, {% trans "con correo de contacto" %} {{ brand.email }}{% endif %},
+      {% trans "es responsable del tratamiento de los datos personales que nos proporcionas al hacer una reservación, conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares." %}</p>
+
+    <p><strong>{% trans "Datos que recabamos." %}</strong>
+      {% trans "Nombre, teléfono (incluido WhatsApp), correo electrónico, fecha, hora, número de personas y las notas que escribas sobre tu visita. No solicitamos datos sensibles; si escribes en notas alguna alergia, solo se usará para atender tu visita." %}</p>
+
+    <p><strong>{% trans "Finalidades necesarias." %}</strong>
+      {% trans "Registrar y administrar tu reservación, asignarte una mesa, enviarte la confirmación y el recordatorio, avisarte de cambios y atender tus solicitudes." %}</p>
+
+    <p><strong>{% trans "Finalidades voluntarias." %}</strong>
+      {% trans "Enviarte promociones y novedades, solo si marcaste la casilla correspondiente. Puedes retirar este consentimiento en cualquier momento sin afectar tu reservación." %}</p>
+
+    <p><strong>{% trans "Con quién compartimos tus datos." %}</strong>
+      {% trans "Con los proveedores que nos ayudan a operar el servicio (alojamiento de la plataforma de reservas, envío de correos, mensajería de WhatsApp y, si conversas con nuestro asistente, el proveedor de inteligencia artificial que procesa tus mensajes), quienes los tratan por cuenta nuestra y solo para las finalidades descritas. No vendemos tus datos." %}</p>
+
+    <p><strong>{% trans "Derechos ARCO." %}</strong>
+      {% trans "Puedes solicitar el acceso, rectificación, cancelación u oposición al tratamiento de tus datos, así como revocar tu consentimiento, escribiendo a" %}
+      {{ brand.email|default:_("nuestro correo de contacto") }}.
+      {% trans "Responderemos en los plazos que marca la ley." %}</p>
+
+    <p><strong>{% trans "Conservación." %}</strong>
+      {% trans "Conservamos los datos de tus reservaciones mientras sean necesarios para las finalidades descritas y las obligaciones legales aplicables." %}</p>
+
+    <p class="mb-0"><strong>{% trans "Cambios." %}</strong>
+      {% trans "Cualquier cambio a este aviso se publicará en esta misma página." %}
+      {% trans "Última actualización:" %} {{ hoy|date:"j \d\e F \d\e Y" }}.</p>
+  </div>
+  <p class="small text-muted mt-2">{% trans "Esta es la plantilla estándar. El restaurante puede personalizarla desde su panel." %}</p>
+  {% endif %}
+</div>
+{% endblock %}

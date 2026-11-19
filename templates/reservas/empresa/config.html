@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Configuración y marca" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div>
+    <h1 class="h4 m-0">{% trans "Configuración y marca" %}</h1>
+    <div class="text-muted small">{{ empresa.nombre }} · {% trans "Plan" %} {{ empresa.get_plan_display }}</div>
+  </div>
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'reservas:empresa_equipo' %}"><i class="bi bi-people me-1"></i>{% trans "Equipo" %}</a>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <form method="post" enctype="multipart/form-data" class="card card-body shadow-sm">
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+      <h2 class="h6 text-muted text-uppercase">{% trans "Marca" %}</h2>
+      <div class="row g-3 mb-3">
+        {% for f in form %}{% if f.name in "nombre,logo" %}
+          <div class="col-12"><label class="form-label">{{ f.label }}</label>{{ f }}{% for e in f.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+        {% endif %}{% endfor %}
+        <div class="col-6"><label class="form-label">{{ form.color_primario.label }}</label>{{ form.color_primario }}</div>
+        <div class="col-6"><label class="form-label">{{ form.color_secundario.label }}</label>{{ form.color_secundario }}</div>
+      </div>
+      <h2 class="h6 text-muted text-uppercase">{% trans "Contacto" %}</h2>
+      <div class="row g-3 mb-3">
+        <div class="col-12"><label class="form-label">{{ form.razon_social.label }}</label>{{ form.razon_social }}</div>
+        <div class="col-md-6"><label class="form-label">{{ form.email_contacto.label }}</label>{{ form.email_contacto }}{% for e in form.email_contacto.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+        <div class="col-md-6"><label class="form-label">{{ form.telefono.label }}</label>{{ form.telefono }}</div>
+      </div>
+      <h2 class="h6 text-muted text-uppercase">{% trans "Notificaciones" %}</h2>
+      <div class="form-check mb-2">{{ form.whatsapp_habilitado }} <label class="form-check-label" for="{{ form.whatsapp_habilitado.id_for_label }}">{{ form.whatsapp_habilitado.label }}</label></div>
+      <div class="mb-3" style="max-width:260px"><label class="form-label">{{ form.recordatorio_horas.label }}</label>{{ form.recordatorio_horas }}</div>
+      <h2 class="h6 text-muted text-uppercase d-flex align-items-center gap-2"><i class="bi bi-stars"></i>{% trans "Asistente de IA" %}</h2>
+      <div class="border rounded-3 p-3 mb-3 bg-light">
+        <div class="form-check form-switch mb-2">
+          {{ form.agente_ia_activo }}
+          <label class="form-check-label fw-semibold" for="{{ form.agente_ia_activo.id_for_label }}">{{ form.agente_ia_activo.label }}</label>
+        </div>
+        <p class="small text-muted mb-2">{% trans "Atiende a tus clientes, revisa mesas y horarios libres y reserva por ti. Siempre usa las mismas reglas de tus sucursales: no puede dar una mesa ocupada." %}</p>
+        <div class="mb-2"><label class="form-label small">{{ form.agente_ia_modo.label }}</label>{{ form.agente_ia_modo }}</div>
+        <div><label class="form-label small">{{ form.agente_ia_instrucciones.label }}</label>{{ form.agente_ia_instrucciones }}</div>
+        {% if empresa.agente_ia_activo %}
+          <div class="small mt-2">
+            <a href="{% url 'reservas:asistente_chat' empresa.slug %}" target="_blank"><i class="bi bi-chat-dots me-1"></i>{% trans "Probar el chat" %}</a> ·
+            <a href="{% url 'reservas:empresa_conversaciones' %}">{% trans "Ver conversaciones" %}</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="h6 text-muted text-uppercase">{% trans "Legal" %}</h2>
+      <div class="mb-3"><label class="form-label">{{ form.aviso_privacidad.label }}</label>{{ form.aviso_privacidad }}
+        <div class="form-text"><a href="{% url 'reservas:aviso_privacidad_empresa' empresa.slug %}" target="_blank">{% trans "Ver aviso publicado" %}</a></div></div>
+      <button class="btn btn-primary">{% trans "Guardar cambios" %}</button>
+    </form>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card card-body shadow-sm">
+      <h2 class="h6">{% trans "Tus sucursales" %}</h2>
+      <p class="small text-muted">{% trans "Reglas de horario y el enlace para que tus clientes reserven desde tu web, Instagram o Google." %}</p>
+      <ul class="list-group list-group-flush">
+        {% for s in sucursales %}
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+            <span>{{ s.nombre }}{% if not s.activo %} <span class="badge text-bg-secondary">{% trans "inactiva" %}</span>{% endif %}</span>
+            <span class="d-flex gap-1">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'reservas:sucursal_reglas' s.id %}">{% trans "Reglas" %}</a>
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'reservas:sucursal_widget' s.id %}">{% trans "Enlace" %}</a>
+            </span>
+          </li>
+        {% empty %}
+          <li class="list-group-item px-0 text-muted">{% trans "Aún no hay sucursales." %} <a href="{% url 'reservas:chainadmin_sucursal_nueva' %}">{% trans "Crear la primera" %}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card card-body shadow-sm mt-3">
+      <h2 class="h6"><i class="bi bi-shield-lock"></i> {% trans "Accesos de soporte" %}</h2>
+      <p class="small text-muted">{% trans "Nadie de la plataforma puede ver tus datos sin dejar registro aquí: fecha, duración y motivo." %}</p>
+      <ul class="list-group list-group-flush small">
+        {% for a in accesos_soporte %}
+          <li class="list-group-item px-0">
+            <strong>{{ a.inicio|date:"d M Y H:i" }}</strong>{% if a.vigente %} <span class="badge text-bg-danger">{% trans "activo" %}</span>{% endif %}<br>
+            <span class="text-muted">{{ a.motivo }}</span>
+          </li>
+        {% empty %}
+          <li class="list-group-item px-0 text-muted">{% trans "Ningún acceso de soporte registrado." %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

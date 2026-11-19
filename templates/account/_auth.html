@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block body_class %}tf-page{% endblock %}
+{% block content %}
+<div class="tf-card card">
+  <div class="tf-ico"><i class="bi {% block auth_icon %}bi-person{% endblock %}"></i></div>
+  {% block auth %}{% endblock %}
+</div>
+{% endblock %}

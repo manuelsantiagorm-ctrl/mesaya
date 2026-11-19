@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es"><body style="margin:0;background:#f4f6f8;font-family:Arial,Helvetica,sans-serif;color:#1f2937">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8;padding:24px 0">
+<tr><td align="center">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden">
+  <tr><td style="background:{{ brand.color_primario }};color:#ffffff;padding:20px 24px">
+    {% if brand.logo_url %}<img src="{{ SITE_URL }}{{ brand.logo_url }}" alt="{{ brand.nombre }}" height="36" style="display:block;margin-bottom:8px">{% endif %}
+    <div style="font-size:13px;opacity:.9">{{ brand.nombre }} · {{ sucursal.nombre }}</div>
+    <div style="font-size:22px;font-weight:bold;margin-top:4px">{% block titulo %}{% endblock %}</div>
+  </td></tr>
+  <tr><td style="padding:24px">
+    <p style="margin:0 0 16px">Hola {{ nombre|default:"" }},</p>
+    {% block cuerpo %}{% endblock %}
+    <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;margin:16px 0;font-size:15px">
+      <tr><td style="padding:6px 0;color:#6b7280;width:120px">Fecha</td><td style="padding:6px 0;font-weight:bold;text-transform:capitalize">{{ fecha_txt }}</td></tr>
+      <tr><td style="padding:6px 0;color:#6b7280">Hora</td><td style="padding:6px 0;font-weight:bold">{{ hora_txt }}</td></tr>
+      <tr><td style="padding:6px 0;color:#6b7280">Personas</td><td style="padding:6px 0">{{ personas }}</td></tr>
+      <tr><td style="padding:6px 0;color:#6b7280">Folio</td><td style="padding:6px 0">{{ reserva.folio }}</td></tr>
+      {% if sucursal.direccion %}<tr><td style="padding:6px 0;color:#6b7280">Dirección</td><td style="padding:6px 0">{{ sucursal.direccion }}</td></tr>{% endif %}
+    </table>
+    {% block accion %}
+    <p style="text-align:center;margin:24px 0">
+      <a href="{{ url_reserva }}" style="background:{{ brand.color_primario }};color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:8px;font-weight:bold;display:inline-block">Ver o cancelar mi reserva</a>
+    </p>
+    {% endblock %}
+  </td></tr>
+  <tr><td style="padding:16px 24px;background:#f9fafb;font-size:12px;color:#6b7280">
+    {{ brand.nombre }}{% if sucursal.telefono %} · Tel. {{ sucursal.telefono }}{% endif %}. Recibes este correo porque hiciste una reservación.
+  </td></tr>
+</table>
+</td></tr></table>
+</body></html>

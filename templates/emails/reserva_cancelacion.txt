@@ -1,0 +1,12 @@
+Hola {{ nombre }},
+
+Tu reserva fue cancelada.
+
+{{ sucursal.nombre }} ({{ brand.nombre }})
+Fecha: {{ fecha_txt }}
+Hora: {{ hora_txt }}
+Personas: {{ personas }}
+Folio: {{ reserva.folio }}
+{% if sucursal.direccion %}Dirección: {{ sucursal.direccion }}
+{% endif %}
+Ver o cancelar tu reserva: {{ url_reserva }}

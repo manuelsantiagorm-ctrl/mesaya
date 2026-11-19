@@ -1,0 +1,32 @@
+{% extends "two_factor/_base_focus.html" %}
+{% load i18n %}
+{% block title %}{% trans "Activar verificación en dos pasos" %}{% endblock %}
+
+{% block content %}
+<div class="tf-card card">
+  <div class="tf-ico"><i class="bi bi-shield-check"></i></div>
+  <h1>{% trans "Protege tu cuenta" %}</h1>
+  {% if wizard.steps.current == 'welcome' %}
+    <p class="text-muted">{% trans "Para entrar al panel del restaurante usamos verificación en dos pasos: además de tu contraseña, un código de tu celular. Toma menos de un minuto." %}</p>
+  {% elif wizard.steps.current == 'method' %}
+    <p class="text-muted">{% trans "Elige cómo quieres recibir tus códigos." %}</p>
+  {% elif wizard.steps.current == 'generator' %}
+    <ol class="tf-steps">
+      <li>{% trans "Instala Google Authenticator o Microsoft Authenticator en tu celular." %}</li>
+      <li>{% trans "Toca “Agregar” y escanea este código:" %}</li>
+    </ol>
+    <div class="tf-qr"><img src="{{ QR_URL }}" alt="{% trans 'Código QR' %}"></div>
+    <details class="small text-muted mb-3"><summary>{% trans "¿No puedes escanear? Escribe la clave manualmente" %}</summary>
+      <code class="d-block mt-2 user-select-all">{{ secret_key }}</code></details>
+    <ol class="tf-steps" start="3"><li>{% trans "Escribe el código de 6 dígitos que aparece en la app." %}</li></ol>
+  {% elif wizard.steps.current == 'validation' %}
+    {% if not challenge_succeeded %}<p class="alert alert-warning">{% trans "No pudimos validar ese método. Regresa e inténtalo de nuevo." %}</p>{% endif %}
+  {% endif %}
+
+  <form action="" method="post" class="mt-2">{% csrf_token %}
+    {% include "two_factor/_wizard_forms.html" %}
+    <input type="submit" value="" hidden>
+    {% include "two_factor/_wizard_actions.html" %}
+  </form>
+</div>
+{% endblock %}

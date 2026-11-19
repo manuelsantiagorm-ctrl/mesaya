@@ -1,0 +1,3066 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mesaya\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Reservas"
+msgstr "Bookings"
+
+msgid "Reservaciones"
+msgstr "Reservations"
+
+msgid "Abrir menú"
+msgstr "Open menu"
+
+msgid "Inicio"
+msgstr "Home"
+
+msgid "Reservar"
+msgstr "Book"
+
+msgid "Para restaurantes"
+msgstr "For restaurants"
+
+msgid "Mis reservaciones"
+msgstr "My reservations"
+
+msgid "Hoy"
+msgstr "Today"
+
+msgid "Operación"
+msgstr "Operations"
+
+msgid "Sucursales y mesas"
+msgstr "Locations and tables"
+
+msgid "Walk-in"
+msgstr "Walk-in"
+
+msgid "Buscar folio"
+msgstr "Find by code"
+
+msgid "Cocina"
+msgstr "Kitchen"
+
+msgid "IA de la sucursal"
+msgstr "Location AI"
+
+msgid "Mi negocio"
+msgstr "My business"
+
+msgid "Resumen"
+msgstr "Overview"
+
+msgid "Lo que aprendió la IA"
+msgstr "What the AI learned"
+
+msgid "Conversaciones del asistente"
+msgstr "Assistant conversations"
+
+msgid "Sucursales"
+msgstr "Locations"
+
+msgid "Menú"
+msgstr "Menu"
+
+msgid "Equipo"
+msgstr "Team"
+
+msgid "Configuración y marca"
+msgstr "Settings and brand"
+
+msgid "Plataforma"
+msgstr "Platform"
+
+msgid "País"
+msgstr "Country"
+
+msgid "Salir"
+msgstr "Log out"
+
+msgid "Iniciar sesión"
+msgstr "Log in"
+
+msgid "Cerrar"
+msgstr "Close"
+
+#, python-format
+msgid "Reserva tu mesa en %(n)s en segundos, sin llamadas."
+msgstr "Book your table at %(n)s in seconds, no calls needed."
+
+msgid "Confirma tu correo"
+msgstr "Confirm your email"
+
+msgid "Sí, confirmar"
+msgstr "Yes, confirm"
+
+msgid "Enlace no válido"
+msgstr "Invalid link"
+
+msgid "Este enlace caducó o ya se usó."
+msgstr "This link has expired or was already used."
+
+msgid "Ir a entrar"
+msgstr "Go to log in"
+
+#, python-format
+msgid "¿Es <b>%(e)s</b> tu correo?"
+msgstr "Is <b>%(e)s</b> your email?"
+
+msgid "Bienvenido de nuevo"
+msgstr "Welcome back"
+
+msgid "Entra con tu correo y contraseña."
+msgstr "Log in with your email and password."
+
+msgid "Correo electrónico"
+msgstr "Email"
+
+msgid "Contraseña"
+msgstr "Password"
+
+msgid "Recordarme"
+msgstr "Remember me"
+
+msgid "¿Olvidaste tu contraseña?"
+msgstr "Forgot your password?"
+
+msgid "Entrar"
+msgstr "Log in"
+
+msgid "¿Aún no tienes cuenta?"
+msgstr "Don't have an account?"
+
+msgid "Crear cuenta"
+msgstr "Create account"
+
+msgid "Recuperar contraseña"
+msgstr "Recover password"
+
+msgid "Escribe tu correo y te enviamos un enlace para crear una nueva."
+msgstr "Enter your email and we'll send you a link to create a new one."
+
+msgid "Enviar enlace"
+msgstr "Send link"
+
+msgid "Volver a entrar"
+msgstr "Back to log in"
+
+msgid "Revisa tu correo"
+msgstr "Check your email"
+
+msgid ""
+"Si el correo está registrado, te llegará un enlace para crear una nueva "
+"contraseña. Revisa también la carpeta de spam."
+msgstr ""
+"If the email is registered, you'll get a link to create a new password. "
+"Check your spam folder too."
+
+msgid "Nueva contraseña"
+msgstr "New password"
+
+msgid "Enlace vencido"
+msgstr "Link expired"
+
+msgid "Este enlace ya se usó o caducó. Pide uno nuevo."
+msgstr "This link was already used or has expired. Request a new one."
+
+msgid "Pedir otro enlace"
+msgstr "Request another link"
+
+msgid "Crea tu nueva contraseña"
+msgstr "Create your new password"
+
+msgid "Repite la contraseña"
+msgstr "Repeat the password"
+
+msgid "Guardar contraseña"
+msgstr "Save password"
+
+msgid "Crea tu cuenta"
+msgstr "Create your account"
+
+msgid "Para reservar más rápido y ver tus reservaciones."
+msgstr "Book faster and see your reservations."
+
+msgid "Usuario"
+msgstr "Username"
+
+msgid "¿Ya tienes cuenta?"
+msgstr "Already have an account?"
+
+msgid ""
+"Te enviamos un mensaje para confirmar tu cuenta. Abre el enlace para "
+"continuar."
+msgstr ""
+"We sent you a message to confirm your account. Open the link to continue."
+
+msgid "o"
+msgstr "or"
+
+msgid "Continuar con Google"
+msgstr "Continue with Google"
+
+msgid "Te enviaremos un código a tu correo para confirmarlo."
+msgstr "We'll send a code to your email to confirm it."
+
+msgid "Continuar"
+msgstr "Continue"
+
+msgid "Verifica tu correo"
+msgstr "Verify your email"
+
+msgid "Código de verificación"
+msgstr "Verification code"
+
+msgid "Escribe el código de 6 dígitos que te llegó."
+msgstr "Enter the 6-digit code you received."
+
+msgid "Verificar"
+msgstr "Verify"
+
+msgid "Reenviar código"
+msgstr "Resend code"
+
+msgid "Cambiar correo"
+msgstr "Change email"
+
+msgid "¿No te llegó? Revisa la carpeta de spam."
+msgstr "Didn't get it? Check your spam folder."
+
+#, python-format
+msgid "Te enviamos un código a <b>%(mail)s</b>."
+msgstr "We sent a code to <b>%(mail)s</b>."
+
+msgid "Bloqueos"
+msgstr "Blocks"
+
+msgid "Mapa"
+msgstr "Map"
+
+msgid "Bloqueos programados"
+msgstr "Scheduled blocks"
+
+msgid "Filtra, revisa y elimina bloqueos por mesa o por sucursal."
+msgstr "Filter, review and delete blocks by table or location."
+
+msgid "Volver al mapa"
+msgstr "Back to map"
+
+msgid "Nuevo bloqueo"
+msgstr "New block"
+
+msgid "Ámbito"
+msgstr "Scope"
+
+msgid "Todos"
+msgstr "All"
+
+msgid "Sucursal"
+msgstr "Location"
+
+msgid "Mesa"
+msgstr "Table"
+
+msgid "(Todas)"
+msgstr "(All)"
+
+msgid "Desde"
+msgstr "From"
+
+msgid "Aplicar"
+msgstr "Apply"
+
+msgid "Limpiar"
+msgstr "Clear"
+
+msgid "Fin"
+msgstr "End"
+
+msgid "Motivo"
+msgstr "Reason"
+
+msgid "Acciones"
+msgstr "Actions"
+
+msgid "No hay bloqueos para los filtros actuales."
+msgstr "No blocks match the current filters."
+
+msgid "No se pudo cargar la lista."
+msgstr "Couldn't load the list."
+
+msgid "Eliminar seleccionados"
+msgstr "Delete selected"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Buscar reservación por folio"
+msgstr "Find reservation by code"
+
+msgid "Ej. R-250918AB"
+msgstr "E.g. R-250918AB"
+
+msgid "Buscar"
+msgstr "Search"
+
+msgid "Resultado"
+msgstr "Result"
+
+msgid "Folio"
+msgstr "Code"
+
+msgid "Cliente"
+msgstr "Guest"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Estado"
+msgstr "Status"
+
+msgid "Confirmada"
+msgstr "Confirmed"
+
+msgid "Pendiente"
+msgstr "Pending"
+
+msgid "Cancelada"
+msgstr "Cancelled"
+
+msgid "Personas"
+msgstr "Guests"
+
+msgid "Confirmar llegada"
+msgstr "Confirm arrival"
+
+msgid "Ya marcada como llegada."
+msgstr "Already marked as arrived."
+
+msgid "Forzar check-in (superuser)"
+msgstr "Force check-in (superuser)"
+
+msgid "Ir a la mesa"
+msgstr "Go to table"
+
+msgid "Cancelar reserva"
+msgstr "Cancel reservation"
+
+#, python-format
+msgid "Tolerancia de llegada: %(min)s min"
+msgstr "Arrival tolerance: %(min)s min"
+
+#, python-format
+msgid ""
+"\n"
+"                Ventana de llegada: <b>%(ini)s</b> a <b>%(fin)s</b>. Estado: <b>%(estado)s</b>\n"
+"              "
+msgstr ""
+"\n"
+"                Arrival window: <b>%(ini)s</b> to <b>%(fin)s</b>. Status: <b>%(estado)s</b>\n"
+"              "
+
+#, python-format
+msgid "¿Cancelar la reserva %(f)s?"
+msgstr "Cancel reservation %(f)s?"
+
+msgid "breadcrumb"
+msgstr "breadcrumb"
+
+msgid "Mapa de mesas"
+msgstr "Table map"
+
+msgid "Administra tus mesas, bloquea horarios y revisa estado."
+msgstr "Manage your tables, block time slots and check status."
+
+msgid "Todas"
+msgstr "All"
+
+msgid "Interior"
+msgstr "Indoor"
+
+msgid "Terraza"
+msgstr "Patio"
+
+msgid "Exterior"
+msgstr "Outdoor"
+
+msgid "Diseño editable"
+msgstr "Editable layout"
+
+msgid "Nueva mesa"
+msgstr "New table"
+
+msgid "Bloquear horarios (sucursal)"
+msgstr "Block time slots (location)"
+
+msgid "Ver bloqueos (sucursal)"
+msgstr "See blocks (location)"
+
+msgid "Cocina (KDS)"
+msgstr "Kitchen (KDS)"
+
+msgid "Recepción"
+msgstr "Host stand"
+
+msgid "Mapa de mesas arrastrable"
+msgstr "Draggable table map"
+
+msgid "Doble clic para acciones"
+msgstr "Double-click for actions"
+
+msgid "Bloqueada"
+msgstr "Blocked"
+
+msgid "Disponible"
+msgstr "Available"
+
+msgid "Reservada"
+msgstr "Reserved"
+
+msgid "Ocupada"
+msgstr "Occupied"
+
+msgid "Detalle"
+msgstr "Details"
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "Bloquear"
+msgstr "Block"
+
+msgid "Orden"
+msgstr "Order"
+
+msgid "No hay mesas configuradas."
+msgstr "No tables set up yet."
+
+msgid "Sucursal completa"
+msgstr "Whole location"
+
+msgid "Mesa específica"
+msgstr "Specific table"
+
+msgid "Selecciona una mesa"
+msgstr "Choose a table"
+
+msgid "Motivo (opcional)"
+msgstr "Reason (optional)"
+
+msgid "Bloqueo creado correctamente."
+msgstr "Block created."
+
+msgid "Guardar bloqueo"
+msgstr "Save block"
+
+msgid "Bloqueos de la sucursal"
+msgstr "Location blocks"
+
+msgid "Filtrar por mesa"
+msgstr "Filter by table"
+
+msgid "Todas las mesas"
+msgstr "All tables"
+
+msgid "No hay bloqueos vigentes."
+msgstr "No active blocks."
+
+msgid "Ocurrió un error al cargar los bloqueos."
+msgstr "There was an error loading the blocks."
+
+msgid "Cargando orden..."
+msgstr "Loading order..."
+
+msgid "Error al cargar la orden."
+msgstr "Error loading the order."
+
+msgid "Número"
+msgstr "Number"
+
+msgid "Capacidad"
+msgstr "Capacity"
+
+msgid "Zona"
+msgstr "Zone"
+
+msgid "Ubicación (opcional)"
+msgstr "Location (optional)"
+
+msgid "Junto a la ventana"
+msgstr "By the window"
+
+msgid "Notas (opcional)"
+msgstr "Notes (optional)"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Crear mesa"
+msgstr "Create table"
+
+msgid "Ubicación"
+msgstr "Position"
+
+msgid "Reserva"
+msgstr "Reservation"
+
+msgid "Llegó"
+msgstr "Arrived"
+
+msgid "Liberada"
+msgstr "Freed"
+
+msgid "Fecha / hora"
+msgstr "Date / time"
+
+msgid ""
+"¿Estás seguro de dar por terminada esta reserva? La mesa quedará disponible "
+"inmediatamente."
+msgstr ""
+"Are you sure you want to end this reservation? The table will be available "
+"right away."
+
+msgid "Finalizar reserva"
+msgstr "End reservation"
+
+msgid "Disponible después de confirmar la llegada."
+msgstr "Available after confirming arrival."
+
+msgid "Acciones por folio"
+msgstr "Actions by code"
+
+msgid "No hay reserva activa / próxima para esta mesa."
+msgstr "No active or upcoming reservation for this table."
+
+msgid "Editar mesa"
+msgstr "Edit table"
+
+msgid ""
+"Ajusta la información de la mesa. Los cambios se reflejan de inmediato en el"
+" mapa."
+msgstr "Adjust the table details. Changes show up on the map right away."
+
+msgid "Capacidad (pax)"
+msgstr "Capacity (guests)"
+
+msgid "Ubicación (texto opcional)"
+msgstr "Position (optional text)"
+
+msgid "Notas"
+msgstr "Notes"
+
+msgid "Mesa bloqueada temporalmente"
+msgstr "Table temporarily blocked"
+
+msgid "Guardar cambios"
+msgstr "Save changes"
+
+msgid "Tip:"
+msgstr "Tip:"
+
+msgid ""
+"Usa el mapa para arrastrar la mesa y guardar su posición. Aquí solo editas "
+"la ficha técnica."
+msgstr ""
+"Use the map to drag the table and save its position. Here you only edit its "
+"details."
+
+msgid "Reasignar reserva"
+msgstr "Reassign reservation"
+
+msgid "Mesa actual"
+msgstr "Current table"
+
+msgid "Horario"
+msgstr "Time"
+
+msgid "No hay mesas candidatas"
+msgstr "No candidate tables"
+
+msgid "Ignorar protección/waste (forzar)"
+msgstr "Ignore protection/waste (force)"
+
+msgid "Reasignar"
+msgstr "Reassign"
+
+msgid "Nueva reservación"
+msgstr "New reservation"
+
+msgid "Folio, nombre o teléfono"
+msgstr "Code, name or phone"
+
+msgid "Filtrar"
+msgstr "Filter"
+
+msgid "reservaciones"
+msgstr "reservations"
+
+msgid "se muestran las 300 más recientes"
+msgstr "showing the 300 most recent"
+
+msgid "Ver detalle"
+msgstr "See details"
+
+msgid "No hay reservaciones con esos filtros."
+msgstr "No reservations match those filters."
+
+msgid "Tus sucursales"
+msgstr "Your locations"
+
+msgid "Nueva sucursal"
+msgstr "New location"
+
+msgid "Ir a Hoy"
+msgstr "Go to Today"
+
+msgid "sucursales"
+msgstr "locations"
+
+msgid "Recibiendo reservas"
+msgstr "Taking bookings"
+
+msgid "Pausada"
+msgstr "Paused"
+
+msgid "reservas hoy"
+msgstr "bookings today"
+
+msgid "mesas"
+msgstr "tables"
+
+msgid "Ver el día"
+msgstr "See the day"
+
+msgid "Mesas"
+msgstr "Tables"
+
+msgid "Horarios"
+msgstr "Hours"
+
+msgid "Más opciones"
+msgstr "More options"
+
+msgid "Editar foto y textos"
+msgstr "Edit photo and text"
+
+msgid "Datos de la sucursal"
+msgstr "Location details"
+
+msgid "Botón para tu página web"
+msgstr "Button for your website"
+
+msgid "Ver como cliente"
+msgstr "View as guest"
+
+msgid "No tienes sucursal asignada."
+msgstr "You don't have a location assigned."
+
+msgid "Editar contenido"
+msgstr "Edit content"
+
+msgid "Nombre"
+msgstr "Name"
+
+msgid "Código postal"
+msgstr "ZIP code"
+
+msgid "Dirección"
+msgstr "Address"
+
+msgid "Cocina/Tipo"
+msgstr "Cuisine/Type"
+
+msgid "Precio"
+msgstr "Price"
+
+msgid "Usa $, $$, $$$ o $$$$"
+msgstr "Use $, $$, $$$ or $$$$"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Reviews"
+msgstr "Reviews"
+
+msgid "Recomendado"
+msgstr "Recommended"
+
+msgid "Activo"
+msgstr "Active"
+
+msgid "Portada (16:9 recomendado)"
+msgstr "Cover (16:9 recommended)"
+
+msgid "Texto alternativo"
+msgstr "Alt text"
+
+msgid "Vista previa"
+msgstr "Preview"
+
+msgid "Sin imagen de portada."
+msgstr "No cover image."
+
+msgid "Galería de fotos"
+msgstr "Photo gallery"
+
+msgid "Imagen"
+msgstr "Image"
+
+msgid "Alt"
+msgstr "Alt"
+
+msgid "Eliminar"
+msgstr "Delete"
+
+msgid "Volver"
+msgstr "Back"
+
+msgid "Nueva reservación o walk-in"
+msgstr "New reservation or walk-in"
+
+msgid "Ver disponibilidad por fecha"
+msgstr "Check availability by date"
+
+msgid ""
+"Elige fecha/hora y personas; haz clic en un horario para precargar el "
+"formulario."
+msgstr "Pick date/time and guests; click a time slot to prefill the form."
+
+msgid "Ver disponibilidad"
+msgstr "Check availability"
+
+msgid "Nombre del cliente"
+msgstr "Guest name"
+
+msgid "Correo (opcional)"
+msgstr "Email (optional)"
+
+msgid "Teléfono (opcional)"
+msgstr "Phone (optional)"
+
+msgid "Fecha y hora"
+msgstr "Date and time"
+
+msgid "Guardar"
+msgstr "Save"
+
+msgid "Reserva tu mesa"
+msgstr "Book your table"
+
+msgid "Confirmación al instante"
+msgstr "Instant confirmation"
+
+msgid "Tu mesa lista,"
+msgstr "Your table ready,"
+
+msgid "sin llamadas ni filas."
+msgstr "no calls, no lines."
+
+msgid "persona"
+msgstr "guest"
+
+msgid "personas"
+msgstr "guests"
+
+msgid "Hora"
+msgstr "Time"
+
+msgid "¿Dónde?"
+msgstr "Where?"
+
+msgid "Sucursal, colonia o tipo de cocina"
+msgstr "Location, neighborhood or cuisine"
+
+msgid "Consulta, cambia o cancela."
+msgstr "Check, change or cancel."
+
+msgid "Elige sucursal y horario."
+msgstr "Choose a location and time."
+
+msgid "Mi perfil"
+msgstr "My profile"
+
+msgid "Datos y preferencias."
+msgstr "Details and preferences."
+
+msgid "Hola, equipo"
+msgstr "Hi, team"
+
+msgid "Tu panel del día está listo."
+msgstr "Your panel for today is ready."
+
+msgid "Ver hoy"
+msgstr "See today"
+
+msgid "Mesas disponibles ahora"
+msgstr "Tables available now"
+
+msgid "Ver todas"
+msgstr "See all"
+
+msgid "Ver otros días"
+msgstr "See other days"
+
+msgid "Aún no hay sucursales publicadas."
+msgstr "No locations published yet."
+
+msgid "Cerca de ti"
+msgstr "Near you"
+
+msgid "Así de fácil"
+msgstr "It's that easy"
+
+msgid "Elige horario"
+msgstr "Choose a time"
+
+msgid "Solo te mostramos horarios con mesa real disponible."
+msgstr "We only show times with a table actually available."
+
+msgid "Confirma en segundos"
+msgstr "Confirm in seconds"
+
+msgid "Sin crear cuenta. Recibes tu código y un QR."
+msgstr "No account needed. You get a code and a QR."
+
+msgid "Llega y disfruta"
+msgstr "Arrive and enjoy"
+
+msgid ""
+"Te recordamos antes de tu visita. ¿Cambio de planes? Cancela con un clic."
+msgstr ""
+"We remind you before your visit. Change of plans? Cancel in one click."
+
+#, python-format
+msgid ""
+"Reserva en %(n)s en menos de un minuto. Te avisamos por correo o WhatsApp y "
+"puedes cambiar o cancelar cuando quieras."
+msgstr ""
+"Book at %(n)s in less than a minute. We'll notify you by email or WhatsApp "
+"and you can change or cancel anytime."
+
+msgid "Rango"
+msgstr "Range"
+
+msgid "Todas las horas"
+msgstr "All hours"
+
+msgid "Últimos 30 min"
+msgstr "Last 30 min"
+
+msgid "Última 1 h"
+msgstr "Last 1 h"
+
+msgid "Últimas 2 h"
+msgstr "Last 2 h"
+
+msgid "No hay platillos en preparación."
+msgstr "No dishes in preparation."
+
+#, python-format
+msgid ""
+"\n"
+"          Se actualiza sola cada 3 s · muestra lo servido en los últimos %(m)s min\n"
+"        "
+msgstr ""
+"\n"
+"          Refreshes every 3 s · shows what was served in the last %(m)s min\n"
+"        "
+
+msgid "Orden de mesa"
+msgstr "Table order"
+
+msgid "Tu cuenta"
+msgstr "Your account"
+
+msgid "Próximas"
+msgstr "Upcoming"
+
+msgid "Ver / cancelar"
+msgstr "View / cancel"
+
+msgid "Agregar a mi calendario"
+msgstr "Add to my calendar"
+
+msgid "No tienes reservaciones próximas."
+msgstr "You have no upcoming reservations."
+
+msgid "Reservar ahora"
+msgstr "Book now"
+
+msgid "Anteriores"
+msgstr "Past"
+
+msgid "Asististe"
+msgstr "You attended"
+
+msgid "Volver a reservar"
+msgstr "Book again"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Cantidad"
+msgstr "Quantity"
+
+msgid "Sin cebolla, bien cocido…"
+msgstr "No onion, well done…"
+
+msgid "Agregar"
+msgstr "Add"
+
+msgid "Buscar producto"
+msgstr "Search product"
+
+msgid "Escribe 2–3 letras…"
+msgstr "Type 2–3 letters…"
+
+msgid "Sugerencia: escribe 2–3 letras para ver resultados."
+msgstr "Tip: type 2–3 letters to see results."
+
+msgid "Código"
+msgstr "Code"
+
+msgid "Cant."
+msgstr "Qty."
+
+msgid "Subtotal"
+msgstr "Subtotal"
+
+msgid "Producto"
+msgstr "Product"
+
+msgid "Sin productos en la orden."
+msgstr "No products in the order."
+
+msgid "Imprimir comanda"
+msgstr "Print ticket"
+
+msgid "Enviar a cocina"
+msgstr "Send to kitchen"
+
+msgid "Cobrar"
+msgstr "Charge"
+
+msgid "Correo"
+msgstr "Email"
+
+msgid "Teléfono / WhatsApp"
+msgstr "Phone / WhatsApp"
+
+msgid "Para sugerirte sucursales cerca."
+msgstr "To suggest locations near you."
+
+msgid "Operador de la plataforma"
+msgstr "Platform operator"
+
+msgid "Tu negocio SaaS"
+msgstr "Your SaaS business"
+
+msgid "Página de ventas"
+msgstr "Sales page"
+
+msgid "Admin técnico"
+msgstr "Technical admin"
+
+msgid "Ingreso mensual (MRR)"
+msgstr "Monthly recurring revenue (MRR)"
+
+msgid "según plan de cada empresa activa"
+msgstr "based on each active company's plan"
+
+msgid "Restaurantes"
+msgstr "Restaurants"
+
+msgid "Reservas 30 días"
+msgstr "Bookings, last 30 days"
+
+msgid "Conversaciones IA"
+msgstr "AI conversations"
+
+msgid "últimos 30 días"
+msgstr "last 30 days"
+
+msgid "Prospectos nuevos"
+msgstr "New leads"
+
+msgid "Restaurantes (empresas)"
+msgstr "Restaurants (companies)"
+
+msgid "Alta con:"
+msgstr "Create with:"
+
+msgid "Empresa"
+msgstr "Company"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Mensualidad"
+msgstr "Monthly fee"
+
+msgid "Reservas 30d"
+msgstr "Bookings 30d"
+
+msgid "Pago"
+msgstr "Payment"
+
+msgid "inactiva"
+msgstr "inactive"
+
+msgid "Al día"
+msgstr "Up to date"
+
+msgid "Vencido"
+msgstr "Overdue"
+
+msgid "Sin registro"
+msgstr "Not recorded"
+
+msgid "Meses"
+msgstr "Months"
+
+msgid "mes"
+msgstr "month"
+
+msgid "Registrar pago"
+msgstr "Record payment"
+
+msgid "Prospectos de la página de ventas"
+msgstr "Leads from the sales page"
+
+msgid "suc."
+msgstr "loc."
+
+msgid "Aún no hay prospectos. Comparte tu página de ventas."
+msgstr "No leads yet. Share your sales page."
+
+msgid "Detalle de la reservación"
+msgstr "Reservation details"
+
+msgid "Detalles de la reserva"
+msgstr "Reservation details"
+
+msgid "Duración"
+msgstr "Duration"
+
+msgid "min"
+msgstr "min"
+
+msgid "Contacto"
+msgstr "Contact"
+
+msgid "Teléfono"
+msgstr "Phone"
+
+msgid ""
+"Presenta este folio en recepción. Si necesitas hacer cambios, comunícate a "
+"la sucursal."
+msgstr ""
+"Show this code at the host stand. If you need to make changes, contact the "
+"location."
+
+#, python-format
+msgid ""
+"\n"
+"          Mesa %(n)s · %(p)s pax\n"
+"        "
+msgstr ""
+"\n"
+"          Table %(n)s · %(p)s guests\n"
+"        "
+
+msgid "Encuentra tu mesa"
+msgstr "Find your table"
+
+msgid "Solo te mostramos horarios con mesa disponible de verdad."
+msgstr "We only show times with a table truly available."
+
+msgid "Colonia, sucursal o cocina"
+msgstr "Neighborhood, location or cuisine"
+
+msgid "Usar mi ubicación"
+msgstr "Use my location"
+
+msgid "Cerca de mí"
+msgstr "Near me"
+
+msgid "Quitar ubicación"
+msgstr "Remove location"
+
+msgid "Sucursales disponibles"
+msgstr "Available locations"
+
+msgid "lugares"
+msgstr "places"
+
+msgid "Sin lugar ese día · ver otros"
+msgstr "No room that day · see others"
+
+msgid "No encontramos sucursales con esa búsqueda."
+msgstr "We couldn't find locations matching that search."
+
+#, python-format
+msgid "Ordenadas por cercanía (hasta %(r)s km)."
+msgstr "Sorted by distance (up to %(r)s km)."
+
+#, python-format
+msgid "Resultados para “%(q)s”"
+msgstr "Results for “%(q)s”"
+
+msgid "Catálogo de menú"
+msgstr "Menu catalog"
+
+msgid "Administra categorías, ítems y combos."
+msgstr "Manage categories, items and combos."
+
+msgid "Nueva categoría"
+msgstr "New category"
+
+msgid "Nuevo ítem"
+msgstr "New item"
+
+msgid "Buscar por código o nombre…"
+msgstr "Search by code or name…"
+
+msgid "(Todas las categorías)"
+msgstr "(All categories)"
+
+msgid "Categoría"
+msgstr "Category"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Sí"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Combo"
+msgstr "Combo"
+
+msgid "Ítem"
+msgstr "Item"
+
+msgid "Componentes"
+msgstr "Components"
+
+msgid "Desactivar"
+msgstr "Deactivate"
+
+msgid "Activar"
+msgstr "Activate"
+
+msgid "Sin resultados."
+msgstr "No results."
+
+msgid "Editar categoría"
+msgstr "Edit category"
+
+msgid "Componentes del combo"
+msgstr "Combo components"
+
+msgid "Precio fijo"
+msgstr "Fixed price"
+
+msgid "Sin precio fijo"
+msgstr "No fixed price"
+
+msgid "Aún sin componentes."
+msgstr "No components yet."
+
+msgid "Ítem de menú"
+msgstr "Menu item"
+
+msgid "Editar ítem"
+msgstr "Edit item"
+
+msgid "Eliminar sucursal"
+msgstr "Delete location"
+
+#, python-format
+msgid "¿Seguro que deseas eliminar la sucursal “%(name)s”?"
+msgstr "Are you sure you want to delete the location “%(name)s”?"
+
+msgid "Editar sucursal"
+msgstr "Edit location"
+
+msgid "Crear"
+msgstr "Create"
+
+msgid "Información básica"
+msgstr "Basic information"
+
+msgid "Ejemplo: Sucursal Polanco"
+msgstr "Example: Downtown location"
+
+msgid "Empieza a escribir y elige de la lista (Google Places)."
+msgstr "Start typing and pick from the list (Google Places)."
+
+msgid "Zona horaria (IANA)"
+msgstr "Time zone (IANA)"
+
+msgid "Se usa para convertir horarios locales ↔ UTC."
+msgstr "Used to convert local times ↔ UTC."
+
+msgid "Recepción X"
+msgstr "Host stand X"
+
+msgid "Recepción Y"
+msgstr "Host stand Y"
+
+msgid "Precio nivel"
+msgstr "Price level"
+
+msgid "Cocina / concepto"
+msgstr "Cuisine / concept"
+
+msgid "Imagen de portada"
+msgstr "Cover image"
+
+msgid "Ubicación en mapa"
+msgstr "Map location"
+
+msgid "Arrastra el pin"
+msgstr "Drag the pin"
+
+msgid "Latitud"
+msgstr "Latitude"
+
+msgid "Longitud"
+msgstr "Longitude"
+
+msgid "Se completa automáticamente al elegir la dirección."
+msgstr "Filled in automatically when you choose the address."
+
+msgid "Administradores & Acceso"
+msgstr "Admins & access"
+
+msgid "Administradores de la sucursal"
+msgstr "Location admins"
+
+msgid "Mantén presionado Ctrl/Cmd para seleccionar varios."
+msgstr "Hold Ctrl/Cmd to select several."
+
+msgid "Correo de contacto"
+msgstr "Contact email"
+
+msgid "Los campos con"
+msgstr "Fields marked with"
+
+msgid "son obligatorios."
+msgstr "are required."
+
+msgid "Marca"
+msgstr "Brand"
+
+msgid "Notificaciones"
+msgstr "Notifications"
+
+msgid "Asistente de IA"
+msgstr "AI assistant"
+
+msgid ""
+"Atiende a tus clientes, revisa mesas y horarios libres y reserva por ti. "
+"Siempre usa las mismas reglas de tus sucursales: no puede dar una mesa "
+"ocupada."
+msgstr ""
+"Answers your guests, checks free tables and times, and books for you. It "
+"always uses your locations' rules: it can't give away an occupied table."
+
+msgid "Probar el chat"
+msgstr "Try the chat"
+
+msgid "Ver conversaciones"
+msgstr "See conversations"
+
+msgid "Legal"
+msgstr "Legal"
+
+msgid "Ver aviso publicado"
+msgstr "See published notice"
+
+msgid ""
+"Reglas de horario y el enlace para que tus clientes reserven desde tu web, "
+"Instagram o Google."
+msgstr ""
+"Booking rules and the link so guests can book from your website, Instagram "
+"or Google."
+
+msgid "Reglas"
+msgstr "Rules"
+
+msgid "Enlace"
+msgstr "Link"
+
+msgid "Aún no hay sucursales."
+msgstr "No locations yet."
+
+msgid "Crear la primera"
+msgstr "Create the first one"
+
+msgid "Asistente IA"
+msgstr "AI assistant"
+
+msgid "Apagado"
+msgstr "Off"
+
+msgid "Falta la clave de la API en el servidor"
+msgstr "The API key is missing on the server"
+
+msgid "Prender / apagar"
+msgstr "Turn on / off"
+
+msgid "Probar chat"
+msgstr "Try chat"
+
+msgid "Necesitan a una persona"
+msgstr "Need a person"
+
+msgid "Atender"
+msgstr "Handle"
+
+msgid "Aún no hay conversaciones."
+msgstr "No conversations yet."
+
+msgid "Marcar como atendida"
+msgstr "Mark as handled"
+
+msgid "Elige una conversación para ver el detalle."
+msgstr "Pick a conversation to see the details."
+
+#, python-format
+msgid "Uso: %(a)s tokens de entrada, %(b)s de salida."
+msgstr "Usage: %(a)s input tokens, %(b)s output."
+
+msgid "Quién puede entrar al panel y qué puede ver."
+msgstr "Who can access the panel and what they can see."
+
+msgid "Rol"
+msgstr "Role"
+
+msgid "inactivo"
+msgstr "inactive"
+
+msgid "¿Quitar a esta persona del equipo?"
+msgstr "Remove this person from the team?"
+
+msgid "Sin miembros."
+msgstr "No members."
+
+msgid "Agregar a alguien"
+msgstr "Add someone"
+
+msgid ""
+"El personal deberá activar la verificación en dos pasos la primera vez que "
+"entre."
+msgstr ""
+"Staff will need to turn on two-step verification the first time they log in."
+
+msgid "Reglas de reservación"
+msgstr "Booking rules"
+
+msgid "Configuración"
+msgstr "Settings"
+
+msgid "Deja un campo vacío para usar el valor estándar (se muestra en gris)."
+msgstr "Leave a field empty to use the standard value (shown in gray)."
+
+msgid "Enlace de reservas"
+msgstr "Booking link"
+
+msgid "Recibe reservas desde cualquier lugar"
+msgstr "Take bookings from anywhere"
+
+msgid "1. Enlace directo"
+msgstr "1. Direct link"
+
+msgid ""
+"Ponlo en tu bio de Instagram, en el botón de WhatsApp Business o en tu "
+"perfil de Google (campo «Enlace para reservas»)."
+msgstr ""
+"Put it in your Instagram bio, your WhatsApp Business button or your Google "
+"profile (the “Booking link” field)."
+
+msgid "Abrir"
+msgstr "Open"
+
+msgid "Chat con el asistente de IA"
+msgstr "Chat with the AI assistant"
+
+msgid "2. Insertar en tu página web"
+msgstr "2. Embed on your website"
+
+msgid "Copia este código y pégalo en tu sitio (WordPress, Wix, etc.)."
+msgstr "Copy this code and paste it on your site (WordPress, Wix, etc.)."
+
+msgid "Configura tu sucursal"
+msgstr "Set up your location"
+
+msgid "Asistente de alta"
+msgstr "Onboarding assistant"
+
+msgid "Cuéntale a la IA cómo es tu restaurante"
+msgstr "Tell the AI what your restaurant is like"
+
+msgid ""
+"5 respuestas y listo. La IA arranca con lo que tú sabes y cada noche lo "
+"ajusta con lo que pasa de verdad en esta sucursal."
+msgstr ""
+"5 answers and done. The AI starts from what you know and adjusts it every "
+"night with what really happens at this location."
+
+msgid "¿Qué tipo de restaurante es?"
+msgstr "What type of restaurant is it?"
+
+msgid ""
+"Al elegir, te proponemos tiempos típicos. Cámbialos a lo que pasa en tu "
+"restaurante."
+msgstr ""
+"When you choose, we suggest typical times. Change them to match your "
+"restaurant."
+
+msgid "¿Cuánto se queda una pareja?"
+msgstr "How long does a couple stay?"
+
+msgid "Entre semana (minutos)"
+msgstr "Weekdays (minutes)"
+
+msgid "Viernes y fin de semana (minutos)"
+msgstr "Friday and weekends (minutes)"
+
+msgid "¿Y los grupos?"
+msgstr "And groups?"
+
+msgid "Grupo de 4 (minutos)"
+msgstr "Group of 4 (minutes)"
+
+msgid "Grupo de 6 o más (minutos)"
+msgstr "Group of 6 or more (minutes)"
+
+msgid "Guardar y que la IA empiece a aprender"
+msgstr "Save and let the AI start learning"
+
+msgid ""
+"Límites de seguridad: entre 15 y 240 min. Desayunos se calculan un poco más "
+"cortos y cenas un poco más largas. Puedes cambiarlo cuando quieras."
+msgstr ""
+"Safety limits: between 15 and 240 min. Breakfasts are calculated a bit "
+"shorter and dinners a bit longer. You can change it anytime."
+
+msgid "Aún no tienes sucursales asignadas."
+msgstr "You don't have any locations assigned yet."
+
+msgid "Hoy en"
+msgstr "Today at"
+
+msgid "Reservas hoy"
+msgstr "Bookings today"
+
+msgid "por IA"
+msgstr "by AI"
+
+msgid "Ya llegaron"
+msgstr "Already arrived"
+
+msgid "por llegar"
+msgstr "still coming"
+
+msgid "con retraso"
+msgstr "running late"
+
+msgid "Mesas libres"
+msgstr "Free tables"
+
+msgid "en este momento"
+msgstr "right now"
+
+msgid "Lista de espera"
+msgstr "Waitlist"
+
+msgid "grupos esperando"
+msgstr "groups waiting"
+
+msgid "La IA de piso detectó mesas que no se van a liberar a tiempo"
+msgstr "The floor AI found tables that won't be free in time"
+
+msgid "Resolver todo"
+msgstr "Fix everything"
+
+msgid "tiene la mesa"
+msgstr "has table"
+
+msgid "pero sigue ocupada; se libera ~"
+msgstr "but it's still occupied; frees up ~"
+
+msgid "Pasar a mesa"
+msgstr "Move to table"
+
+msgid "Sin mesa alterna: avisar al cliente"
+msgstr "No alternate table: notify the guest"
+
+msgid "En mesa ahora"
+msgstr "Seated now"
+
+msgid "Salida estimada con lo aprendido de esta sucursal"
+msgstr "Estimated departure based on what this location learned"
+
+msgid "Salida estimada"
+msgstr "Estimated departure"
+
+msgid "M"
+msgstr "T"
+
+msgid "Pidió la cuenta"
+msgstr "Asked for the bill"
+
+msgid "Excedida"
+msgstr "Over time"
+
+msgid "Comiendo"
+msgstr "Eating"
+
+msgid "se libera ~"
+msgstr "frees up ~"
+
+msgid "Cuenta"
+msgstr "Bill"
+
+msgid "Se fueron: liberar mesa"
+msgstr "They left: free the table"
+
+msgid "Liberar"
+msgstr "Free"
+
+msgid "Personas esperadas por hora"
+msgstr "Guests expected per hour"
+
+msgid "Próxima:"
+msgstr "Next:"
+
+msgid "Reservaciones del día"
+msgstr "Today's reservations"
+
+msgid "Vista detallada"
+msgstr "Detailed view"
+
+msgid "Reservó con el asistente IA"
+msgstr "Booked with the AI assistant"
+
+msgid ""
+"Probabilidad estimada de que no llegue, según el historial de esta sucursal"
+msgstr "Estimated probability of no-show, based on this location's history"
+
+msgid "riesgo"
+msgstr "risk"
+
+msgid "Probabilidad estimada de que no llegue"
+msgstr "Estimated probability of no-show"
+
+msgid "En mesa"
+msgstr "Seated"
+
+msgid "Retrasada"
+msgstr "Late"
+
+msgid "Marcar llegada"
+msgstr "Mark arrival"
+
+msgid "Más acciones"
+msgstr "More actions"
+
+msgid "Confirmar"
+msgstr "Confirm"
+
+msgid "¿Marcar como no-show y liberar la mesa?"
+msgstr "Mark as no-show and free the table?"
+
+msgid "No llegó"
+msgstr "No-show"
+
+msgid "¿Cancelar esta reserva? Se avisará al cliente."
+msgstr "Cancel this reservation? The guest will be notified."
+
+msgid "Sin reservaciones para hoy todavía."
+msgstr "No reservations for today yet."
+
+msgid "Horarios libres:"
+msgstr "Free times:"
+
+msgid "WhatsApp (opcional)"
+msgstr "WhatsApp (optional)"
+
+msgid "Espera estimada"
+msgstr "Estimated wait"
+
+msgid "Avisado"
+msgstr "Notified"
+
+msgid "Avisar que su mesa está lista"
+msgstr "Notify that their table is ready"
+
+msgid "Sentar"
+msgstr "Seat"
+
+msgid "Se fue"
+msgstr "Left"
+
+msgid "Nadie esperando."
+msgstr "Nobody waiting."
+
+msgid "Horarios libres hoy (2 pers.)"
+msgstr "Free times today (2 guests)"
+
+#, python-format
+msgid "Esperando %(m)s min"
+msgstr "Waiting %(m)s min"
+
+msgid "IA de tu sucursal"
+msgstr "Your location's AI"
+
+msgid "Aún no tienes sucursales."
+msgstr "You don't have any locations yet."
+
+msgid "Inteligencia de"
+msgstr "Intelligence for"
+
+msgid "Lo que la IA aprendió de tu sucursal"
+msgstr "What the AI learned about your location"
+
+msgid "Versión"
+msgstr "Version"
+
+msgid "actualizado"
+msgstr "updated"
+
+msgid "se recalcula sola cada noche"
+msgstr "recalculates itself every night"
+
+msgid "Ajustar respuestas"
+msgstr "Adjust answers"
+
+msgid "Configurar con la IA"
+msgstr "Set up with the AI"
+
+msgid "Recalcular ahora"
+msgstr "Recalculate now"
+
+msgid "Mesas analizadas"
+msgstr "Tables analyzed"
+
+msgid "reservas en total"
+msgstr "bookings in total"
+
+msgid "Precisión vs. tiempo fijo"
+msgstr "Accuracy vs. fixed time"
+
+msgid "error"
+msgstr "error"
+
+msgid "min por mesa"
+msgstr "min per table"
+
+msgid "necesita mesas liberadas"
+msgstr "needs freed tables"
+
+msgid "No-show histórico"
+msgstr "Historical no-show"
+
+msgid "riesgo por reserva en el panel Hoy"
+msgstr "risk per booking in the Today panel"
+
+msgid "Sugerencias"
+msgstr "Suggestions"
+
+msgid "para ganar mesas o evitar esperas"
+msgstr "to win tables or avoid waits"
+
+msgid "Las reservas usan los tiempos aprendidos"
+msgstr "Bookings use the learned times"
+
+msgid "Las reservas usan los tiempos fijos que configuraste"
+msgstr "Bookings use the fixed times you set"
+
+msgid ""
+"Al activarlo, cada horario se calcula con lo que realmente tarda una mesa en"
+" esta sucursal según día, hora y tamaño del grupo (con límites de seguridad:"
+" cambia máximo 10 %% por día, entre 20 y 240 min)."
+msgstr ""
+"When on, each time slot is calculated with how long a table really takes at "
+"this location by day, time and group size (with safety limits: changes at "
+"most 10%% per day, between 20 and 240 min)."
+
+msgid "Volver a tiempos fijos"
+msgstr "Back to fixed times"
+
+msgid "Usar lo aprendido"
+msgstr "Use what it learned"
+
+msgid "Sugerencias de la IA"
+msgstr "AI suggestions"
+
+msgid "Todo en orden: tus tiempos coinciden con la realidad."
+msgstr "All good: your times match reality."
+
+msgid "¿Quién falta más? (aprendido de tus reservas)"
+msgstr "Who no-shows most? (learned from your bookings)"
+
+msgid "Según cuántos días antes reservan"
+msgstr "By how many days ahead they book"
+
+msgid "Aún sin datos."
+msgstr "No data yet."
+
+msgid "Según por dónde reservan"
+msgstr "By booking channel"
+
+msgid ""
+"Con esto el panel Hoy marca cada reserva con su riesgo y la IA puede pedir "
+"confirmación a las más riesgosas."
+msgstr ""
+"With this, the Today panel tags each booking with its risk and the AI can "
+"ask the riskiest ones to confirm."
+
+msgid "Cuánto dura realmente una mesa (minutos)"
+msgstr "How long a table really lasts (minutes)"
+
+msgid "pers."
+msgstr "guests"
+
+msgid "config."
+msgstr "set"
+
+msgid ""
+"Grande: lo que la IA estima hoy. Abajo: lo que tenías configurado y cuántas "
+"mesas reales lo respaldan. Con pocas mesas pesa más tu configuración; con "
+"muchas, la realidad."
+msgstr ""
+"Large: what the AI estimates today. Below: what you had set and how many "
+"real tables back it up. With few tables your setting weighs more; with many,"
+" reality does."
+
+msgid "¿Cuándo se llena? Personas promedio por semana"
+msgstr "When does it fill up? Average guests per week"
+
+msgid "Resumen del negocio"
+msgstr "Business overview"
+
+msgid "Resumen de"
+msgstr "Overview of"
+
+msgid "Periodo"
+msgstr "Period"
+
+msgid "días"
+msgstr "days"
+
+msgid "vs periodo anterior"
+msgstr "vs previous period"
+
+msgid "primer periodo"
+msgstr "first period"
+
+msgid "Comensales"
+msgstr "Covers"
+
+msgid "por mesa en promedio"
+msgstr "per table on average"
+
+msgid "No-show"
+msgstr "No-show"
+
+msgid "cancelaciones"
+msgstr "cancellations"
+
+msgid "Clientes que regresan"
+msgstr "Returning guests"
+
+msgid "de"
+msgstr "of"
+
+msgid "clientes"
+msgstr "guests"
+
+msgid "Reservaciones por día"
+msgstr "Bookings per day"
+
+msgid "¿Por dónde reservan?"
+msgstr "Where do they book?"
+
+msgid "Origen"
+msgstr "Channel"
+
+msgid "Horas más fuertes"
+msgstr "Busiest hours"
+
+msgid "Horas"
+msgstr "Hours"
+
+msgid "Sucursales con más movimiento"
+msgstr "Busiest locations"
+
+msgid "Aún no hay datos."
+msgstr "No data yet."
+
+#, python-format
+msgid ""
+"%(c)s conversaciones atendidas · %(r)s reservas cerradas sin intervención "
+"del personal."
+msgstr ""
+"%(c)s conversations handled · %(r)s bookings closed without staff "
+"involvement."
+
+msgid "Aviso de privacidad"
+msgstr "Privacy notice"
+
+msgid "Ej. CAF, DES-2X2X2"
+msgstr "E.g. CAF, DES-2X2X2"
+
+msgid "Agregando..."
+msgstr "Adding..."
+
+msgid "Carrito de productos"
+msgstr "Product cart"
+
+msgid "Agrega, revisa y confirma los platillos."
+msgstr "Add, review and confirm the dishes."
+
+msgid "Sin productos."
+msgstr "No products."
+
+msgid "Impuestos"
+msgstr "Taxes"
+
+msgid "Comanda pendiente de implementar"
+msgstr "Ticket coming soon"
+
+msgid "Cobrar y cerrar"
+msgstr "Charge and close"
+
+msgid "Debe existir en el Menú. Si no lo conoces, usa el buscador abajo."
+msgstr "Must exist in the Menu. If you don't know it, use the search below."
+
+msgid "Reserva ligada"
+msgstr "Linked reservation"
+
+msgid "Tel."
+msgstr "Tel."
+
+msgid "Fecha de servicio"
+msgstr "Service date"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Pendiente de llegada"
+msgstr "Awaiting arrival"
+
+msgid "Asistente de reservaciones"
+msgstr "Booking assistant"
+
+msgid "Ej. Mesa para 4 mañana a las 2"
+msgstr "E.g. Table for 4 tomorrow at 2"
+
+msgid "Escribe tu mensaje"
+msgstr "Type your message"
+
+msgid "Enviar"
+msgstr "Send"
+
+msgid "Las respuestas las genera una IA. Al usar el chat aceptas el"
+msgstr "Replies are generated by AI. By using the chat you accept the"
+
+msgid "aviso de privacidad"
+msgstr "privacy notice"
+
+#, python-format
+msgid ""
+"¡Hola! Soy el asistente de %(n)s. ¿Para cuántas personas y qué día quieres "
+"tu mesa?"
+msgstr ""
+"Hi! I'm the %(n)s assistant. For how many people and what day would you like"
+" your table?"
+
+msgid "Responsable."
+msgstr "Data controller."
+
+msgid "con correo de contacto"
+msgstr "with contact email"
+
+msgid ""
+"es responsable del tratamiento de los datos personales que nos proporcionas "
+"al hacer una reservación, conforme a la Ley Federal de Protección de Datos "
+"Personales en Posesión de los Particulares."
+msgstr ""
+"is responsible for processing the personal data you provide when making a "
+"reservation, in accordance with Mexico's Federal Law on the Protection of "
+"Personal Data Held by Private Parties."
+
+msgid "Datos que recabamos."
+msgstr "Data we collect."
+
+msgid ""
+"Nombre, teléfono (incluido WhatsApp), correo electrónico, fecha, hora, "
+"número de personas y las notas que escribas sobre tu visita. No solicitamos "
+"datos sensibles; si escribes en notas alguna alergia, solo se usará para "
+"atender tu visita."
+msgstr ""
+"Name, phone (including WhatsApp), email, date, time, number of guests and "
+"any notes you write about your visit. We don't request sensitive data; if "
+"you mention an allergy in your notes, it will only be used to serve you "
+"during your visit."
+
+msgid "Finalidades necesarias."
+msgstr "Required purposes."
+
+msgid ""
+"Registrar y administrar tu reservación, asignarte una mesa, enviarte la "
+"confirmación y el recordatorio, avisarte de cambios y atender tus "
+"solicitudes."
+msgstr ""
+"To register and manage your reservation, assign you a table, send you the "
+"confirmation and reminder, notify you of changes and handle your requests."
+
+msgid "Finalidades voluntarias."
+msgstr "Optional purposes."
+
+msgid ""
+"Enviarte promociones y novedades, solo si marcaste la casilla "
+"correspondiente. Puedes retirar este consentimiento en cualquier momento sin"
+" afectar tu reservación."
+msgstr ""
+"To send you promotions and news, only if you checked the corresponding box. "
+"You can withdraw this consent at any time without affecting your "
+"reservation."
+
+msgid "Con quién compartimos tus datos."
+msgstr "Who we share your data with."
+
+msgid ""
+"Con los proveedores que nos ayudan a operar el servicio (alojamiento de la "
+"plataforma de reservas, envío de correos, mensajería de WhatsApp y, si "
+"conversas con nuestro asistente, el proveedor de inteligencia artificial que"
+" procesa tus mensajes), quienes los tratan por cuenta nuestra y solo para "
+"las finalidades descritas. No vendemos tus datos."
+msgstr ""
+"With the providers that help us run the service (hosting of the booking "
+"platform, email delivery, WhatsApp messaging and, if you chat with our "
+"assistant, the artificial intelligence provider that processes your "
+"messages), who handle it on our behalf and only for the purposes described. "
+"We don't sell your data."
+
+msgid "Derechos ARCO."
+msgstr "ARCO rights."
+
+msgid ""
+"Puedes solicitar el acceso, rectificación, cancelación u oposición al "
+"tratamiento de tus datos, así como revocar tu consentimiento, escribiendo a"
+msgstr ""
+"You can request access to, correction, cancellation of or opposition to the "
+"processing of your data, and revoke your consent, by writing to"
+
+msgid "Responderemos en los plazos que marca la ley."
+msgstr "We will respond within the time limits set by law."
+
+msgid "Conservación."
+msgstr "Retention."
+
+msgid ""
+"Conservamos los datos de tus reservaciones mientras sean necesarios para las"
+" finalidades descritas y las obligaciones legales aplicables."
+msgstr ""
+"We keep your reservation data for as long as needed for the purposes "
+"described and applicable legal obligations."
+
+msgid "Cambios."
+msgstr "Changes."
+
+msgid "Cualquier cambio a este aviso se publicará en esta misma página."
+msgstr "Any change to this notice will be published on this same page."
+
+msgid "Última actualización:"
+msgstr "Last updated:"
+
+msgid ""
+"Esta es la plantilla estándar. El restaurante puede personalizarla desde su "
+"panel."
+msgstr ""
+"This is the standard template. The restaurant can customize it from its "
+"panel."
+
+msgid "Tu reserva"
+msgstr "Your reservation"
+
+msgid "Reserva cancelada"
+msgstr "Reservation cancelled"
+
+msgid "¡Reserva confirmada!"
+msgstr "Reservation confirmed!"
+
+msgid "A nombre de"
+msgstr "Under the name"
+
+msgid "Código QR de tu reserva"
+msgstr "QR code for your reservation"
+
+msgid "Muestra este código al llegar."
+msgstr "Show this code when you arrive."
+
+msgid "Cómo llegar"
+msgstr "Get directions"
+
+msgid "Llamar a la sucursal"
+msgstr "Call the location"
+
+msgid "¿Seguro que quieres cancelar tu reserva?"
+msgstr "Are you sure you want to cancel your reservation?"
+
+msgid "Cancelar mi reserva"
+msgstr "Cancel my reservation"
+
+msgid "Hacer una nueva reserva"
+msgstr "Make a new reservation"
+
+msgid "Guarda este enlace: con él puedes consultar o cancelar tu reserva."
+msgstr "Save this link: you can use it to check or cancel your reservation."
+
+#, python-format
+msgid "%(n)s persona"
+msgstr "%(n)s guest"
+
+msgid "Horarios cercanos disponibles:"
+msgstr "Nearby available times:"
+
+msgid "¿Cuándo y cuántos?"
+msgstr "When and how many?"
+
+msgid "Elige un horario"
+msgstr "Choose a time"
+
+msgid "Elige un horario."
+msgstr "Choose a time."
+
+msgid "Tus datos"
+msgstr "Your details"
+
+msgid "Acepto el"
+msgstr "I accept the"
+
+msgid "Necesitamos tu aceptación para guardar tu reserva."
+msgstr "We need your consent to save your reservation."
+
+msgid "Reservando…"
+msgstr "Booking…"
+
+msgid "Confirmar reserva"
+msgstr "Confirm reservation"
+
+msgid "Sin costo. Recibirás tu confirmación al instante."
+msgstr "Free of charge. You'll get your confirmation instantly."
+
+msgid "¿Prefieres escribirle a nuestro asistente?"
+msgstr "Prefer to chat with our assistant?"
+
+#, python-format
+msgid "Reservar en %(s)s"
+msgstr "Book at %(s)s"
+
+msgid "Autenticación en dos pasos"
+msgstr "Two-step authentication"
+
+msgid "¡Listo! Autenticación de dos factores activada"
+msgstr "Done! Two-factor authentication is on"
+
+msgid "Tu dispositivo TOTP quedó configurado correctamente."
+msgstr "Your TOTP device was set up correctly."
+
+msgid "Verificación en dos pasos"
+msgstr "Two-step verification"
+
+msgid "Atrás"
+msgstr "Back"
+
+msgid ""
+"Abre tu app de autenticación (Google o Microsoft Authenticator) y escribe el"
+" código de 6 dígitos."
+msgstr ""
+"Open your authenticator app (Google or Microsoft Authenticator) and enter "
+"the 6-digit code."
+
+msgid "Código de respaldo"
+msgstr "Backup code"
+
+msgid ""
+"Escribe uno de los códigos de respaldo que guardaste al activar la "
+"verificación."
+msgstr ""
+"Enter one of the backup codes you saved when you turned on verification."
+
+msgid "O usa otro método:"
+msgstr "Or use another method:"
+
+msgid "¿No tienes tu celular? Usa un código de respaldo"
+msgstr "Don't have your phone? Use a backup code"
+
+msgid "Activar verificación en dos pasos"
+msgstr "Turn on two-step verification"
+
+msgid "Protege tu cuenta"
+msgstr "Protect your account"
+
+msgid ""
+"Para entrar al panel del restaurante usamos verificación en dos pasos: "
+"además de tu contraseña, un código de tu celular. Toma menos de un minuto."
+msgstr ""
+"To access the restaurant panel we use two-step verification: besides your "
+"password, a code from your phone. It takes less than a minute."
+
+msgid "Elige cómo quieres recibir tus códigos."
+msgstr "Choose how you want to receive your codes."
+
+msgid "Instala Google Authenticator o Microsoft Authenticator en tu celular."
+msgstr ""
+"Install Google Authenticator or Microsoft Authenticator on your phone."
+
+msgid "Toca “Agregar” y escanea este código:"
+msgstr "Tap “Add” and scan this code:"
+
+msgid "Código QR"
+msgstr "QR code"
+
+msgid "¿No puedes escanear? Escribe la clave manualmente"
+msgstr "Can't scan? Enter the key manually"
+
+msgid "Escribe el código de 6 dígitos que aparece en la app."
+msgstr "Enter the 6-digit code shown in the app."
+
+msgid "No pudimos validar ese método. Regresa e inténtalo de nuevo."
+msgstr "We couldn't verify that method. Go back and try again."
+
+msgid "Código Postal"
+msgstr "ZIP code"
+
+msgid "Ese correo ya está registrado."
+msgstr "That email is already registered."
+
+msgid "Selecciona fecha y hora."
+msgstr "Choose a date and time."
+
+msgid "La fecha/hora no puede estar en el pasado."
+msgstr "The date/time can't be in the past."
+
+msgid "Asistentes"
+msgstr "Guests"
+
+msgid "Nombre del cliente (opcional)"
+msgstr "Guest name (optional)"
+
+msgid "Tu nombre"
+msgstr "Your name"
+
+msgid "tucorreo@dominio.com"
+msgstr "you@domain.com"
+
+msgid "CP"
+msgstr "ZIP"
+
+msgid "Email (opcional)"
+msgstr "Email (optional)"
+
+msgid "La mesa no pertenece a la sucursal seleccionada."
+msgstr "The table doesn't belong to the selected location."
+
+msgid ""
+"Ej. Trata de usted. Los domingos hay buffet. Terraza solo con buen clima."
+msgstr ""
+"E.g. Use a formal tone. Sundays we have a buffet. Patio only in good "
+"weather."
+
+msgid "Nombre comercial"
+msgstr "Trade name"
+
+msgid "Razón social"
+msgstr "Legal name"
+
+msgid "Color principal"
+msgstr "Main color"
+
+msgid "Color secundario"
+msgstr "Secondary color"
+
+msgid "Enviar confirmación y recordatorio por WhatsApp"
+msgstr "Send confirmation and reminder via WhatsApp"
+
+msgid "Horas antes para el recordatorio"
+msgstr "Hours before the reminder"
+
+msgid "Aviso de privacidad (vacío = plantilla estándar)"
+msgstr "Privacy notice (empty = standard template)"
+
+msgid "Activar asistente de IA (chat web y WhatsApp)"
+msgstr "Turn on the AI assistant (web chat and WhatsApp)"
+
+msgid "Cuando el asistente encuentra lugar"
+msgstr "When the assistant finds availability"
+
+msgid "Indicaciones para el asistente"
+msgstr "Instructions for the assistant"
+
+msgid "Abre (hora 0-23)"
+msgstr "Opens (hour 0-23)"
+
+msgid "Cierra (hora 1-24)"
+msgstr "Closes (hour 1-24)"
+
+msgid "Cada cuántos minutos se ofrecen horarios"
+msgstr "Time slot interval (minutes)"
+
+msgid "Duración normal (min)"
+msgstr "Normal duration (min)"
+
+msgid "Duración en hora pico (min)"
+msgstr "Peak-hour duration (min)"
+
+msgid "Tolerancia de llegada (min)"
+msgstr "Arrival tolerance (min)"
+
+msgid "Máximo de personas por reserva en línea"
+msgstr "Max guests per online booking"
+
+msgid "Días máximos de anticipación"
+msgstr "Max days in advance"
+
+msgid "Reservas por cliente el mismo día"
+msgstr "Bookings per guest on the same day"
+
+msgid "Colchón entre reservas de la misma mesa (min)"
+msgstr "Buffer between bookings at the same table (min)"
+
+msgid "Recibir reservas en línea"
+msgstr "Take online bookings"
+
+msgid "Usa una hora entre 0 y 23."
+msgstr "Use an hour between 0 and 23."
+
+msgid "Usa una hora entre 1 y 24."
+msgstr "Use an hour between 1 and 24."
+
+msgid "La hora de cierre debe ser después de la apertura."
+msgstr "Closing time must be after opening time."
+
+msgid "Solo para el rol Personal: sucursales que podrá operar."
+msgstr "Only for the Staff role: locations they can operate."
+
+msgid "Contraseña inicial"
+msgstr "Initial password"
+
+msgid "Solo si el usuario es nuevo."
+msgstr "Only if the user is new."
+
+msgid "Ese usuario no se puede agregar."
+msgstr "That user can't be added."
+
+msgid "Escribe una contraseña inicial para el usuario nuevo."
+msgstr "Enter an initial password for the new user."
+
+msgid "Ya existe una categoría con ese nombre."
+msgstr "A category with that name already exists."
+
+msgid "El código no debe contener espacios"
+msgstr "The code must not contain spaces"
+
+msgid "Ese código ya existe en tu menú."
+msgstr "That code already exists in your menu."
+
+msgid "WhatsApp / teléfono"
+msgstr "WhatsApp / phone"
+
+msgid "Te enviaremos la confirmación y un recordatorio."
+msgstr "We'll send you the confirmation and a reminder."
+
+msgid "Cumpleaños, silla para bebé, alergias…"
+msgstr "Birthday, high chair, allergies…"
+
+msgid "Acepto el aviso de privacidad"
+msgstr "I accept the privacy notice"
+
+msgid "Quiero recibir promociones"
+msgstr "I want to receive promotions"
+
+msgid "Escribe un teléfono válido."
+msgstr "Enter a valid phone number."
+
+msgid "bot"
+msgstr "bot"
+
+msgid "Sucursal Centro"
+msgstr "Downtown location"
+
+msgid "Escribe y selecciona de Google Maps"
+msgstr "Type and pick from Google Maps"
+
+msgid "America/Mexico_City"
+msgstr "America/Mexico_City"
+
+msgid "Americana • Desayunos"
+msgstr "American • Breakfast"
+
+msgid "Básico"
+msgstr "Basic"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Cadena"
+msgstr "Chain"
+
+msgid "Reserva directamente si hay lugar"
+msgstr "Books directly if there's availability"
+
+msgid "Solo propone; el personal confirma"
+msgstr "Only proposes; staff confirms"
+
+msgid "Dueño"
+msgstr "Owner"
+
+msgid "Administrador (todas las sucursales)"
+msgstr "Administrator (all locations)"
+
+msgid "Personal (solo sucursales asignadas)"
+msgstr "Staff (assigned locations only)"
+
+msgid "Personal"
+msgstr "Staff"
+
+msgid "Chat web"
+msgstr "Web chat"
+
+msgid "Esperando"
+msgstr "Waiting"
+
+msgid "Sentado"
+msgstr "Seated"
+
+msgid "Nuevo"
+msgstr "New"
+
+msgid "Contactado"
+msgstr "Contacted"
+
+msgid "Demo agendada"
+msgstr "Demo scheduled"
+
+msgid "Descartado"
+msgstr "Discarded"
+
+msgid "Categoría de menú"
+msgstr "Menu category"
+
+msgid "Categorías de menú"
+msgstr "Menu categories"
+
+msgid "Bebidas"
+msgstr "Drinks"
+
+msgid "Postres"
+msgstr "Desserts"
+
+msgid "Código (identificador)"
+msgstr "Code (identifier)"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Área de impresión"
+msgstr "Print area"
+
+msgid "Imprimible en cocina"
+msgstr "Printable in kitchen"
+
+msgid "Es combo"
+msgstr "Is a combo"
+
+msgid "Precio del combo (si fijo)"
+msgstr "Combo price (if fixed)"
+
+msgid "Aplica impuesto"
+msgstr "Taxable"
+
+msgid "Aplica cargo por servicio"
+msgstr "Service charge applies"
+
+msgid "Ítems de menú"
+msgstr "Menu items"
+
+msgid "Componente de combo"
+msgstr "Combo component"
+
+msgid "Componentes de combo"
+msgstr "Combo components"
+
+#, python-format
+msgid "País cambiado a %(pais)s."
+msgstr "Country changed to %(pais)s."
+
+msgid "País inválido."
+msgstr "Invalid country."
+
+msgid "¡Check-in registrado y pedido enviado a cocina!"
+msgstr "Check-in recorded and order sent to the kitchen!"
+
+msgid "Perfil actualizado ✅"
+msgstr "Profile updated ✅"
+
+msgid "Revisa los campos del formulario."
+msgstr "Please check the form fields."
+
+msgid "La llegada ya estaba confirmada."
+msgstr "Arrival was already confirmed."
+
+msgid "La reserva no está en un estado válido para check-in."
+msgstr "The reservation isn't in a valid state for check-in."
+
+msgid "Fuera de la ventana de llegada."
+msgstr "Outside the arrival window."
+
+msgid "Llegada confirmada ✅"
+msgstr "Arrival confirmed ✅"
+
+msgid "No se encontró la reserva."
+msgstr "Reservation not found."
+
+msgid "Esta reserva ya fue marcada como llegada."
+msgstr "This reservation was already marked as arrived."
+
+#, python-format
+msgid "✅ Llegada confirmada para folio %(v0)s."
+msgstr "✅ Arrival confirmed for code %(v0)s."
+
+msgid "No tienes permiso para cancelar esta reserva."
+msgstr "You don't have permission to cancel this reservation."
+
+#, python-format
+msgid "La reserva %(v0)s ya estaba cancelada."
+msgstr "Reservation %(v0)s was already cancelled."
+
+#, python-format
+msgid "✅ Reserva %(v0)s cancelada correctamente."
+msgstr "✅ Reservation %(v0)s cancelled."
+
+msgid "No tienes permiso sobre esta sucursal."
+msgstr "You don't have permission for this location."
+
+#, python-format
+msgid "La reserva %(v0)s no está cancelada."
+msgstr "Reservation %(v0)s is not cancelled."
+
+#, python-format
+msgid "✅ Reserva %(v0)s reactivada como %(v1)s."
+msgstr "✅ Reservation %(v0)s reactivated as %(v1)s."
+
+#, python-format
+msgid "Mesa %(v0)s creada correctamente."
+msgstr "Table %(v0)s created."
+
+msgid "No tienes permiso para editar esta sucursal."
+msgstr "You don't have permission to edit this location."
+
+msgid "Contenido actualizado correctamente."
+msgstr "Content updated."
+
+msgid "Revisa los campos marcados."
+msgstr "Please check the highlighted fields."
+
+msgid "Primero confirma la llegada para poder finalizar la reserva."
+msgstr "Confirm the arrival first to be able to end the reservation."
+
+#, python-format
+msgid "Reservación finalizada. Mesa liberada desde las %(v0)s."
+msgstr "Reservation ended. Table free since %(v0)s."
+
+msgid "No tienes permisos para gestionar esta reserva."
+msgstr "You don't have permission to manage this reservation."
+
+msgid "✅ Mesa actualizada correctamente."
+msgstr "✅ Table updated."
+
+msgid ""
+"Tu usuario no pertenece a una empresa con permiso para crear sucursales."
+msgstr "Your user doesn't belong to a company allowed to create locations."
+
+msgid "Ya tienes una sucursal con ese nombre."
+msgstr "You already have a location with that name."
+
+msgid "Sucursal creada correctamente."
+msgstr "Location created."
+
+msgid "Sucursal actualizada correctamente."
+msgstr "Location updated."
+
+msgid ""
+"No se puede eliminar: tiene reservas u órdenes. Desactívala en su lugar."
+msgstr "Can't delete: it has reservations or orders. Deactivate it instead."
+
+msgid "Sucursal eliminada."
+msgstr "Location deleted."
+
+msgid "Combo no encontrado"
+msgstr "Combo not found"
+
+msgid "Componente agregado."
+msgstr "Component added."
+
+msgid "No se pudo agregar: "
+msgstr "Couldn't add: "
+
+msgid "Formulario inválido."
+msgstr "Invalid form."
+
+msgid "Componente eliminado."
+msgstr "Component removed."
+
+msgid "Ítem no encontrado"
+msgstr "Item not found"
+
+msgid "Estado actualizado."
+msgstr "Status updated."
+
+msgid "Configuración guardada."
+msgstr "Settings saved."
+
+msgid "No puedes quitarte a ti mismo."
+msgstr "You can't remove yourself."
+
+msgid "Solo el dueño puede quitar a otro dueño."
+msgstr "Only the owner can remove another owner."
+
+msgid "Miembro quitado."
+msgstr "Member removed."
+
+#, python-format
+msgid "%(v0)s agregado como %(v1)s."
+msgstr "%(v0)s added as %(v1)s."
+
+msgid "Reglas de la sucursal guardadas."
+msgstr "Location rules saved."
+
+#, python-format
+msgid "Listo: la IA analizó %(v0)s mesas de %(v1)s."
+msgstr "Done: the AI analyzed %(v0)s tables at %(v1)s."
+
+#, python-format
+msgid ""
+"¡Listo! %(v0)s ya ofrece horarios con estos tiempos y la IA aprenderá cada "
+"noche a partir de aquí."
+msgstr ""
+"Done! %(v0)s now offers times based on these durations, and the AI will "
+"learn every night from here."
+
+#, python-format
+msgid "%(v0)s ya está en su mesa %(v1)s. ¡Buen servicio!"
+msgstr "%(v0)s is now at table %(v1)s. Enjoy the service!"
+
+#, python-format
+msgid "Mesa %(v0)s: pidió la cuenta. La IA la contará libre en ~%(v1)s min."
+msgstr ""
+"Table %(v0)s: asked for the bill. The AI will count it free in ~%(v1)s min."
+
+#, python-format
+msgid "Mesa %(v0)s liberada y disponible."
+msgstr "Table %(v0)s freed and available."
+
+#, python-format
+msgid "%(v0)s pasó a la mesa %(v1)s."
+msgstr "%(v0)s moved to table %(v1)s."
+
+msgid ""
+"No hay otra mesa libre para ese horario. Avisa al cliente o usa la lista de "
+"espera."
+msgstr ""
+"No other table is free for that time. Notify the guest or use the waitlist."
+
+msgid "Reserva confirmada."
+msgstr "Reservation confirmed."
+
+msgid "Marcada como no-show. La mesa quedó libre."
+msgstr "Marked as no-show. The table is now free."
+
+msgid "Reserva cancelada; avisamos al cliente."
+msgstr "Reservation cancelled; we notified the guest."
+
+msgid "Acción no válida."
+msgstr "Invalid action."
+
+msgid "Escribe el nombre del cliente."
+msgstr "Enter the guest's name."
+
+#, python-format
+msgid "%(v0)s agregado a la lista de espera."
+msgstr "%(v0)s added to the waitlist."
+
+#, python-format
+msgid "Avisamos a %(v0)s%(v1)s."
+msgstr "We notified %(v0)s%(v1)s."
+
+#, python-format
+msgid "%(v0)s ya tiene mesa."
+msgstr "%(v0)s now has a table."
+
+#, python-format
+msgid "%(v0)s salió de la lista."
+msgstr "%(v0)s left the list."
+
+#, python-format
+msgid ""
+"IA de piso: %(v0)s reacomodo(s), %(v1)s aviso(s), %(v2)s no-show marcados."
+msgstr ""
+"Floor AI: %(v0)s reshuffle(s), %(v1)s notice(s), %(v2)s no-shows marked."
+
+msgid "La reserva ya pasó y no se puede cancelar."
+msgstr "The reservation has already passed and can't be cancelled."
+
+msgid "Tu reserva fue cancelada."
+msgstr "Your reservation was cancelled."
+
+msgid "¿Qué te gustaría resolver?"
+msgstr "What would you like to solve?"
+
+msgid "Ej. contestar WhatsApp, menos no-shows, lista de espera…"
+msgstr "E.g. answering WhatsApp, fewer no-shows, waitlist…"
+
+msgid "Escribe un número de 10 dígitos."
+msgstr "Enter a 10-digit number."
+
+#, python-format
+msgid "%(v0)s: actualizado."
+msgstr "%(v0)s: updated."
+
+#, python-format
+msgid "%(v0)s: pagado hasta %(v1)s."
+msgstr "%(v0)s: paid until %(v1)s."
+
+msgid "tu@email.com"
+msgstr "you@email.com"
+
+msgid "Repite contraseña"
+msgstr "Repeat password"
+
+msgid "Este correo ya está registrado."
+msgstr "This email is already registered."
+
+msgid "Las contraseñas no coinciden."
+msgstr "Passwords don't match."
+
+#, python-format
+msgid "Espera %(v0)ss para reenviar."
+msgstr "Wait %(v0)ss to resend."
+
+msgid "Has solicitado demasiados códigos. Intenta en 1 hora."
+msgstr "You've requested too many codes. Try again in 1 hour."
+
+msgid "Te reenviamos un nuevo código."
+msgstr "We sent you a new code."
+
+#, python-format
+msgid "Te enviamos un código a %(v0)s."
+msgstr "We sent you a code at %(v0)s."
+
+msgid "Primero ingresa tu correo y contraseña."
+msgstr "Enter your email and password first."
+
+msgid "¡Cuenta verificada y acceso iniciado!"
+msgstr "Account verified and logged in!"
+
+msgid "Lun–Jue"
+msgstr "Mon–Thu"
+
+msgid "Viernes"
+msgstr "Friday"
+
+msgid "Sábado"
+msgstr "Saturday"
+
+msgid "Domingo"
+msgstr "Sunday"
+
+msgid "Desayuno"
+msgstr "Breakfast"
+
+msgid "Comida"
+msgstr "Lunch"
+
+msgid "Cena"
+msgstr "Dinner"
+
+msgid "Comida rápida / taquería"
+msgstr "Fast food / taquería"
+
+msgid "Casual / familiar"
+msgstr "Casual / family"
+
+msgid "Cafetería / brunch"
+msgstr "Café / brunch"
+
+msgid "Manteles largos / alta cocina"
+msgstr "Fine dining"
+
+msgid "Bar / restaurante con música"
+msgstr "Bar / restaurant with live music"
+
+#, python-format
+msgid "%(dia)s · %(franja)s · grupos de %(grupo)s"
+msgstr "%(dia)s · %(franja)s · groups of %(grupo)s"
+
+#, python-format
+msgid "%(nombre)s: las mesas se liberan %(dif)s min antes de lo configurado"
+msgstr "%(nombre)s: tables free up %(dif)s min earlier than configured"
+
+#, python-format
+msgid ""
+"En %(n)s mesas reales el 75 %% se fue antes de %(p75)s min. Ajustar libera "
+"espacio para ~%(extra)s reserva(s) más por semana."
+msgstr ""
+"Across %(n)s real tables, 75%% left before %(p75)s min. Adjusting frees room"
+" for ~%(extra)s more booking(s) per week."
+
+#, python-format
+msgid "%(nombre)s: las mesas tardan %(dif)s min más de lo configurado"
+msgstr "%(nombre)s: tables take %(dif)s min longer than configured"
+
+#, python-format
+msgid ""
+"En %(n)s mesas reales, 1 de cada 4 pasó de %(p75)s min. Con el tiempo "
+"actual, el siguiente cliente puede llegar a una mesa ocupada."
+msgstr ""
+"Across %(n)s real tables, 1 in 4 went past %(p75)s min. With the current "
+"time, the next guest may arrive to an occupied table."
+
+msgid "Las reservas hechas con más de 10 días faltan mucho más"
+msgstr "Bookings made more than 10 days ahead no-show much more"
+
+#, python-format
+msgid ""
+"Faltan %(tasa)s %% contra %(base)s %% en general. Conviene pedir "
+"confirmación por WhatsApp 24 h antes."
+msgstr ""
+"%(tasa)s%% no-show vs %(base)s%% overall. Consider asking for WhatsApp "
+"confirmation 24 h before."
+
+#, python-format
+msgid "Mesa %(n)s - %(s)s"
+msgstr "Table %(n)s - %(s)s"
+
+msgid "Escribe el motivo del acceso (lo verá el dueño)."
+msgstr "Write the reason for access (the owner will see it)."
+
+msgid "Soporte"
+msgstr "Support"
+
+msgid ""
+"Entrar a este restaurante por 60 min. El dueño verá la fecha, la hora y el "
+"motivo."
+msgstr ""
+"Enter this restaurant for 60 min. The owner will see the date, time and "
+"reason."
+
+msgid "Motivo (ej. el dueño pidió ayuda con sus horarios)"
+msgstr "Reason (e.g. the owner asked for help with their hours)"
+
+msgid "Entrar en modo soporte"
+msgstr "Enter support mode"
+
+msgid "Modo soporte"
+msgstr "Support mode"
+
+msgid "expira"
+msgstr "expires"
+
+msgid "queda registrado y el dueño lo ve"
+msgstr "logged and visible to the owner"
+
+msgid "Salir del modo soporte"
+msgstr "Exit support mode"
+
+msgid "Accesos de soporte"
+msgstr "Support access log"
+
+msgid ""
+"Nadie de la plataforma puede ver tus datos sin dejar registro aquí: fecha, "
+"duración y motivo."
+msgstr ""
+"No one at the platform can see your data without leaving a record here: "
+"date, duration and reason."
+
+msgid "activo"
+msgstr "active"
+
+msgid "Ningún acceso de soporte registrado."
+msgstr "No support access recorded."
+
+msgid "Acceso de soporte"
+msgstr "Support access"
+
+msgid "Agregar al equipo"
+msgstr "Add to team"
+
+msgid "Aún no tienes sucursal asignada. Pídele al gerente que te asigne una."
+msgstr "You don't have a location yet. Ask your manager to assign you one."
+
+msgid ""
+"Cada persona solo ve el área de su puesto. Un cocinero nunca verá reservas "
+"ni datos de clientes."
+msgstr ""
+"Each person only sees the area for their role. A cook will never see "
+"bookings or guest data."
+
+msgid "Cambiar puesto"
+msgstr "Change role"
+
+msgid "Contraseña para entrar"
+msgstr "Password to sign in"
+
+msgid "Correo (con este entra al sistema)"
+msgstr "Email (used to sign in)"
+
+msgid "Elige el área en la que vas a trabajar."
+msgstr "Choose the area you'll work in."
+
+msgid "Elige en qué sucursal va a trabajar."
+msgstr "Choose which location they'll work at."
+
+msgid "Equipo y puestos"
+msgstr "Team and roles"
+
+msgid "Esa pantalla no es parte de tu puesto. Te dejamos en tu área."
+msgstr "That screen isn't part of your role. We took you back to your area."
+
+msgid "Ese platillo ya no está en el menú."
+msgstr "That dish is no longer on the menu."
+
+msgid "Esta sucursal aún no tiene mesas."
+msgstr "This location has no tables yet."
+
+msgid "Esta área no es parte de tu puesto."
+msgstr "This area isn't part of your role."
+
+msgid "Gerente de sucursal"
+msgstr "Location manager"
+
+msgid "Gerente general"
+msgstr "General manager"
+
+msgid "Guardar puesto"
+msgstr "Save role"
+
+msgid "Hola"
+msgstr "Hi"
+
+msgid "IVA"
+msgstr "Tax"
+
+msgid ""
+"Igual que el dueño en todas las sucursales, pero no puede agregar dueños."
+msgstr "Same as the owner at every location, but can't add owners."
+
+msgid ""
+"La primera vez que entre, el sistema le pedirá activar la verificación en "
+"dos pasos con su celular."
+msgstr ""
+"The first time they sign in, they'll be asked to turn on two-step "
+"verification with their phone."
+
+msgid "Libre"
+msgstr "Free"
+
+msgid "Libres"
+msgstr "Free"
+
+msgid "Listo: %(n)s ahora es %(p)s."
+msgstr "Done: %(n)s is now %(p)s."
+
+msgid "Llega a las"
+msgstr "Arrives at"
+
+msgid "Llegó alguien sin reserva"
+msgstr "Walk-in guest"
+
+msgid "Lo que pidieron"
+msgstr "What they ordered"
+
+msgid "Mandar a cocina"
+msgstr "Send to kitchen"
+
+msgid "Maneja SUS sucursales: recepción, meseros, cocina, mesas y horarios."
+msgstr "Runs THEIR locations: host stand, servers, kitchen, tables and hours."
+
+msgid "Mesas y mapa"
+msgstr "Tables and map"
+
+msgid ""
+"Mesas, mapa, bloqueos, horarios y lo que aprendió la IA de la sucursal."
+msgstr ""
+"Tables, map, blocks, hours and what the AI learned about the location."
+
+msgid "Mesero"
+msgstr "Server"
+
+msgid "Meseros"
+msgstr "Servers"
+
+msgid "Mis mesas"
+msgstr "My tables"
+
+msgid "No puedes cambiar tu propio puesto."
+msgstr "You can't change your own role."
+
+msgid "No se pudo guardar. Intenta otra vez."
+msgstr "Couldn't save. Please try again."
+
+msgid "Pidieron la cuenta"
+msgstr "Asked for the check"
+
+msgid "Platillo"
+msgstr "Dish"
+
+msgid "Por llegar"
+msgstr "Arriving"
+
+msgid "Primero crea una sucursal."
+msgstr "Create a location first."
+
+msgid "Propina (opcional, en pesos):"
+msgstr "Tip (optional):"
+
+msgid "Puesto"
+msgstr "Role"
+
+msgid ""
+"Pídele al dueño o al gerente que te dé de alta en Mi negocio → Equipo y te "
+"asigne tu área."
+msgstr ""
+"Ask the owner or manager to add you in My business → Team and assign your "
+"area."
+
+msgid "Quitar"
+msgstr "Remove"
+
+msgid ""
+"Recibe a los clientes, ve las reservas del día, sienta a la gente y maneja "
+"la lista de espera."
+msgstr ""
+"Greets guests, sees today's bookings, seats people and runs the waitlist."
+
+msgid "Recibe clientes, reservas del día y lista de espera. Nada más."
+msgstr "Greets guests, today's bookings and the waitlist. Nothing else."
+
+msgid ""
+"Resumen de ventas, equipo, menú, sucursales nuevas y configuración de la "
+"marca."
+msgstr "Sales summary, team, menu, new locations and brand settings."
+
+msgid "Sin puesto asignado"
+msgstr "No role assigned"
+
+msgid "Sin sucursal: no puede entrar"
+msgstr "No location: can't sign in"
+
+msgid "Solo el dueño puede cambiar a un dueño o gerente general."
+msgstr "Only the owner can change an owner or general manager."
+
+msgid "Solo el dueño puede quitar a un dueño o gerente general."
+msgstr "Only the owner can remove an owner or general manager."
+
+msgid ""
+"Solo si es una persona nueva. Dásela en persona; podrá cambiarla después."
+msgstr ""
+"Only for new people. Give it to them in person; they can change it later."
+
+msgid "Solo ve las órdenes que llegan a cocina. Nada más."
+msgstr "Only sees the orders that reach the kitchen. Nothing else."
+
+msgid ""
+"Solo ve las órdenes que llegan y las marca: preparando, lista, entregada."
+msgstr "Only sees incoming orders and marks them: preparing, ready, served."
+
+msgid ""
+"Toca un platillo para agregarlo. Cuando termines, toca «Mandar a cocina»."
+msgstr "Tap a dish to add it. When you're done, tap “Send to kitchen”."
+
+msgid "Toca una mesa para tomar la orden. La pantalla se actualiza sola."
+msgstr "Tap a table to take the order. This screen updates by itself."
+
+msgid "Todas las reservaciones"
+msgstr "All bookings"
+
+msgid "Todas las sucursales"
+msgstr "All locations"
+
+msgid "Todavía no hay menú cargado. El dueño lo agrega en Mi negocio → Menú."
+msgstr "No menu yet. The owner adds it in My business → Menu."
+
+msgid "Todavía no hay nada. Toca un platillo del menú."
+msgstr "Nothing yet. Tap a dish from the menu."
+
+msgid "Todavía no hay nadie. Agrega a tu primera persona a la derecha."
+msgstr "No one yet. Add your first person on the right."
+
+msgid "Todavía no tienes un puesto"
+msgstr "You don't have a role yet"
+
+msgid "Tu equipo"
+msgstr "Your team"
+
+msgid "Ve las mesas, toma órdenes y avisa cuando piden la cuenta. Nada más."
+msgstr ""
+"Sees tables, takes orders and flags when they ask for the check. Nothing "
+"else."
+
+msgid ""
+"Ve sus mesas, toma órdenes, avisa cuando piden la cuenta y libera la mesa."
+msgstr "Sees their tables, takes orders, flags the check and frees the table."
+
+msgid "Ve y controla todo: todas las sucursales, equipo, menú y dinero."
+msgstr "Sees and controls everything: all locations, team, menu and money."
+
+msgid "Ya se fueron"
+msgstr "They left"
+
+msgid "Ya se mandó a cocina; avisa al cocinero."
+msgstr "Already sent to the kitchen; tell the cook."
+
+msgid "en cocina"
+msgstr "in kitchen"
+
+msgid "sin mandar"
+msgstr "not sent"
+
+msgid "tú"
+msgstr "you"
+
+msgid "¿Dónde trabajas hoy?"
+msgstr "Where are you working today?"
+
+msgid "¿En qué sucursal trabaja?"
+msgstr "Which location do they work at?"
+
+msgid "¿No está en el menú? Agregar otro platillo"
+msgstr "Not on the menu? Add another dish"
+
+msgid "¿Quitar a esta persona del equipo? Ya no podrá entrar."
+msgstr "Remove this person from the team? They won't be able to sign in."
+
+msgid "¿Quién es?"
+msgstr "Who is it?"
+
+msgid "¿Qué puesto tiene?"
+msgstr "What's their role?"
+
+msgid "¿Ya se fueron? La mesa quedará libre."
+msgstr "Did they leave? The table will be marked free."

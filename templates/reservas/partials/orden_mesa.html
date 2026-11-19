@@ -1,0 +1,244 @@
+{# templates/reservas/partials/orden_mesa.html #}
+{% load i18n %}
+
+<div id="ordenModalBody"
+     class="orden-modal p-3"
+     data-endpoint-add="{{ endpoint_add }}"
+     data-endpoint-buscar="{{ endpoint_buscar }}"
+     data-endpoint-item-update="{{ endpoint_item_update }}"
+     data-endpoint-item-split="{{ endpoint_item_split }}"
+     data-endpoint-item-remove="{{ endpoint_item_remove }}"
+     data-order-id="{{ orden.id }}"
+     data-order-status="{{ orden.estado|default:'ABIERTA' }}"
+     data-submit-url="{% url 'reservas:api_orden_pos_enviar_cocina' orden.id %}"
+     data-charge-url="{% url 'reservas:api_orden_pos_cobrar' orden.id %}">
+
+  <div class="container-fluid">
+    <div class="row g-3">
+
+      {# ====================== IZQUIERDA ====================== #}
+      <div class="col-12 col-lg-4">
+        <div class="card shadow-xs h-100">
+          <div class="card-body">
+
+            {# Mesa / Orden #}
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="fw-semibold">
+                  {% trans "Mesa" %} #{{ mesa.numero }}
+                  <span class="badge bg-light text-muted ms-1">{{ mesa.capacidad }} pax</span>
+                </div>
+                <small class="text-muted">
+                  {{ sucursal.nombre }} · {{ ahora_local|date:"Y-m-d H:i" }}
+                </small>
+              </div>
+              <span class="badge bg-success-subtle text-success border border-success-subtle">
+                {% trans "Orden" %} #{{ orden.id }}
+              </span>
+            </div>
+
+            <hr>
+
+            {# Form Agregar #}
+            <form id="formAgregarItem" class="row gy-2"
+                  data-endpoint="{{ endpoint_add }}">
+              <input type="hidden" name="orden_id" value="{{ orden.id }}">
+
+              <div class="col-12">
+                <label class="form-label small fw-semibold">{% trans "Código" %}</label>
+                <input type="text" class="form-control form-control-sm"
+                       name="codigo" autocomplete="off"
+                       placeholder="{% trans 'Ej. CAF, DES-2X2X2' %}">
+                <div class="form-text small">
+                  {% blocktrans %}Debe existir en el Menú. Si no lo conoces, usa el buscador abajo.{% endblocktrans %}
+                </div>
+              </div>
+
+              <div class="col-5">
+                <label class="form-label small fw-semibold">{% trans "Cantidad" %}</label>
+                <input type="number" class="form-control form-control-sm"
+                       name="cantidad" value="1" min="1">
+              </div>
+
+              <div class="col-7">
+                <label class="form-label small fw-semibold">{% trans "Notas (opcional)" %}</label>
+                <input type="text" class="form-control form-control-sm"
+                       name="notas" placeholder="{% trans 'Sin cebolla, bien cocido…' %}">
+              </div>
+
+              <div class="col-12 d-grid mt-2">
+                <button type="submit" class="btn btn-success btn-sm when-idle">
+                  <i class="bi bi-plus-circle me-1"></i> {% trans "Agregar" %}
+                </button>
+                <button type="button" class="btn btn-success btn-sm when-busy d-none" disabled>
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                  {% trans "Agregando..." %}
+                </button>
+              </div>
+
+              <div class="col-12">
+                <div class="alert alert-warning mt-2 py-2 px-3 small d-none" data-error></div>
+              </div>
+            </form>
+
+            <hr>
+
+            {# Buscador #}
+            <label class="form-label small fw-semibold">{% trans "Buscar producto" %}</label>
+            <input id="buscarItem" class="form-control form-control-sm"
+                   placeholder="{% trans 'Escribe 2–3 letras…' %}"
+                   autocomplete="off"
+                   data-endpoint="{{ endpoint_buscar }}"
+                   data-add-endpoint="{{ endpoint_add }}"
+                   data-orden-id="{{ orden.id }}"
+                   data-sucursal-id="{{ mesa.sucursal_id }}">
+            <div class="form-text small">
+              {% trans "Sugerencia: escribe 2–3 letras para ver resultados." %}
+            </div>
+
+            <div class="table-responsive border rounded mt-2" style="max-height: 220px; overflow-y:auto;">
+              <table class="table table-sm mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th class="small">#</th>
+                    <th class="small">{% trans "Producto" %}</th>
+                    <th class="small text-end">{% trans "Precio" %}</th>
+                    <th class="small text-center">{% trans "Cant." %}</th>
+                    <th class="small text-end">{% trans "Acciones" %}</th>
+                  </tr>
+                </thead>
+                <tbody id="busquedaResultados"></tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {# ====================== DERECHA: CARRITO ====================== #}
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-xs h-100 d-flex flex-column">
+
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <div>
+              <h6 class="m-0">{% trans "Carrito de productos" %}</h6>
+              <small class="text-muted">
+                {% trans "Agrega, revisa y confirma los platillos." %}
+              </small>
+            </div>
+            <span class="badge bg-light border text-muted">
+              {% trans "Orden" %} #{{ orden.id }}
+            </span>
+          </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>#</th>
+                    <th>{% trans "Producto" %}</th>
+                    <th class="text-end">{% trans "Precio" %}</th>
+                    <th class="text-center">{% trans "Cant." %}</th>
+                    <th class="text-end">{% trans "Subtotal" %}</th>
+                    <th class="text-end">{% trans "Acciones" %}</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                {% for it in orden.items.all %}
+                  {% if not it.cancelado %}
+                  <tr data-item-row data-item-id="{{ it.id }}" data-notas="{{ it.notas|default:'' }}">
+                    <td class="text-muted small">{{ forloop.counter }}</td>
+
+                    <td>
+                      <div class="fw-semibold small">
+                        {{ it.nombre }}
+                        {% if it.estado == "PENDIENTE" %}
+                          <span class="badge bg-warning-subtle text-warning ms-1">Pendiente</span>
+                        {% elif it.estado == "EN_PREP" %}
+                          <span class="badge bg-info-subtle text-info ms-1">En prep.</span>
+                        {% elif it.estado == "SERVIDO" %}
+                          <span class="badge bg-success-subtle text-success ms-1">Servido</span>
+                        {% endif %}
+                      </div>
+                      <small class="text-muted">
+                        {% if it.codigo %}{{ it.codigo }} · {% endif %}
+                        {{ it.categoria_nombre }}
+                        {% if it.notas %} · <span class="text-danger">{{ it.notas }}</span>{% endif %}
+                      </small>
+                    </td>
+
+                    <td class="text-end small">
+                      ${{ it.precio_unit|default:it.precio }}
+                    </td>
+                    <td class="text-center small">{{ it.cantidad }}</td>
+                    <td class="text-end small">
+                      ${{ it.subtotal|default:it.importe }}
+                    </td>
+
+                    <td class="text-end small">
+                      {% if it.estado == "PENDIENTE" %}
+                        <button class="btn btn-sm btn-light border" data-item-edit>
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" data-item-remove>
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      {% else %}
+                        <span class="text-muted small">—</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endif %}
+                {% empty %}
+                  <tr>
+                    <td colspan="6" class="text-center text-muted py-4">
+                      {% trans "Sin productos." %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    <th colspan="5" class="text-end">{% trans "Subtotal" %}</th>
+                    <th class="text-end">${{ subtotal }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="5" class="text-end">{% trans "Impuestos" %}</th>
+                    <th class="text-end">${{ impuestos }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="5" class="text-end">{% trans "Total" %}</th>
+                    <th class="text-end fs-6">${{ total }}</th>
+                  </tr>
+                </tfoot>
+
+              </table>
+            </div>
+          </div>
+
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <small class="text-muted">
+              <i class="bi bi-printer"></i> {% trans "Comanda pendiente de implementar" %}
+            </small>
+
+            <div class="d-flex gap-2">
+              <button id="btnEnviarCocina" class="btn btn-outline-secondary btn-sm">
+                👨‍🍳 {% trans "Enviar a cocina" %}
+              </button>
+              <button id="btnCobrar" class="btn btn-success btn-sm">
+                💵 {% trans "Cobrar y cerrar" %}
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">

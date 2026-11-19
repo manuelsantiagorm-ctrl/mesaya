@@ -1,0 +1,106 @@
+# ---- Django / Python ----
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.py,cover
+db.sqlite3
+
+# ---- Virtualenv ----
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# ---- Archivos del sistema IHOP ----
+backups/
+logs/
+dump_*.sql
+*.sql
+*.tar
+*.zip
+
+# ---- Django estáticos / media ----
+media/
+/staticfiles/
+/static/
+
+# ---- IDEs y Sistema ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---- Compilados / cache ----
+*.mo
+
+# ---- Node / JS ----
+node_modules/
+
+# ---- Tests / coverage ----
+.coverage
+htmlcov/
+
+# ---- Seguridad / claves ----
+*.key
+*.pem
+*.pfx
+secrets.json
+.env.local
+.env.prod
+.env.dev
+
+# ---- Secretos y datos (NUNCA subir) ----
+.env
+.env.*
+!.env.example
+*.csv
+*.dump
+*.backup
+*.sqlite3
+*.po.bak*
+admins_passwords*
+
+# Archivos generados por Claude
+Claude outputs/
+.git/
+venv/
+.venv/
+.runtime/
+env/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.sql
+*.sqlite3
+*.db
+*.dump
+*.tar.gz
+*.tgz
+*.zip
+*.log
+backups/
+_backups_pakivox/
+logs/
+staticfiles/
+media/
+dist/
+.angular/
+Claude outputs/
+_to_delete/
+admins_passwords.csv
+deploy_secrets*
+ngrok*.yml
+.vscode/
+.idea/
+.local/

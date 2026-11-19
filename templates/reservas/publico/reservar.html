@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% blocktrans with s=sucursal.nombre %}Reservar en {{ s }}{% endblocktrans %}{% endblock %}
+{% block body_class %}{% if embed %}embed-mode{% endif %}{% endblock %}
+{% block nav_book %}active{% endblock %}
+
+{% block content %}
+<div class="reserva-shell">
+  <div class="card reserva-card">
+    <div class="reserva-head">
+      <small>{{ brand.nombre }}</small>
+      <h1 class="h4 m-0">{{ sucursal.nombre }}</h1>
+      {% if sucursal.direccion %}<small><i class="bi bi-geo-alt me-1"></i>{{ sucursal.direccion }}</small>{% endif %}
+    </div>
+
+    <form method="post" class="card-body p-4" id="form-reserva" novalidate
+          data-slots-url="{% url 'reservas:api_slots_publico' sucursal.slug %}">
+      {% csrf_token %}
+      {% if embed %}<input type="hidden" name="embed" value="1">{% endif %}
+      {{ form.website }}
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-warning">
+          {% for e in form.non_field_errors %}<div>{{ e }}</div>{% endfor %}
+          {% if alternativas %}
+            <div class="mt-2 small">{% trans "Horarios cercanos disponibles:" %}</div>
+            <div class="d-flex flex-wrap gap-2 mt-1">
+              {% for h in alternativas %}
+                <button type="button" class="btn btn-sm btn-outline-primary" data-pick-time="{{ h }}">{{ h }}</button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="step-label mb-2">1 · {% trans "¿Cuándo y cuántos?" %}</div>
+      <div class="row g-2 mb-3">
+        <div class="col-7">
+          <label class="form-label small" for="{{ form.fecha.id_for_label }}">{{ form.fecha.label }}</label>
+          <input type="date" name="fecha" id="{{ form.fecha.id_for_label }}" class="form-control"
+                 value="{{ form.fecha.value|date:'Y-m-d'|default:form.fecha.value|default:hoy }}" min="{{ hoy }}" max="{{ max_fecha }}" required>
+        </div>
+        <div class="col-5">
+          <label class="form-label small" for="{{ form.party.id_for_label }}">{{ form.party.label }}</label>
+          {{ form.party }}
+        </div>
+      </div>
+
+      <label class="form-label small mb-1">{% trans "Elige un horario" %}</label>
+      <input type="hidden" name="hora" id="id_hora" value="{{ form.hora.value|time:'H:i'|default:form.hora.value|default:'' }}">
+      <div id="slots" class="slot-grid mb-1" aria-live="polite">
+        {% for i in "123456" %}<span class="skeleton" style="height:38px">00:00</span>{% endfor %}
+      </div>
+      {% for e in form.hora.errors %}<div class="text-danger small">{% trans "Elige un horario." %}</div>{% endfor %}
+
+      <div class="step-label mt-4 mb-2">2 · {% trans "Tus datos" %}</div>
+      <div class="mb-2">
+        <label class="form-label small" for="{{ form.nombre.id_for_label }}">{{ form.nombre.label }}</label>
+        {{ form.nombre }}
+        {% for e in form.nombre.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+      </div>
+      <div class="mb-2">
+        <label class="form-label small" for="{{ form.telefono.id_for_label }}">{{ form.telefono.label }}</label>
+        {{ form.telefono }}
+        <div class="form-text">{{ form.telefono.help_text }}</div>
+        {% for e in form.telefono.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+      </div>
+      <div class="mb-2">
+        <label class="form-label small" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+        {{ form.email }}
+        {% for e in form.email.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+      </div>
+      <div class="mb-3">
+        <label class="form-label small" for="{{ form.notas.id_for_label }}">{{ form.notas.label }}</label>
+        {{ form.notas }}
+      </div>
+
+      <div class="form-check mb-1">
+        {{ form.acepto_privacidad }}
+        <label class="form-check-label small" for="{{ form.acepto_privacidad.id_for_label }}">
+          {% trans "Acepto el" %}
+          <a href="{% if brand.slug %}{% url 'reservas:aviso_privacidad_empresa' brand.slug %}{% else %}{% url 'reservas:aviso_privacidad' %}{% endif %}" target="_blank" rel="noopener">{% trans "aviso de privacidad" %}</a>
+        </label>
+        {% for e in form.acepto_privacidad.errors %}<div class="text-danger small">{% trans "Necesitamos tu aceptación para guardar tu reserva." %}</div>{% endfor %}
+      </div>
+      <div class="form-check mb-4">
+        {{ form.acepta_promociones }}
+        <label class="form-check-label small" for="{{ form.acepta_promociones.id_for_label }}">{{ form.acepta_promociones.label }}</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100" data-loading-text="{% trans 'Reservando…' %}">
+        {% trans "Confirmar reserva" %}
+      </button>
+      <p class="text-muted small text-center mt-3 mb-0">{% trans "Sin costo. Recibirás tu confirmación al instante." %}</p>
+      {% if sucursal.empresa.agente_ia_activo and ia_disponible %}
+        <p class="small text-center mt-2 mb-0"><a href="{% url 'reservas:asistente_chat' sucursal.empresa.slug %}{% if embed %}?embed=1{% endif %}"><i class="bi bi-stars me-1"></i>{% trans "¿Prefieres escribirle a nuestro asistente?" %}</a></p>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'reservas/js/reservar_publico.js' %}"></script>
+{% endblock %}

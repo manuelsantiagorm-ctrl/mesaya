@@ -1,0 +1,16 @@
+{% extends "account/_auth.html" %}
+{% load i18n %}
+{% block title %}{% trans "Confirma tu correo" %}{% endblock %}
+{% block auth_icon %}bi-envelope-check{% endblock %}
+{% block auth %}
+  {% if confirmation %}
+    <h1>{% trans "Confirma tu correo" %}</h1>
+    <p class="text-muted">{% blocktrans with e=confirmation.email_address.email %}¿Es <b>{{ e }}</b> tu correo?{% endblocktrans %}</p>
+    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">{% csrf_token %}
+      <button class="btn btn-primary w-100" type="submit">{% trans "Sí, confirmar" %}</button></form>
+  {% else %}
+    <h1>{% trans "Enlace no válido" %}</h1>
+    <p class="text-muted">{% trans "Este enlace caducó o ya se usó." %}</p>
+    <a class="btn btn-primary w-100" href="{% url 'account_login' %}">{% trans "Ir a entrar" %}</a>
+  {% endif %}
+{% endblock %}

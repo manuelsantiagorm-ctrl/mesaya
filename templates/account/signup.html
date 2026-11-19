@@ -1,0 +1,19 @@
+{% extends "account/_auth.html" %}
+{% load i18n %}
+{% block title %}{% trans "Crear cuenta" %}{% endblock %}
+{% block auth_icon %}bi-person-plus{% endblock %}
+{% block auth %}
+  <h1>{% trans "Crea tu cuenta" %}</h1>
+  <p class="text-muted">{% trans "Para reservar más rápido y ver tus reservaciones." %}</p>
+  <form method="post" action="{% url 'account_signup' %}" novalidate>
+    {% csrf_token %}
+    {% include "account/_errores.html" %}
+    {% trans "Correo electrónico" as l1 %}{% include "account/_campo.html" with campo=form.email etiqueta=l1 %}
+    {% if form.username %}{% trans "Usuario" as l0 %}{% include "account/_campo.html" with campo=form.username etiqueta=l0 %}{% endif %}
+    {% trans "Contraseña" as l2 %}{% include "account/_campo.html" with campo=form.password1 etiqueta=l2 %}
+    {% trans "Repite la contraseña" as l3 %}{% include "account/_campo.html" with campo=form.password2 etiqueta=l3 %}
+    <button class="btn btn-primary w-100" type="submit">{% trans "Crear cuenta" %}</button>
+  </form>
+  {% include "account/_google.html" with proceso="signup" %}
+  <p class="small text-center mt-3 mb-0">{% trans "¿Ya tienes cuenta?" %} <a href="{% url 'account_login' %}">{% trans "Entrar" %}</a></p>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Mi perfil" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width:900px">
+  <div class="page-head">
+    <div><div class="text-muted small fw-semibold text-uppercase">{% trans "Tu cuenta" %}</div><h1>{% trans "Mi perfil" %}</h1></div>
+    <a class="btn btn-soft" href="{% url 'reservas:mis_reservas' %}"><i class="bi bi-calendar2-check"></i> {% trans "Mis reservaciones" %}</a>
+  </div>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card p-4 text-center h-100">
+        <div class="mx-auto mb-3 d-grid rounded-circle text-white fw-bold" style="width:84px;height:84px;place-items:center;background:var(--brand);font-size:2rem">{{ user.get_full_name|default:user.username|slice:":1"|upper }}</div>
+        <div class="fw-bold">{{ user.get_full_name|default:user.username }}</div>
+        <div class="small text-muted">{{ user.email }}</div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <form method="post" class="card p-4">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-12"><label class="form-label">{% trans "Nombre" %}</label>{{ form.nombre }}{% for e in form.nombre.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+          <div class="col-md-6"><label class="form-label">{% trans "Correo" %}</label>{{ form.email }}{% for e in form.email.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+          <div class="col-md-6"><label class="form-label">{% trans "Teléfono / WhatsApp" %}</label>{{ form.telefono }}{% for e in form.telefono.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
+          <div class="col-md-6"><label class="form-label">{% trans "Código postal" %}</label>{{ form.codigo_postal }}<div class="form-text">{% trans "Para sugerirte sucursales cerca." %}</div></div>
+        </div>
+        <div class="d-flex gap-2 mt-3"><button class="btn btn-primary">{% trans "Guardar cambios" %}</button><a class="btn btn-light" href="{% url 'reservas:home' %}">{% trans "Cancelar" %}</a></div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

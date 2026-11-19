@@ -1,0 +1,12 @@
+venv/
+.git/
+.env
+*.sql
+*.dump
+backups/
+logs/
+media/
+staticfiles/
+__pycache__/
+*.pem
+*.csv

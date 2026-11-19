@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Reservaciones" %}{% endblock %}
+{% block nav_operacion %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="page-head">
+    <div><div class="text-muted small fw-semibold text-uppercase">{% trans "Operación" %}</div><h1>{% trans "Reservaciones" %}</h1></div>
+    <a class="btn btn-primary" href="{% url 'reservas:admin_walkin_reserva' %}"><i class="bi bi-plus-lg"></i> {% trans "Nueva reservación" %}</a>
+  </div>
+
+  <form class="card p-3 mb-3" method="get">
+    <div class="row g-2 align-items-end">
+      <div class="col-md-4"><label class="form-label small">{% trans "Buscar" %}</label>
+        <input name="q" class="form-control" placeholder="{% trans 'Folio, nombre o teléfono' %}" value="{{ q }}"></div>
+      <div class="col-6 col-md-2"><label class="form-label small">{% trans "Fecha" %}</label>
+        <input type="date" name="fecha" class="form-control" value="{{ fecha }}"></div>
+      <div class="col-6 col-md-2"><label class="form-label small">{% trans "Estado" %}</label>
+        <select name="estado" class="form-select"><option value="">{% trans "Todos" %}</option>
+          {% for v, n in estados %}<option value="{{ v }}" {% if estado == v %}selected{% endif %}>{{ n }}</option>{% endfor %}</select></div>
+      {% if sucs|length > 1 %}
+      <div class="col-md-2"><label class="form-label small">{% trans "Sucursal" %}</label>
+        <select name="s" class="form-select"><option value="">{% trans "Todas" %}</option>
+          {% for s in sucs %}<option value="{{ s.pk }}" {% if suc_id == s.pk|stringformat:'s' %}selected{% endif %}>{{ s.nombre }}</option>{% endfor %}</select></div>
+      {% endif %}
+      <div class="col-md-2 d-flex gap-2"><button class="btn btn-primary flex-fill"><i class="bi bi-funnel"></i> {% trans "Filtrar" %}</button>
+        {% if q or fecha or estado or suc_id %}<a class="btn btn-light" href="?" title="{% trans 'Limpiar' %}"><i class="bi bi-x-lg"></i></a>{% endif %}</div>
+    </div>
+  </form>
+
+  <div class="card overflow-hidden">
+    <div class="p-3 border-bottom small text-muted">{{ total }} {% trans "reservaciones" %}{% if total > 300 %} · {% trans "se muestran las 300 más recientes" %}{% endif %}</div>
+    {% for r in reservaciones %}
+      <div class="res-row" style="grid-template-columns: 110px 1fr auto">
+        <div><div class="hora">{{ r.local_inicio|default:r.fecha|time:"H:i" }}</div><div class="small text-muted">{{ r.local_inicio|default:r.fecha|date:"D j M" }}</div></div>
+        <div>
+          <div class="fw-bold">{{ r.nombre_contacto|default:r.cliente.nombre }}
+            <span class="text-muted fw-normal small">· {{ r.num_personas }} <i class="bi bi-people"></i> · {% trans "Mesa" %} {{ r.mesa.numero }}{% if sucs|length > 1 %} · {{ r.sucursal.nombre }}{% endif %}</span>
+            {% if r.origen == "ia" %}<span class="pill ms-1"><i class="bi bi-stars"></i> IA</span>{% endif %}</div>
+          <div class="small text-muted"><code>{{ r.folio }}</code>{% if r.telefono_contacto %} · {{ r.telefono_contacto }}{% endif %}{% if r.notas %} · {{ r.notas|truncatechars:60 }}{% endif %}</div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          {% if r.llego and r.estado != "CANC" and r.estado != "NOSH" %}<span class="estado LLEGO">{% trans "Llegó" %}</span>{% else %}<span class="estado {{ r.estado }}">{{ r.get_estado_display }}</span>{% endif %}
+          <a class="btn btn-sm btn-light" href="{% url 'reservas:reserva_scan_entry' r.folio %}" title="{% trans 'Ver detalle' %}"><i class="bi bi-chevron-right"></i></a>
+        </div>
+      </div>
+    {% empty %}
+      <div class="empty-state"><i class="bi bi-calendar-x"></i>{% trans "No hay reservaciones con esos filtros." %}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "account/_auth.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Verifica tu correo" %}{% endblock %}
+{% block auth_icon %}bi-envelope-check{% endblock %}
+{% block auth %}
+  <h1>{% trans "Verifica tu correo" %}</h1>
+  <p class="text-muted">{% blocktrans with mail=request.session.signup_email %}Te enviamos un código a <b>{{ mail }}</b>.{% endblocktrans %}</p>
+  <form method="post" action="{% url 'accounts:verify_email' %}" novalidate>
+    {% csrf_token %}
+    {% include "account/_errores.html" %}
+    {% if form.email %}{{ form.email }}{% else %}<input type="hidden" name="email" value="{{ request.session.signup_email }}">{% endif %}
+    <div class="mb-3">
+      <label for="{{ form.code.id_for_label|default:'id_code' }}" class="form-label">{% trans "Código de verificación" %}</label>
+      <input type="text" name="{{ form.code.html_name|default:'code' }}" id="{{ form.code.id_for_label|default:'id_code' }}"
+             inputmode="numeric" pattern="[0-9]{4,8}" autocomplete="one-time-code" maxlength="8" required
+             placeholder="••••••" value="{{ form.code.value|default:'' }}" style="font-size:1.6rem;letter-spacing:.5em;text-align:center;font-weight:700">
+      {% for e in form.code.errors %}<div class="text-danger small mt-1">{{ e }}</div>{% empty %}<div class="form-text">{% trans "Escribe el código de 6 dígitos que te llegó." %}</div>{% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary w-100">{% trans "Verificar" %}</button>
+  </form>
+  <div class="d-flex align-items-center justify-content-between mt-3">
+    <form method="post" action="{% url 'accounts:resend_otp' %}">{% csrf_token %}
+      {% with remain=resend_seconds_remaining|default:0 %}
+      <button type="submit" id="resendBtn" class="btn btn-light btn-sm" {% if remain|add:0 > 0 %}disabled{% endif %} data-remaining="{{ remain }}">{% trans "Reenviar código" %}</button>
+      {% endwith %}
+    </form>
+    <a class="small text-muted" href="{% url 'accounts:signup_start' %}">{% trans "Cambiar correo" %}</a>
+  </div>
+  <p class="text-center mt-3 mb-0 text-muted small">{% trans "¿No te llegó? Revisa la carpeta de spam." %}</p>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'reservas/js/verify_email.js' %}"></script>{% endblock %}

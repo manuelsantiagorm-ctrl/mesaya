@@ -1,0 +1,19 @@
+{% load i18n %}
+<footer class="brand-footer mt-auto">
+  <div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 small">
+      <div>
+        <div class="fw-semibold">{{ brand.nombre }}</div>
+        {% if brand.telefono %}<div><i class="bi bi-telephone me-1"></i>{{ brand.telefono }}</div>{% endif %}
+        {% if brand.email %}<div><i class="bi bi-envelope me-1"></i>{{ brand.email }}</div>{% endif %}
+      </div>
+      <ul class="list-inline m-0">
+        <li class="list-inline-item"><a href="{% url 'reservas:seleccionar_sucursal' %}">{% trans "Sucursales" %}</a></li>
+        <li class="list-inline-item">
+          <a href="{% if brand.slug %}{% url 'reservas:aviso_privacidad_empresa' brand.slug %}{% else %}{% url 'reservas:aviso_privacidad' %}{% endif %}">{% trans "Aviso de privacidad" %}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="text-muted small mt-3">©{% now "Y" %} {{ brand.nombre }}</div>
+  </div>
+</footer>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n humanize %}
+{% block title %}{% trans "Plataforma" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="page-head">
+    <div><div class="text-muted small fw-semibold text-uppercase">{% trans "Operador de la plataforma" %}</div><h1>{% trans "Tu negocio SaaS" %}</h1></div>
+    <div class="d-flex gap-2"><a class="btn btn-light" href="/" target="_blank"><i class="bi bi-box-arrow-up-right"></i> {% trans "Página de ventas" %}</a><a class="btn btn-soft" href="{% url 'admin:index' %}"><i class="bi bi-gear"></i> {% trans "Admin técnico" %}</a></div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-lg"><div class="kpi accent"><div class="lbl">{% trans "Ingreso mensual (MRR)" %}</div><div class="val">${{ mrr|intcomma }}</div><div class="sub">{% trans "según plan de cada empresa activa" %}</div></div></div>
+    <div class="col-6 col-lg"><div class="kpi"><div class="lbl">{% trans "Restaurantes" %}</div><div class="val">{{ kpi.empresas }}</div><div class="sub">{{ kpi.sucursales }} {% trans "sucursales" %}</div></div></div>
+    <div class="col-6 col-lg"><div class="kpi"><div class="lbl">{% trans "Reservas 30 días" %}</div><div class="val">{{ kpi.reservas30|intcomma }}</div></div></div>
+    <div class="col-6 col-lg"><div class="kpi"><div class="lbl">{% trans "Conversaciones IA" %}</div><div class="val">{{ kpi.conversaciones30 }}</div><div class="sub">{% trans "últimos 30 días" %}</div></div></div>
+    <div class="col-6 col-lg"><div class="kpi"><div class="lbl">{% trans "Prospectos nuevos" %}</div><div class="val">{{ kpi.prospectos_nuevos }}</div></div></div>
+  </div>
+
+  <div class="card overflow-hidden mb-4">
+    <div class="p-3 border-bottom d-flex justify-content-between"><strong>{% trans "Restaurantes (empresas)" %}</strong><span class="small text-muted">{% trans "Alta con:" %} <code>python manage.py crear_empresa</code></span></div>
+    <div class="table-responsive"><table class="table align-middle mb-0">
+      <thead><tr><th>{% trans "Empresa" %}</th><th>{% trans "Plan" %}</th><th class="text-end">{% trans "Mensualidad" %}</th><th class="text-center">{% trans "Sucursales" %}</th><th class="text-center">{% trans "Reservas 30d" %}</th><th>{% trans "Pago" %}</th><th></th><th></th></tr></thead>
+      <tbody>
+      {% for f in filas %}
+        <tr>
+          <td><div class="d-flex align-items-center gap-2"><span class="brand-mark d-inline-grid text-white fw-bold" style="width:30px;height:30px;place-items:center;background:{{ f.e.color_primario }} !important">{{ f.e.nombre|slice:":1" }}</span><div><div class="fw-bold">{{ f.e.nombre }}</div><div class="small text-muted">{{ f.e.slug }}{% if not f.e.activa %} · {% trans "inactiva" %}{% endif %}</div></div></div></td>
+          <td>{{ f.e.get_plan_display }}</td>
+          <td class="text-end">${{ f.precio|intcomma }}</td>
+          <td class="text-center">{{ f.e.n_suc }}</td>
+          <td class="text-center">{{ f.e.n_res }}</td>
+          <td>{% if f.estado_pago == "al_dia" %}<span class="estado CONF">{% trans "Al día" %} · {{ f.e.pagado_hasta|date:"d/m" }}</span>{% elif f.estado_pago == "vencido" %}<span class="estado NOSH">{% trans "Vencido" %} {{ f.e.pagado_hasta|date:"d/m" }}</span>{% else %}<span class="estado CANC">{% trans "Sin registro" %}</span>{% endif %}</td>
+          <td><form method="post" action="{% url 'reservas:plataforma_pago' f.e.pk %}" class="d-flex gap-1">{% csrf_token %}
+            <select name="meses" class="form-select form-select-sm" style="width:auto" aria-label="{% trans 'Meses' %}"><option value="1">1 {% trans "mes" %}</option><option value="3">3</option><option value="6">6</option><option value="12">12</option></select>
+            <button class="btn btn-sm btn-soft text-nowrap">{% trans "Registrar pago" %}</button></form></td>
+          <td><button class="btn btn-sm btn-light text-nowrap" data-bs-toggle="collapse" data-bs-target="#sop-{{ f.e.pk }}"><i class="bi bi-life-preserver"></i> {% trans "Soporte" %}</button></td>
+        </tr>
+        <tr class="collapse" id="sop-{{ f.e.pk }}"><td colspan="8" style="background:var(--paper)">
+          <form method="post" action="{% url 'reservas:soporte_entrar' f.e.pk %}" class="d-flex flex-wrap gap-2 align-items-center">{% csrf_token %}
+            <i class="bi bi-shield-lock" style="color:var(--brand)"></i>
+            <span class="small">{% trans "Entrar a este restaurante por 60 min. El dueño verá la fecha, la hora y el motivo." %}</span>
+            <input name="motivo" class="form-control form-control-sm" style="max-width:340px" placeholder="{% trans 'Motivo (ej. el dueño pidió ayuda con sus horarios)' %}" required minlength="5" maxlength="300">
+            <button class="btn btn-sm btn-primary">{% trans "Entrar en modo soporte" %}</button>
+          </form>
+        </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card overflow-hidden">
+    <div class="p-3 border-bottom"><strong>{% trans "Prospectos de la página de ventas" %}</strong></div>
+    {% for p in prospectos %}
+      <div class="res-row" style="grid-template-columns: 1fr auto">
+        <div>
+          <div class="fw-bold">{{ p.restaurante }} <span class="text-muted fw-normal small">· {{ p.nombre }} · {{ p.ciudad|default:"—" }} · {{ p.sucursales }} {% trans "suc." %} · {{ p.creado|date:"j M H:i" }}</span></div>
+          <div class="small"><a href="https://wa.me/{{ p.telefono|cut:'+' }}" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> {{ p.telefono }}</a>{% if p.email %} · <a href="mailto:{{ p.email }}">{{ p.email }}</a>{% endif %}{% if p.mensaje %} · <span class="text-muted">“{{ p.mensaje|truncatechars:90 }}”</span>{% endif %}</div>
+        </div>
+        <form method="post" action="{% url 'reservas:plataforma_prospecto' p.pk %}">{% csrf_token %}
+          <select name="estado" class="form-select form-select-sm" data-autosubmit aria-label="{% trans 'Estado' %}">
+            {% for v, n in estados %}<option value="{{ v }}" {% if p.estado == v %}selected{% endif %}>{{ n }}</option>{% endfor %}
+          </select></form>
+      </div>
+    {% empty %}
+      <div class="empty-state"><i class="bi bi-inbox"></i>{% trans "Aún no hay prospectos. Comparte tu página de ventas." %}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

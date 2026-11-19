@@ -1,0 +1,158 @@
+/* ===============================
+   Estilos base POS / Orden modal
+   =============================== */
+
+/* Contenedor del modal de orden */
+#modalOrden .modal-dialog {
+  max-width: 1120px;      /* un poco más ancho */
+  margin: 1.75rem auto;
+}
+
+
+#modalOrden .modal-content.pos-modal {
+  border-radius: 20px;
+  border: 3px solid #198754;              /* verde Bootstrap = color botón success */
+  box-shadow: 0 24px 60px rgba(15,23,42,.32);
+  overflow: hidden;
+}
+
+/* opcional: un ligero halo verde muy suave alrededor */
+#modalOrden .modal-content.pos-modal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(25,135,84,0.25);
+  pointer-events: none;
+}
+
+
+/* Quitamos padding extra del body; lo controla orden_modal.html */
+#modalOrden .modal-body {
+  padding: 0;
+}
+
+/* Wrapper interno donde vive el contenido de la orden */
+.orden-modal {
+  background: var(--paper);
+  max-height: 72vh;
+  overflow-y: auto;
+}
+
+/* Opcional: cuando el template use .linea, .title, etc */
+.orden-modal .linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(15, 23, 42, 0.08);
+}
+.orden-modal .linea:last-child { border-bottom: none; }
+.orden-modal .title   { font-weight: 600; }
+.orden-modal .precio  { font-variant-numeric: tabular-nums; }
+.orden-modal .muted   { color: #6c757d; font-size: .9rem; }
+
+/* ==================================
+   Layout limpio dentro del POS modal
+   (formularios + carrito)
+   ================================== */
+
+.pos-modal {
+  background: #ffffff;
+}
+
+.pos-modal .card {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.pos-modal .card-header {
+  background: var(--paper);
+  border-bottom-color: rgba(148, 163, 184, 0.35);
+  font-weight: 600;
+}
+
+.pos-modal .card-body {
+  background-color: #ffffff;
+}
+
+.pos-modal .card-footer {
+  background: var(--paper);
+  border-top-color: rgba(148, 163, 184, 0.35);
+}
+
+/* Tablas del carrito / listado */
+.pos-modal table {
+  margin-bottom: 0;
+}
+
+.pos-modal table thead th {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-bottom-color: rgba(148, 163, 184, .45);
+}
+
+.pos-modal table tbody td {
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+
+.pos-modal table tfoot th,
+.pos-modal table tfoot td {
+  border-top-color: rgba(148, 163, 184, .55);
+}
+
+/* Totales al pie */
+.pos-modal .totales-label {
+  text-align: right;
+  font-weight: 500;
+  color: var(--muted);
+}
+.pos-modal .totales-monto {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Botones principales */
+.pos-modal .btn-success {
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.pos-modal .btn-outline-danger {
+  --bs-btn-color: #c0392b;
+  --bs-btn-border-color: #f1d5d2;
+}
+.pos-modal .btn-outline-danger:hover {
+  background: #f8e9e7;
+}
+
+/* Micro helpers */
+.shadow-xs { box-shadow: 0 4px 14px rgba(15, 23, 42, .08); }
+
+/* Estado ocupado del form agregar */
+#formAgregarItem .when-busy.d-none { display: none !important; }
+#formAgregarItem.is-busy .when-idle { display: none !important; }
+#formAgregarItem.is-busy .when-busy { display: inline-flex !important; }
+
+/* Editor inline del carrito */
+[data-item-editor] {
+  background: #fbfbfc;
+}
+[data-item-editor] .form-label {
+  font-weight: 600;
+}
+
+/* Para que no aparezca barra horizontal fea salvo que sea necesario */
+#ordenModalBody::-webkit-scrollbar {
+  width: 8px;
+}
+#ordenModalBody::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, .7);
+  border-radius: 999px;
+}
+#ordenModalBody::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Enlace de reservas" %} · {{ sucursal.nombre }}{% endblock %}
+
+{% block content %}
+<div style="max-width:760px" class="mx-auto">
+  <nav class="small mb-2"><a href="{% url 'reservas:empresa_config' %}">{% trans "Configuración" %}</a> / <span class="text-muted">{{ sucursal.nombre }}</span></nav>
+  <h1 class="h4">{% trans "Recibe reservas desde cualquier lugar" %}</h1>
+
+  <div class="card card-body shadow-sm mb-3">
+    <h2 class="h6">{% trans "1. Enlace directo" %}</h2>
+    <p class="small text-muted">{% trans "Ponlo en tu bio de Instagram, en el botón de WhatsApp Business o en tu perfil de Google (campo «Enlace para reservas»)." %}</p>
+    <input class="form-control" readonly value="{{ url }}" data-copy>
+    <a class="btn btn-sm btn-outline-primary mt-2" href="{{ url }}" target="_blank">{% trans "Abrir" %}</a>
+  </div>
+
+  {% if sucursal.empresa.agente_ia_activo %}
+  <div class="card card-body shadow-sm mb-3">
+    <h2 class="h6"><i class="bi bi-stars me-1"></i>{% trans "Chat con el asistente de IA" %}</h2>
+    <input class="form-control" readonly value="{{ request.scheme }}://{{ request.get_host }}{% url 'reservas:asistente_chat' sucursal.empresa.slug %}" data-copy>
+  </div>
+  {% endif %}
+
+  <div class="card card-body shadow-sm">
+    <h2 class="h6">{% trans "2. Insertar en tu página web" %}</h2>
+    <p class="small text-muted">{% trans "Copia este código y pégalo en tu sitio (WordPress, Wix, etc.)." %}</p>
+    <textarea class="form-control font-monospace small" rows="3" readonly data-copy>&lt;iframe src="{{ url_embed }}" style="width:100%;max-width:560px;height:900px;border:0" title="Reservar"&gt;&lt;/iframe&gt;</textarea>
+  </div>
+</div>
+{% endblock %}

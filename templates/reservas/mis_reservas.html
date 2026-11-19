@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Mis reservaciones" %}{% endblock %}
+{% block nav_bookings %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width:900px">
+  <div class="page-head">
+    <div><div class="text-muted small fw-semibold text-uppercase">{% trans "Tu cuenta" %}</div><h1>{% trans "Mis reservaciones" %}</h1></div>
+    <a class="btn btn-primary" href="{% url 'reservas:seleccionar_sucursal' %}"><i class="bi bi-plus-lg"></i> {% trans "Nueva reservación" %}</a>
+  </div>
+
+  <div class="section-head mt-0"><h2 class="h5" style="font-family:var(--font-ui);font-weight:800">{% trans "Próximas" %}</h2></div>
+  <div class="row g-3">
+    {% for r in proximas %}
+    <div class="col-md-6 reveal">
+      <div class="card p-3 h-100 lift">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+          <div>
+            <div class="small text-muted fw-semibold text-uppercase">{{ r.local_inicio|date:"l j \d\e F" }}</div>
+            <div class="display-font" style="font-size:2.2rem;line-height:1">{{ r.local_inicio|time:"H:i" }}</div>
+          </div>
+          <span class="estado {{ r.estado }}">{{ r.get_estado_display }}</span>
+        </div>
+        <div class="mt-2 fw-bold">{{ r.sucursal.nombre }}</div>
+        <div class="small text-muted">{{ r.num_personas }} {% trans "personas" %} · {% trans "Mesa" %} {{ r.mesa.numero }} · <code>{{ r.folio }}</code></div>
+        <div class="d-flex gap-2 mt-3">
+          <a class="btn btn-soft btn-sm flex-fill" href="{% url 'reservas:reserva_publica' r.token %}"><i class="bi bi-qr-code"></i> {% trans "Ver / cancelar" %}</a>
+          <a class="btn btn-light btn-sm" href="{% url 'reservas:reserva_ics' r.token %}" title="{% trans 'Agregar a mi calendario' %}"><i class="bi bi-calendar-plus"></i></a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12"><div class="card empty-state"><i class="bi bi-calendar2-heart"></i>{% trans "No tienes reservaciones próximas." %}
+      <div class="mt-2"><a class="btn btn-primary btn-sm" href="{% url 'reservas:seleccionar_sucursal' %}">{% trans "Reservar ahora" %}</a></div></div></div>
+    {% endfor %}
+  </div>
+
+  {% if pasadas %}
+  <div class="section-head"><h2 class="h5" style="font-family:var(--font-ui);font-weight:800">{% trans "Anteriores" %}</h2></div>
+  <div class="card overflow-hidden">
+    {% for r in pasadas %}
+      <div class="res-row" style="grid-template-columns: 110px 1fr auto">
+        <div><div class="fw-bold">{{ r.local_inicio|default:r.fecha|date:"j M Y" }}</div><div class="small text-muted">{{ r.local_inicio|default:r.fecha|time:"H:i" }}</div></div>
+        <div><div class="fw-semibold">{{ r.sucursal.nombre }}</div><div class="small text-muted">{{ r.num_personas }} {% trans "personas" %}</div></div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="estado {% if r.llego %}LLEGO{% else %}{{ r.estado }}{% endif %}">{% if r.llego %}{% trans "Asististe" %}{% else %}{{ r.get_estado_display }}{% endif %}</span>
+          {% if r.sucursal.slug %}<a class="btn btn-sm btn-light" href="{% url 'reservas:reservar_publico' r.sucursal.slug %}?party={{ r.num_personas }}" title="{% trans 'Volver a reservar' %}"><i class="bi bi-arrow-repeat"></i></a>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Meseros" %}{% if suc %} · {{ suc.nombre }}{% endif %}{% endblock %}
+{% block nav_meseros %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4" data-autorefresh="30">
+{% if sin_sucursal %}
+  <div class="card empty-state"><i class="bi bi-shop"></i>{% trans "Aún no tienes sucursal asignada. Pídele al gerente que te asigne una." %}</div>
+{% else %}
+  <div class="page-head">
+    <div>
+      <div class="text-muted small fw-semibold text-uppercase">{{ suc.nombre }}</div>
+      <h1><i class="bi bi-cup-hot" style="color:#2F9E62"></i> {% trans "Mis mesas" %}</h1>
+      <p class="text-muted mb-0">{% trans "Toca una mesa para tomar la orden. La pantalla se actualiza sola." %}</p>
+    </div>
+    {% if sucs|length > 1 %}
+    <form method="get"><select name="s" class="form-select" data-autosubmit aria-label="{% trans 'Sucursal' %}">
+      {% for s in sucs %}<option value="{{ s.pk }}" {% if s.pk == suc.pk %}selected{% endif %}>{{ s.nombre }}</option>{% endfor %}
+    </select></form>
+    {% endif %}
+  </div>
+
+  <div class="mesa-leyenda mb-3">
+    <span class="ml libre"><b>{{ cuenta.libre }}</b> {% trans "Libres" %}</span>
+    <span class="ml llega"><b>{{ cuenta.llega }}</b> {% trans "Por llegar" %}</span>
+    <span class="ml comiendo"><b>{{ cuenta.comiendo }}</b> {% trans "Comiendo" %}</span>
+    <span class="ml cuenta"><b>{{ cuenta.cuenta }}</b> {% trans "Pidieron la cuenta" %}</span>
+  </div>
+
+  <div class="mesa-grid">
+  {% for x in mesas %}
+    <div class="mesa-card {{ x.estado }}">
+      <a class="mesa-top" href="{% url 'reservas:mesa_panel_order' x.mesa.pk %}">
+        <span class="mesa-num">{{ x.mesa.numero }}</span>
+        <span class="mesa-estado">
+          {% if x.estado == "cuenta" %}<i class="bi bi-receipt"></i> {% trans "Pidió la cuenta" %}
+          {% elif x.estado == "comiendo" %}<i class="bi bi-egg-fried"></i> {% trans "Comiendo" %}
+          {% elif x.estado == "llega" %}<i class="bi bi-clock"></i> {% trans "Llega a las" %} {{ x.llega_hora|time:"H:i" }}
+          {% else %}<i class="bi bi-check-circle"></i> {% trans "Libre" %}{% endif %}
+        </span>
+        <span class="mesa-info">
+          <i class="bi bi-people"></i> {% if x.reserva %}{{ x.reserva.num_personas }}{% elif x.llega %}{{ x.llega.num_personas }}{% else %}{{ x.mesa.capacidad }}{% endif %}
+          {% if x.reserva %} · {{ x.reserva.min_sentados }} {% trans "min" %}{% endif %}
+          {% if x.orden and x.orden.status != "DRAFT" %} · <i class="bi bi-fire"></i> {{ x.orden_estado }}{% endif %}
+        </span>
+      </a>
+      <div class="mesa-acciones">
+        <a class="btn btn-lg btn-light w-100" href="{% url 'reservas:mesa_panel_order' x.mesa.pk %}"><i class="bi bi-pencil-square"></i> {% trans "Orden" %}</a>
+        {% if x.estado == "comiendo" %}
+        <form method="post" action="{% url 'reservas:panel_reserva_accion' x.reserva.pk 'cuenta' %}" class="w-100">{% csrf_token %}
+          <input type="hidden" name="next" value="meseros">
+          <button class="btn btn-lg btn-cuenta w-100"><i class="bi bi-receipt"></i> {% trans "Pidió la cuenta" %}</button></form>
+        {% endif %}
+        {% if x.estado == "comiendo" or x.estado == "cuenta" %}
+        <form method="post" action="{% url 'reservas:panel_reserva_accion' x.reserva.pk 'liberar' %}" class="w-100" data-confirm="{% trans '¿Ya se fueron? La mesa quedará libre.' %}">{% csrf_token %}
+          <input type="hidden" name="next" value="meseros">
+          <button class="btn btn-lg btn-libre w-100"><i class="bi bi-check2-all"></i> {% trans "Ya se fueron" %}</button></form>
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <div class="card empty-state"><i class="bi bi-grid"></i>{% trans "Esta sucursal aún no tiene mesas." %}</div>
+  {% endfor %}
+  </div>
+{% endif %}
+</div>
+{% endblock %}

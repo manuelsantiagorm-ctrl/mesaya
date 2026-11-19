@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Tu reserva" %} {{ r.folio }}{% endblock %}
+{% block body_class %}{% if embed %}embed-mode{% endif %}{% endblock %}
+
+{% block content %}
+<div class="reserva-shell">
+  <div class="card reserva-card">
+    <div class="reserva-head">
+      <small>{{ brand.nombre }} · {{ sucursal.nombre }}</small>
+      {% if r.estado == "CANC" %}
+        <h1 class="h4 m-0">{% trans "Reserva cancelada" %}</h1>
+      {% elif nueva %}
+        <h1 class="h4 m-0"><i class="bi bi-check-circle me-1"></i>{% trans "¡Reserva confirmada!" %}</h1>
+      {% else %}
+        <h1 class="h4 m-0">{% trans "Tu reserva" %}</h1>
+      {% endif %}
+    </div>
+    <div class="card-body p-4">
+      <div class="d-flex justify-content-between align-items-start mb-3">
+        <div>
+          <div class="fs-4 fw-semibold text-capitalize">{{ dt|date:"l j \d\e F" }}</div>
+          <div class="fs-5">{{ dt|time:"H:i" }} · {% blocktrans count n=r.num_personas %}{{ n }} persona{% plural %}{{ n }} personas{% endblocktrans %}</div>
+        </div>
+        <span class="badge estado-pill {% if r.estado == 'CANC' %}text-bg-secondary{% elif r.estado == 'NOSH' %}text-bg-warning{% else %}text-bg-success{% endif %}">{{ r.get_estado_display }}</span>
+      </div>
+
+      <dl class="row small mb-3">
+        <dt class="col-4 text-muted">{% trans "Folio" %}</dt><dd class="col-8 fw-semibold">{{ r.folio }}</dd>
+        <dt class="col-4 text-muted">{% trans "A nombre de" %}</dt><dd class="col-8">{{ r.nombre_contacto|default:r.cliente.nombre }}</dd>
+        {% if sucursal.direccion %}<dt class="col-4 text-muted">{% trans "Dirección" %}</dt><dd class="col-8">{{ sucursal.direccion }}</dd>{% endif %}
+        {% if r.notas %}<dt class="col-4 text-muted">{% trans "Notas" %}</dt><dd class="col-8">{{ r.notas }}</dd>{% endif %}
+      </dl>
+
+      {% if r.estado != "CANC" %}
+        <div class="qr-box text-center border rounded-3 p-3 mb-3">
+          <img src="{% url 'reservas:reserva_qr' r.token %}" alt="{% trans 'Código QR de tu reserva' %}">
+          <div class="small text-muted mt-2">{% trans "Muestra este código al llegar." %}</div>
+        </div>
+        <div class="d-grid gap-2">
+          <a class="btn btn-outline-primary" href="{% url 'reservas:reserva_ics' r.token %}"><i class="bi bi-calendar-plus me-1"></i>{% trans "Agregar a mi calendario" %}</a>
+          {% if maps_url %}<a class="btn btn-outline-primary" href="{{ maps_url }}" target="_blank" rel="noopener"><i class="bi bi-signpost-split me-1"></i>{% trans "Cómo llegar" %}</a>{% endif %}
+          {% if sucursal.telefono %}<a class="btn btn-outline-secondary" href="tel:{{ sucursal.telefono }}"><i class="bi bi-telephone me-1"></i>{% trans "Llamar a la sucursal" %}</a>{% endif %}
+        </div>
+        {% if puede_cancelar %}
+          <form method="post" action="{% url 'reservas:reserva_publica_cancelar' r.token %}" class="mt-4 text-center" data-confirm="{% trans '¿Seguro que quieres cancelar tu reserva?' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link text-danger">{% trans "Cancelar mi reserva" %}</button>
+          </form>
+        {% endif %}
+      {% else %}
+        <a class="btn btn-primary w-100" href="{% url 'reservas:reservar_publico' sucursal.slug %}">{% trans "Hacer una nueva reserva" %}</a>
+      {% endif %}
+      <p class="small text-muted text-center mt-3 mb-0">{% trans "Guarda este enlace: con él puedes consultar o cancelar tu reserva." %}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

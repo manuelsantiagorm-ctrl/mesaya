@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="d-flex gap-2 mt-2">
+  {% if wizard.steps.prev %}
+    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-light" formnovalidate>
+      <i class="bi bi-arrow-left"></i> {% trans "Atrás" %}</button>
+  {% endif %}
+  <button type="submit" class="btn btn-primary flex-grow-1">{% trans "Continuar" %} <i class="bi bi-arrow-right"></i></button>
+</div>
+{% if cancel_url %}<div class="text-center mt-3"><a href="{{ cancel_url }}" class="small text-muted">{% trans "Cancelar" %}</a></div>{% endif %}

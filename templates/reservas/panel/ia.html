@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "IA de tu sucursal" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+{% if sin_sucursal %}
+  <div class="card empty-state"><i class="bi bi-stars"></i>{% trans "Aún no tienes sucursales." %}</div>
+{% else %}
+  <div class="page-head">
+    <div>
+      <div class="text-muted small fw-semibold text-uppercase"><i class="bi bi-stars"></i> {% trans "Inteligencia de" %} {{ suc.nombre }}</div>
+      <h1>{% trans "Lo que la IA aprendió de tu sucursal" %}</h1>
+      <div class="small text-muted">{% trans "Versión" %} {{ perfil.version }} · {% trans "actualizado" %} {{ perfil.calculado_en|date:"j M, H:i" }} · {% trans "se recalcula sola cada noche" %}</div>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      {% if sucs|length > 1 %}
+      <form method="get"><select name="s" class="form-select" data-autosubmit aria-label="{% trans 'Sucursal' %}">
+        {% for s in sucs %}<option value="{{ s.pk }}" {% if s.pk == suc.pk %}selected{% endif %}>{{ s.nombre }}</option>{% endfor %}
+      </select></form>
+      {% endif %}
+      {% if puede_editar %}
+      <a class="btn btn-primary" href="{% url 'reservas:asistente_alta' %}?s={{ suc.pk }}"><i class="bi bi-magic"></i> {% if perfil.prior_dueno %}{% trans "Ajustar respuestas" %}{% else %}{% trans "Configurar con la IA" %}{% endif %}</a>
+      <form method="post">{% csrf_token %}<input type="hidden" name="s" value="{{ suc.pk }}"><input type="hidden" name="accion" value="recalcular">
+        <button class="btn btn-soft"><i class="bi bi-arrow-repeat"></i> {% trans "Recalcular ahora" %}</button></form>
+      {% endif %}
+    </div>
+  </div>
+
+  {# KPIs #}
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-lg-3 reveal"><div class="kpi accent"><div class="lbl">{% trans "Mesas analizadas" %}</div><div class="val" data-count="{{ perfil.muestras }}">{{ perfil.muestras }}</div><div class="sub">{{ met.reservas_analizadas }} {% trans "reservas en total" %}</div></div></div>
+    <div class="col-6 col-lg-3 reveal reveal-d1"><div class="kpi"><div class="lbl">{% trans "Precisión vs. tiempo fijo" %}</div>
+      <div class="val">{% if mejora is not None %}{% if mejora >= 0 %}+{% endif %}<span data-count="{{ mejora }}">{{ mejora }}</span>%{% else %}—{% endif %}</div>
+      <div class="sub">{% if met.error_fijo_min %}{% trans "error" %} {{ met.error_fijo_min }} → {{ met.error_ia_min }} {% trans "min por mesa" %}{% else %}{% trans "necesita mesas liberadas" %}{% endif %}</div></div></div>
+    <div class="col-6 col-lg-3 reveal reveal-d2"><div class="kpi"><div class="lbl">{% trans "No-show histórico" %}</div><div class="val">{{ met.no_show_pct }}%</div><div class="sub">{% trans "riesgo por reserva en el panel Hoy" %}</div></div></div>
+    <div class="col-6 col-lg-3 reveal reveal-d3"><div class="kpi"><div class="lbl">{% trans "Sugerencias" %}</div><div class="val">{{ perfil.sugerencias|length }}</div><div class="sub">{% trans "para ganar mesas o evitar esperas" %}</div></div></div>
+  </div>
+
+  {# Interruptor #}
+  <div class="card p-3 mb-3 d-flex flex-row flex-wrap align-items-center gap-3 reveal">
+    <div class="tf-ico" style="width:46px;height:46px;font-size:1.3rem"><i class="bi bi-cpu"></i></div>
+    <div class="flex-grow-1">
+      <strong>{% if perfil.usar_aprendizaje %}{% trans "Las reservas usan los tiempos aprendidos" %}{% else %}{% trans "Las reservas usan los tiempos fijos que configuraste" %}{% endif %}</strong>
+      <div class="small text-muted">{% trans "Al activarlo, cada horario se calcula con lo que realmente tarda una mesa en esta sucursal según día, hora y tamaño del grupo (con límites de seguridad: cambia máximo 10 % por día, entre 20 y 240 min)." %}</div>
+    </div>
+    {% if puede_editar %}
+    <form method="post">{% csrf_token %}<input type="hidden" name="s" value="{{ suc.pk }}">
+      {% if perfil.usar_aprendizaje %}<input type="hidden" name="accion" value="desactivar"><button class="btn btn-light">{% trans "Volver a tiempos fijos" %}</button>
+      {% else %}<input type="hidden" name="accion" value="activar"><button class="btn btn-primary"><i class="bi bi-lightning-charge"></i> {% trans "Usar lo aprendido" %}</button>{% endif %}
+    </form>
+    {% endif %}
+  </div>
+
+  <div class="row g-3">
+    {# Sugerencias #}
+    <div class="col-lg-5">
+      <div class="card p-3 h-100 reveal">
+        <strong class="mb-2"><i class="bi bi-lightbulb me-1" style="color:var(--warn)"></i>{% trans "Sugerencias de la IA" %}</strong>
+        {% for s in sugerencias %}
+          <div class="py-2 border-top">
+            <div class="fw-semibold">{% if s.nivel == "riesgo" %}<i class="bi bi-exclamation-triangle" style="color:var(--bad)"></i>{% else %}<i class="bi bi-graph-up-arrow" style="color:var(--ok)"></i>{% endif %} {{ s.titulo }}</div>
+            <div class="small text-muted">{{ s.detalle }}</div>
+          </div>
+        {% empty %}
+          <div class="empty-state py-3"><i class="bi bi-check2-circle"></i>{% trans "Todo en orden: tus tiempos coinciden con la realidad." %}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Riesgo de no-show #}
+    <div class="col-lg-7">
+      <div class="card p-3 h-100 reveal reveal-d1">
+        <strong>{% trans "¿Quién falta más? (aprendido de tus reservas)" %}</strong>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <div class="small text-muted mb-1">{% trans "Según cuántos días antes reservan" %}</div>
+            {% for x in riesgo_ant %}
+              <div class="d-flex align-items-center gap-2 mb-2"><div style="width:80px" class="small fw-semibold">{{ x.k }}</div>
+                <div class="flex-grow-1 rounded-pill" style="background:var(--paper);height:10px"><div class="rounded-pill" style="height:10px;width:{% widthratio x.pct 40 100 %}%;max-width:100%;background:var(--brand)"></div></div>
+                <div class="small" style="width:46px;text-align:right">{{ x.pct }}%</div></div>
+            {% empty %}<div class="small text-muted">{% trans "Aún sin datos." %}</div>{% endfor %}
+          </div>
+          <div class="col-md-6">
+            <div class="small text-muted mb-1">{% trans "Según por dónde reservan" %}</div>
+            {% for x in riesgo_org %}
+              <div class="d-flex align-items-center gap-2 mb-2"><div style="width:80px" class="small fw-semibold text-capitalize">{{ x.k }}</div>
+                <div class="flex-grow-1 rounded-pill" style="background:var(--paper);height:10px"><div class="rounded-pill" style="height:10px;width:{% widthratio x.pct 40 100 %}%;max-width:100%;background:var(--brand-2)"></div></div>
+                <div class="small" style="width:46px;text-align:right">{{ x.pct }}%</div></div>
+            {% empty %}<div class="small text-muted">{% trans "Aún sin datos." %}</div>{% endfor %}
+          </div>
+        </div>
+        <div class="small text-muted mt-2"><i class="bi bi-info-circle"></i> {% trans "Con esto el panel Hoy marca cada reserva con su riesgo y la IA puede pedir confirmación a las más riesgosas." %}</div>
+      </div>
+    </div>
+
+    {# Duraciones #}
+    <div class="col-12">
+      <div class="card p-3 reveal">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+          <strong>{% trans "Cuánto dura realmente una mesa (minutos)" %}</strong>
+          <ul class="nav nav-pills small" role="tablist">
+            {% for tb in tablas %}<li class="nav-item"><button class="nav-link py-1 {% if forloop.first %}active{% endif %}" data-bs-toggle="pill" data-bs-target="#dur-{{ tb.clave }}" type="button" role="tab">{{ tb.nombre }}</button></li>{% endfor %}
+          </ul>
+        </div>
+        <div class="tab-content">
+          {% for tb in tablas %}
+          <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="dur-{{ tb.clave }}" role="tabpanel">
+            <div class="table-responsive"><table class="table align-middle mb-0 dur-table">
+              <thead><tr><th></th>{% for g, gn in grupos %}<th class="text-center">{{ gn }} {% trans "pers." %}</th>{% endfor %}</tr></thead>
+              <tbody>{% for f in tb.filas %}<tr><th class="fw-semibold">{{ f.franja }}</th>
+                {% for c in f.celdas %}<td class="text-center">
+                  <div class="fw-bold fs-5">{{ c.mostrar|default:"—" }}</div>
+                  <div class="small {% if c.delta < -4 %}text-success{% elif c.delta > 4 %}text-danger{% else %}text-muted{% endif %}">
+                    {% trans "config." %} {{ c.prior }}{% if c.n %} · {{ c.n }} {% trans "mesas" %}{% endif %}</div>
+                </td>{% endfor %}</tr>{% endfor %}</tbody>
+            </table></div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="small text-muted mt-2">{% trans "Grande: lo que la IA estima hoy. Abajo: lo que tenías configurado y cuántas mesas reales lo respaldan. Con pocas mesas pesa más tu configuración; con muchas, la realidad." %}</div>
+      </div>
+    </div>
+
+    {# Demanda #}
+    <div class="col-12">
+      <div class="card p-3 reveal">
+        <strong>{% trans "¿Cuándo se llena? Personas promedio por semana" %}</strong>
+        <div class="table-responsive mt-2"><table class="heat">
+          <thead><tr><th></th>{% for h in horas %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+          <tbody>{% for fila in calor %}<tr><th>{{ fila.dia }}</th>{% for c in fila.celdas %}<td title="{{ c.v }}"><span style="opacity:{% if c.pct %}{% widthratio c.pct 100 1 %}{% else %}0{% endif %}"></span><i style="--p:{{ c.pct }}"></i></td>{% endfor %}</tr>{% endfor %}</tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Reglas de reservación" %} · {{ sucursal.nombre }}{% endblock %}
+
+{% block content %}
+<div style="max-width:760px" class="mx-auto">
+  <nav class="small mb-2"><a href="{% url 'reservas:empresa_config' %}">{% trans "Configuración" %}</a> / <span class="text-muted">{{ sucursal.nombre }}</span></nav>
+  <h1 class="h4">{% trans "Reglas de reservación" %}</h1>
+  <p class="text-muted small">{% trans "Deja un campo vacío para usar el valor estándar (se muestra en gris)." %}</p>
+  <form method="post" class="card card-body shadow-sm">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+    <div class="row g-3">
+      {% for f in form %}
+        {% if f.name == "activo" %}
+          <div class="col-12"><div class="form-check">{{ f }} <label class="form-check-label" for="{{ f.id_for_label }}">{{ f.label }}</label></div></div>
+        {% else %}
+          <div class="col-md-6">
+            <label class="form-label small">{{ f.label }}</label>{{ f }}
+            {% for e in f.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="d-flex gap-2 mt-3">
+      <a class="btn btn-outline-secondary" href="{% url 'reservas:empresa_config' %}">{% trans "Volver" %}</a>
+      <button class="btn btn-primary">{% trans "Guardar" %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

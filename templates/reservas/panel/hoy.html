@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Hoy" %} · {{ suc.nombre }}{% endblock %}
+{% block nav_recepcion %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+{% if sin_sucursal %}
+  <div class="card empty-state"><i class="bi bi-shop"></i>{% trans "Aún no tienes sucursales asignadas." %}</div>
+{% else %}
+  <div class="page-head">
+    <div>
+      <div class="text-muted small fw-semibold text-uppercase">{{ dia|date:"l j \d\e F" }} · {{ ahora|time:"H:i" }}</div>
+      <h1>{% trans "Hoy en" %} {{ suc.nombre }}</h1>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      {% if sucs|length > 1 %}
+      <form method="get"><select name="s" class="form-select" data-autosubmit aria-label="{% trans 'Sucursal' %}">
+        {% for s in sucs %}<option value="{{ s.pk }}" {% if s.pk == suc.pk %}selected{% endif %}>{{ s.nombre }}</option>{% endfor %}
+      </select></form>
+      {% endif %}
+      {% if "sucursal" in mis_areas %}<a class="btn btn-soft" href="{% url 'reservas:admin_mapa_sucursal' suc.pk %}"><i class="bi bi-grid-3x3-gap"></i> {% trans "Mapa" %}</a>{% endif %}
+      <a class="btn btn-primary" href="{% url 'reservas:admin_walkin_reserva' %}"><i class="bi bi-person-plus"></i> {% trans "Walk-in" %}</a>
+    </div>
+  </div>
+
+  {# KPIs #}
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-lg-3 reveal"><div class="kpi accent"><div class="lbl">{% trans "Reservas hoy" %}</div><div class="val" data-count="{{ kpi.reservas }}">{{ kpi.reservas }}</div><div class="sub">{{ kpi.personas }} {% trans "personas" %}{% if kpi.ia %} · {{ kpi.ia }} {% trans "por IA" %}{% endif %}</div></div></div>
+    <div class="col-6 col-lg-3 reveal reveal-d1"><div class="kpi"><div class="lbl">{% trans "Ya llegaron" %}</div><div class="val" data-count="{{ kpi.llegaron }}">{{ kpi.llegaron }}</div><div class="sub">{{ kpi.por_llegar }} {% trans "por llegar" %}{% if kpi.retrasadas %} · <span style="color:var(--bad)">{{ kpi.retrasadas }} {% trans "con retraso" %}</span>{% endif %}</div></div></div>
+    <div class="col-6 col-lg-3 reveal reveal-d2"><div class="kpi"><div class="lbl">{% trans "Mesas libres" %}</div><div class="val">{{ kpi.mesas_libres }}<span class="fs-6 text-muted">/{{ kpi.mesas }}</span></div><div class="sub">{% trans "en este momento" %}</div></div></div>
+    <div class="col-6 col-lg-3 reveal reveal-d3"><div class="kpi"><div class="lbl">{% trans "Lista de espera" %}</div><div class="val" data-count="{{ kpi.espera }}">{{ kpi.espera }}</div><div class="sub">{% trans "grupos esperando" %}</div></div></div>
+  </div>
+
+  {% if alertas_piso %}
+  <div class="card ia-alert mb-3 reveal">
+    <div class="d-flex align-items-center gap-2 mb-2">
+      <span class="ia-dot"></span><strong>{% trans "La IA de piso detectó mesas que no se van a liberar a tiempo" %}</strong>
+      <form method="post" action="{% url 'reservas:panel_vigilar' %}" class="ms-auto">{% csrf_token %}<input type="hidden" name="s" value="{{ suc.pk }}">
+        <button class="btn btn-sm btn-primary"><i class="bi bi-magic"></i> {% trans "Resolver todo" %}</button></form>
+    </div>
+    {% for a in alertas_piso %}
+    <div class="d-flex flex-wrap align-items-center gap-2 py-2 border-top">
+      <div class="flex-grow-1">
+        <strong>{{ a.reserva.local_inicio|time:"H:i" }} · {{ a.reserva.nombre_contacto|default:a.reserva.cliente.nombre }}</strong>
+        <span class="text-muted small">({{ a.reserva.num_personas }} pers.) {% trans "tiene la mesa" %} {{ a.reserva.mesa.numero }},
+          {% trans "pero sigue ocupada; se libera ~" %}{{ a.ocupada_por.salida_est|time:"H:i" }} (+{{ a.retraso_min }} min).</span>
+      </div>
+      {% if a.alternativa %}
+        <form method="post" action="{% url 'reservas:panel_reserva_accion' a.reserva.pk 'reacomodar' %}">{% csrf_token %}
+          <button class="btn btn-sm btn-soft"><i class="bi bi-arrow-left-right"></i> {% trans "Pasar a mesa" %} {{ a.alternativa.numero }}{% if a.alternativa.zona != a.reserva.mesa.zona %} ({{ a.alternativa.get_zona_display|lower }}){% endif %}</button></form>
+      {% else %}
+        <span class="estado NOSH">{% trans "Sin mesa alterna: avisar al cliente" %}</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="row g-3">
+    <div class="col-lg-8">
+      {# Mesas ocupadas ahora #}
+      {% if en_mesa %}
+      <div class="card overflow-hidden mb-3 reveal">
+        <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+          <strong><i class="bi bi-cup-hot me-1" style="color:var(--brand)"></i>{% trans "En mesa ahora" %}</strong>
+          <span class="small text-muted">{% if perfil and perfil.muestras %}<i class="bi bi-stars"></i> {% trans "Salida estimada con lo aprendido de esta sucursal" %}{% else %}{% trans "Salida estimada" %}{% endif %}</span>
+        </div>
+        {% for r in en_mesa %}
+        <div class="res-row">
+          <div class="hora">{% trans "M" %}{{ r.mesa.numero }}</div>
+          <div>
+            <div class="fw-bold">{{ r.nombre_contacto|default:r.cliente.nombre }} <span class="text-muted fw-normal small">· {{ r.num_personas }} <i class="bi bi-people"></i> · {{ r.min_sentados }} min</span></div>
+            <div class="small">
+              {% if r.cuenta_pedida_en %}<span class="estado CONF">{% trans "Pidió la cuenta" %}</span>
+              {% elif r.excedida_min %}<span class="estado NOSH">{% trans "Excedida" %} {{ r.excedida_min }} min</span>
+              {% else %}<span class="estado LLEGO">{% trans "Comiendo" %}</span>{% endif %}
+              <span class="text-muted ms-1">{% trans "se libera ~" %}{{ r.salida_est|time:"H:i" }}</span>
+            </div>
+          </div>
+          <div class="d-flex gap-1">
+            {% if not r.cuenta_pedida_en %}<form method="post" action="{% url 'reservas:panel_reserva_accion' r.pk 'cuenta' %}">{% csrf_token %}<button class="btn btn-sm btn-soft" title="{% trans 'Pidió la cuenta' %}"><i class="bi bi-receipt"></i><span class="d-none d-md-inline"> {% trans "Cuenta" %}</span></button></form>{% endif %}
+            <form method="post" action="{% url 'reservas:panel_reserva_accion' r.pk 'liberar' %}">{% csrf_token %}<button class="btn btn-sm btn-ink" title="{% trans 'Se fueron: liberar mesa' %}"><i class="bi bi-door-open"></i><span class="d-none d-md-inline"> {% trans "Liberar" %}</span></button></form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {# Línea de tiempo #}
+      <div class="card p-3 mb-3 reveal">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <strong>{% trans "Personas esperadas por hora" %}</strong>
+          {% if proxima %}<span class="pill"><i class="bi bi-bell"></i> {% trans "Próxima:" %} {{ proxima.local_inicio|time:"H:i" }} · {{ proxima.nombre_contacto|default:proxima.cliente.nombre|truncatechars:18 }}</span>{% endif %}
+        </div>
+        <div class="timeline">{% for t in timeline %}<div class="bar {% if t.now %}now{% endif %}" style="height:{% if t.pct %}{{ t.pct }}{% else %}3{% endif %}%">{% if t.n %}<span>{{ t.n }}</span>{% endif %}</div>{% endfor %}</div>
+        <div class="timeline-labels">{% for t in timeline %}<div>{{ t.h }}h</div>{% endfor %}</div>
+      </div>
+
+      {# Lista de reservas #}
+      <div class="card overflow-hidden reveal">
+        <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+          <strong>{% trans "Reservaciones del día" %}</strong>
+          <a class="small fw-semibold text-decoration-none" href="{% url 'reservas:admin_dashboard' %}">{% trans "Vista detallada" %} <i class="bi bi-arrow-right"></i></a>
+        </div>
+        {% for r in reservas %}
+        <div class="res-row">
+          <div class="hora">{{ r.hora_local|time:"H:i"|default:"—" }}</div>
+          <div>
+            <div class="fw-bold">{{ r.nombre_contacto|default:r.cliente.nombre }}
+              <span class="text-muted fw-normal small">· {{ r.num_personas }} <i class="bi bi-people"></i> · {% trans "Mesa" %} {{ r.mesa.numero }}</span>
+              {% if r.origen == "ia" %}<span class="pill ms-1" title="{% trans 'Reservó con el asistente IA' %}"><i class="bi bi-stars"></i> IA</span>{% endif %}
+              {% if r.riesgo and r.riesgo >= 0.2 %}<span class="estado NOSH ms-1" title="{% trans 'Probabilidad estimada de que no llegue, según el historial de esta sucursal' %}"><i class="bi bi-exclamation-triangle"></i> {% widthratio r.riesgo 1 100 %}% {% trans "riesgo" %}</span>
+              {% elif r.riesgo and r.riesgo >= 0.1 %}<span class="estado PEND ms-1" title="{% trans 'Probabilidad estimada de que no llegue' %}">{% widthratio r.riesgo 1 100 %}% {% trans "riesgo" %}</span>{% endif %}
+            </div>
+            <div class="small text-muted">
+              {% if r.llego %}<span class="estado LLEGO">{% trans "En mesa" %}</span>
+              {% elif r.retrasada %}<span class="estado NOSH">{% trans "Retrasada" %}</span>
+              {% else %}<span class="estado {{ r.estado }}">{{ r.get_estado_display }}</span>{% endif %}
+              {% if r.telefono_contacto %}<a class="ms-2 text-decoration-none" href="tel:{{ r.telefono_contacto }}"><i class="bi bi-telephone"></i> {{ r.telefono_contacto }}</a>{% endif %}
+              {% if r.notas %}<span class="ms-2"><i class="bi bi-chat-left-text"></i> {{ r.notas|truncatechars:50 }}</span>{% endif %}
+            </div>
+          </div>
+          <div class="d-flex gap-1">
+            {% if r.estado == "PEND" or r.estado == "CONF" %}{% if not r.llego %}
+              <form method="post" action="{% url 'reservas:panel_reserva_accion' r.pk 'llego' %}">{% csrf_token %}<button class="btn btn-sm btn-primary" title="{% trans 'Marcar llegada' %}"><i class="bi bi-check2"></i><span class="d-none d-md-inline"> {% trans "Llegó" %}</span></button></form>
+              <div class="dropdown"><button class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="{% trans 'Más acciones' %}"><i class="bi bi-three-dots"></i></button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  {% if r.estado == "PEND" %}<li><form method="post" action="{% url 'reservas:panel_reserva_accion' r.pk 'confirmar' %}">{% csrf_token %}<button class="dropdown-item"><i class="bi bi-check2-circle me-2"></i>{% trans "Confirmar" %}</button></form></li>{% endif %}
+                  <li><form method="post" action="{% url 'reservas:panel_reserva_accion' r.pk 'noshow' %}">{% csrf_token %}<button class="dropdown-item" data-confirm="{% trans '¿Marcar como no-show y liberar la mesa?' %}"><i class="bi bi-person-x me-2"></i>{% trans "No llegó" %}</button></form></li>
+                  <li><form method="post" action="{% url 'reservas:panel_reserva_accion' r.pk 'cancelar' %}">{% csrf_token %}<button class="dropdown-item text-danger" data-confirm="{% trans '¿Cancelar esta reserva? Se avisará al cliente.' %}"><i class="bi bi-x-circle me-2"></i>{% trans "Cancelar" %}</button></form></li>
+                </ul></div>
+            {% endif %}{% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <div class="empty-state"><i class="bi bi-calendar2-heart"></i>{% trans "Sin reservaciones para hoy todavía." %}
+          {% if slots_libres %}<div class="mt-2 small">{% trans "Horarios libres:" %} {{ slots_libres|join:" · " }}</div>{% endif %}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Lista de espera #}
+    <div class="col-lg-4">
+      <div class="card p-3 reveal reveal-d1">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <strong><i class="bi bi-hourglass-split me-1" style="color:var(--brand)"></i>{% trans "Lista de espera" %}</strong>
+          <span class="badge text-bg-primary">{{ kpi.espera }}</span>
+        </div>
+        <form method="post" action="{% url 'reservas:espera_agregar' %}" class="row g-2 mb-3">
+          {% csrf_token %}<input type="hidden" name="s" value="{{ suc.pk }}">
+          <div class="col-12"><input name="nombre" class="form-control" placeholder="{% trans 'Nombre' %}" required maxlength="120"></div>
+          <div class="col-7"><input name="telefono" class="form-control" placeholder="{% trans 'WhatsApp (opcional)' %}" inputmode="tel" maxlength="30"></div>
+          <div class="col-5"><input name="personas" type="number" min="1" max="30" value="2" class="form-control" aria-label="{% trans 'Personas' %}"></div>
+          <div class="col-7"><select name="espera" class="form-select" aria-label="{% trans 'Espera estimada' %}">
+            <option value="10">~10 min</option><option value="15" selected>~15 min</option><option value="20">~20 min</option><option value="30">~30 min</option><option value="45">~45 min</option><option value="60">~1 h</option></select></div>
+          <div class="col-5"><button class="btn btn-ink w-100"><i class="bi bi-plus-lg"></i> {% trans "Agregar" %}</button></div>
+        </form>
+        {% for e in espera %}
+        <div class="d-flex align-items-center gap-2 py-2 border-top pop">
+          <div class="flex-grow-1">
+            <div class="fw-bold">{{ e.nombre }} <span class="text-muted fw-normal small">· {{ e.personas }} <i class="bi bi-people"></i></span></div>
+            <div class="small text-muted">{% blocktrans with m=e.minutos_esperando %}Esperando {{ m }} min{% endblocktrans %} · ~{{ e.espera_estimada_min }}
+              {% if e.estado == "avisado" %}<span class="estado CONF ms-1">{% trans "Avisado" %}</span>{% endif %}</div>
+          </div>
+          <form method="post" action="{% url 'reservas:espera_accion' e.pk 'avisar' %}">{% csrf_token %}<button class="btn btn-sm btn-soft" title="{% trans 'Avisar que su mesa está lista' %}"><i class="bi bi-whatsapp"></i></button></form>
+          <form method="post" action="{% url 'reservas:espera_accion' e.pk 'sentar' %}">{% csrf_token %}<button class="btn btn-sm btn-primary" title="{% trans 'Sentar' %}"><i class="bi bi-check2"></i></button></form>
+          <form method="post" action="{% url 'reservas:espera_accion' e.pk 'quitar' %}">{% csrf_token %}<button class="btn btn-sm btn-light" title="{% trans 'Se fue' %}"><i class="bi bi-x"></i></button></form>
+        </div>
+        {% empty %}
+        <div class="empty-state py-3"><i class="bi bi-emoji-smile"></i>{% trans "Nadie esperando." %}</div>
+        {% endfor %}
+      </div>
+
+      {% if slots_libres %}
+      <div class="card p-3 mt-3 reveal reveal-d2">
+        <strong class="mb-2">{% trans "Horarios libres hoy (2 pers.)" %}</strong>
+        <div class="d-flex flex-wrap gap-2 mt-2">{% for h in slots_libres %}<span class="slot-chip">{{ h }}</span>{% endfor %}</div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+</div>
+{% endblock %}

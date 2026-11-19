@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mesaya">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF6B3D"/><stop offset="1" stop-color="#E4572E"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#g)"/>
+  <!-- plato visto desde arriba = mesa -->
+  <circle cx="30" cy="35" r="17" fill="none" stroke="#fff" stroke-width="4"/>
+  <circle cx="30" cy="35" r="8" fill="#fff" opacity=".9"/>
+  <!-- chispa de IA -->
+  <path d="M49 9 L51.6 16.4 L59 19 L51.6 21.6 L49 29 L46.4 21.6 L39 19 L46.4 16.4 Z" fill="#FFE8A3"/>
+</svg>

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Asistente IA" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div>
+    <h1 class="h4 m-0"><i class="bi bi-stars me-1"></i>{% trans "Asistente de IA" %}</h1>
+    <div class="small text-muted">
+      {% if empresa.agente_ia_activo %}<span class="badge text-bg-success">{% trans "Activo" %}</span>{% else %}<span class="badge text-bg-secondary">{% trans "Apagado" %}</span>{% endif %}
+      · {{ empresa.get_agente_ia_modo_display }}
+      {% if not ia_configurada %} · <span class="text-danger">{% trans "Falta la clave de la API en el servidor" %}</span>{% endif %}
+    </div>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'reservas:empresa_config' %}"><i class="bi bi-toggle-on me-1"></i>{% trans "Prender / apagar" %}</a>
+    {% if empresa.agente_ia_activo %}<a class="btn btn-sm btn-outline-primary" target="_blank" href="{% url 'reservas:asistente_chat' empresa.slug %}">{% trans "Probar chat" %}</a>{% endif %}
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="d-flex gap-2 mb-2 small">
+      <a href="?" class="{% if not request.GET.humano %}fw-semibold{% endif %}">{% trans "Todas" %}</a>
+      <a href="?humano=1" class="{% if request.GET.humano %}fw-semibold{% endif %}">{% trans "Necesitan a una persona" %}</a>
+    </div>
+    <div class="list-group shadow-sm">
+      {% for c in conversaciones %}
+        <a href="?id={{ c.id }}{% if request.GET.humano %}&humano=1{% endif %}" class="list-group-item list-group-item-action {% if sel and sel.id == c.id %}active{% endif %}">
+          <div class="d-flex justify-content-between">
+            <span><i class="bi {% if c.canal == 'whatsapp' %}bi-whatsapp{% else %}bi-globe{% endif %} me-1"></i>{{ c.nombre|default:c.contacto }}</span>
+            <small>{{ c.actualizado|date:"d/M H:i" }}</small>
+          </div>
+          <div class="small">
+            {% if c.requiere_humano %}<span class="badge text-bg-warning">{% trans "Atender" %}</span>{% endif %}
+            {% for r in c.reservas.all %}<span class="badge text-bg-light">{{ r.folio }}</span>{% endfor %}
+          </div>
+        </a>
+      {% empty %}
+        <div class="list-group-item text-muted">{% trans "Aún no hay conversaciones." %}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-7">
+    {% if sel %}
+      <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{ sel.get_canal_display }} · {{ sel.contacto }}</span>
+          {% if sel.requiere_humano %}<a class="btn btn-sm btn-warning" href="?id={{ sel.id }}&atendida=1">{% trans "Marcar como atendida" %}</a>{% endif %}
+        </div>
+        <div class="chat-log" style="max-height:60vh">
+          {% for rol, texto in sel.transcript %}
+            <div class="chat-msg {% if rol == 'user' %}user{% else %}bot{% endif %}">{{ texto|linebreaksbr }}</div>
+          {% endfor %}
+        </div>
+        <div class="card-footer small text-muted">
+          {% blocktrans with a=sel.tokens_entrada b=sel.tokens_salida %}Uso: {{ a }} tokens de entrada, {{ b }} de salida.{% endblocktrans %}
+        </div>
+      </div>
+    {% else %}
+      <div class="text-muted small">{% trans "Elige una conversación para ver el detalle." %}</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

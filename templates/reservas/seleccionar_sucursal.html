@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Encuentra tu mesa" %}{% endblock %}
+{% block nav_book %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  {# ====== Buscador ====== #}
+  <section class="hero-brand mb-4" style="padding:clamp(1.5rem,4vw,2.5rem)">
+    <span class="blob" style="width:200px;height:200px;right:-40px;top:-60px;background:var(--brand)"></span>
+    <div class="position-relative">
+      <h1 class="mb-1" style="font-size:clamp(1.8rem,3.6vw,2.6rem)">{% trans "Encuentra tu mesa" %}</h1>
+      <p class="lead mb-3">{% trans "Solo te mostramos horarios con mesa disponible de verdad." %}</p>
+      <form class="quickbook" method="get" action="{% url 'reservas:seleccionar_sucursal' %}">
+        <div class="row g-2 align-items-end">
+          <div class="col-6 col-lg-2">
+            <label class="form-label small mb-1" for="f-date">{% trans "Fecha" %}</label>
+            <input id="f-date" type="date" name="date" value="{{ date }}" class="form-control">
+          </div>
+          <div class="col-6 col-lg-2">
+            <label class="form-label small mb-1" for="f-time">{% trans "Hora" %}</label>
+            <input id="f-time" type="time" name="time" value="{{ time }}" step="900" class="form-control">
+          </div>
+          <div class="col-6 col-lg-2">
+            <label class="form-label small mb-1" for="f-party">{% trans "Personas" %}</label>
+            <select id="f-party" name="party" class="form-select">
+              {% for i in party_range %}<option value="{{ i }}" {% if party|stringformat:'s' == i|stringformat:'s' %}selected{% endif %}>{{ i }} {% if i == 1 %}{% trans "persona" %}{% else %}{% trans "personas" %}{% endif %}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-6 col-lg-3">
+            <label class="form-label small mb-1" for="home-search-location">{% trans "¿Dónde?" %}</label>
+            <input id="home-search-location" type="search" name="q" value="{{ q|default_if_none:'' }}" class="form-control" placeholder="{% trans 'Colonia, sucursal o cocina' %}">
+          </div>
+          <div class="col-12 col-lg-3 d-flex gap-2">
+            <button id="btnNearMeSelect" type="button" class="btn btn-soft flex-fill" title="{% trans 'Usar mi ubicación' %}"><i class="bi bi-geo-alt-fill"></i> {% trans "Cerca de mí" %}</button>
+            <button class="btn btn-primary flex-fill"><i class="bi bi-search"></i> {% trans "Buscar" %}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  {% if user_lat and user_lng %}
+    <div class="card p-3 mb-3 d-flex flex-row align-items-center gap-2"><i class="bi bi-geo-alt" style="color:var(--brand)"></i>
+      <span>{% blocktrans with r=radius_km %}Ordenadas por cercanía (hasta {{ r }} km).{% endblocktrans %}</span>
+      <a class="ms-auto small" href="{% url 'reservas:seleccionar_sucursal' %}">{% trans "Quitar ubicación" %}</a></div>
+  {% endif %}
+
+  <div class="section-head mt-2">
+    <h2>{% if q %}{% blocktrans %}Resultados para “{{ q }}”{% endblocktrans %}{% else %}{% trans "Sucursales disponibles" %}{% endif %}</h2>
+    <span class="text-muted small">{{ page_obj.paginator.count }} {% trans "lugares" %}</span>
+  </div>
+
+  <div class="row g-3">
+    {% for item in results %}
+      {% with suc=item.obj slots=item.proximos_slots km=item.distance_km %}
+      <div class="col-sm-6 col-lg-4 reveal {% cycle '' 'reveal-d1' 'reveal-d2' %}">
+        <div class="card suc-card lift">
+          <a class="cover position-relative" href="{% url 'reservas:reservar_publico' suc.slug %}?fecha={{ date }}&party={{ party }}">
+            {% if suc.portada %}<img src="{{ suc.portada.url }}" alt="{{ suc.portada_alt|default:suc.nombre }}" loading="lazy">{% else %}<i class="bi bi-shop"></i>{% endif %}
+            {% if km is not None %}<span class="pill position-absolute" style="top:12px;left:12px;background:#fff"><i class="bi bi-geo-alt"></i> {{ km }} km</span>{% endif %}
+          </a>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start gap-2">
+              <h3 class="h5 mb-1" style="font-family:var(--font-ui);font-weight:700">{{ suc.nombre }}</h3>
+              {% if suc.rating %}<span class="small fw-bold text-nowrap"><i class="bi bi-star-fill" style="color:var(--warn)"></i> {{ suc.rating|floatformat:1 }}</span>{% endif %}
+            </div>
+            <div class="small text-muted mb-3">{% if suc.cocina %}{{ suc.cocina }} · {% endif %}{{ suc.direccion|truncatechars:48 }}</div>
+            <div class="d-flex flex-wrap gap-2">
+              {% for h in slots %}
+                <a class="slot-chip" href="{% url 'reservas:reservar_publico' suc.slug %}?fecha={{ h.fecha }}&hora={{ h.txt }}&party={{ party }}">{{ h.txt }}</a>
+              {% empty %}
+                <a class="slot-chip empty" href="{% url 'reservas:reservar_publico' suc.slug %}?party={{ party }}">{% trans "Sin lugar ese día · ver otros" %}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endwith %}
+    {% empty %}
+      <div class="col-12"><div class="card empty-state"><i class="bi bi-search"></i>{% trans "No encontramos sucursales con esa búsqueda." %}
+        <div class="mt-2"><a href="{% url 'reservas:seleccionar_sucursal' %}">{% trans "Ver todas" %}</a></div></div></div>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.has_other_pages %}
+  <nav class="d-flex justify-content-center gap-2 mt-4">
+    {% if page_obj.has_previous %}<a class="btn btn-light" href="?{% if q %}q={{ q|urlencode }}&{% endif %}date={{ date }}&time={{ time }}&party={{ party }}&page={{ page_obj.previous_page_number }}"><i class="bi bi-arrow-left"></i></a>{% endif %}
+    <span class="btn btn-light disabled">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}<a class="btn btn-light" href="?{% if q %}q={{ q|urlencode }}&{% endif %}date={{ date }}&time={{ time }}&party={{ party }}&page={{ page_obj.next_page_number }}"><i class="bi bi-arrow-right"></i></a>{% endif %}
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'reservas/js/near_me.js' %}"></script>
+{% endblock %}

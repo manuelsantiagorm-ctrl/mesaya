@@ -1,0 +1,98 @@
+/* ===== Admin Panel (IHOP) ===== */
+
+/* Títulos / migas */
+.page-title{font-weight:800;letter-spacing:.2px}
+.breadcrumb-lite{color:var(--muted);font-size:.925rem;margin-bottom:1rem}
+.breadcrumb-lite a{color:var(--brand);text-decoration:none}
+.breadcrumb-lite a:hover{text-decoration:underline}
+
+/* Contenedores / tarjetas */
+.card-soft{
+  border:1px solid var(--line);border-radius:1rem;background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);overflow:hidden
+}
+.card-soft .card-body{padding:1.25rem 1.25rem}
+
+/* Grid de mesas */
+.grid-mesas{
+  display:grid;gap:1rem;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+}
+.mesa-tile{
+  border:1px solid var(--line);border-radius:.85rem;padding:1rem;background:#fff;
+  display:flex;flex-direction:column;gap:.65rem;transition:.18s ease;
+}
+.mesa-tile:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(2,6,23,.06)}
+.mesa-head{display:flex;align-items:center;justify-content:space-between}
+.mesa-title{font-weight:700}
+.mesa-meta{font-size:.85rem;color:var(--muted)}
+.mesa-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* Badges de estado */
+.badge-state{font-weight:700;border-radius:999px;padding:.35rem .6rem}
+.badge-dispo{color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0}
+.badge-reser{color:#92400e;background:#fffbeb;border:1px solid #fde68a}
+.badge-ocu{color:#991b1b;background:#fef2f2;border:1px solid #fecaca}
+
+/* Tabla/Lista compacta */
+.table-clean{--bs-table-bg:transparent}
+.table-clean tr td{padding:.55rem .75rem;vertical-align:middle;border-top:1px solid #f1f5f9}
+
+/* Buscador folio */
+.search-wrap{display:flex;gap:.5rem}
+.search-wrap input{border-radius:.6rem}
+.search-wrap .btn{border-radius:.6rem}
+
+/* Bloques informativos */
+.info-kv{display:flex;gap:.4rem;align-items:center;color:var(--ink-2);font-size:.95rem}
+.info-kv b{color:#0f172a}
+
+/* Botones */
+.btn-round{border-radius:.7rem;font-weight:600}
+
+/* Helpers */
+.text-muted-2{color:var(--muted)}
+.divider{height:1px;background:var(--line);margin:.75rem 0}
+.small-muted{font-size:.85rem;color:var(--muted)}
+
+
+
+/* ==== Mapa de mesas ==== */
+.grid-mesas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.mesa-tile {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+
+.mesa-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.mesa-title { font-weight: 700; }
+
+.badge-state {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.badge-dispo { background:#dcfce7; color:#166534; }
+.badge-reser { background:#fef9c3; color:#92400e; }
+.badge-ocu   { background:#fee2e2; color:#991b1b; }
+
+.mesa-meta   { padding: 8px 12px; color:var(--ink-2); }
+.divider     { height:1px; background:var(--line); margin: 4px 0; }
+.mesa-actions{ padding: 8px 12px; display:flex; gap:8px; flex-wrap:wrap; }

@@ -1,0 +1,6 @@
+{% load i18n socialaccount %}
+{% if google_login %}
+<div class="d-flex align-items-center gap-2 my-3 text-muted small"><hr class="flex-grow-1"> {% trans "o" %} <hr class="flex-grow-1"></div>
+<a href="{% provider_login_url 'google' process=proceso|default:'login' %}" class="btn btn-light w-100 border">
+  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" width="18" height="18" class="me-2">{% trans "Continuar con Google" %}</a>
+{% endif %}

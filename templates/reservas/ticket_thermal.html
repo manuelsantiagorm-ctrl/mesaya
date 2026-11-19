@@ -1,0 +1,157 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ticket #{{ orden.id }}</title>
+<style>
+  @page { size: 80mm auto; margin: 0; }
+
+  body {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    margin: 0;
+    background: #f3f4f6;
+  }
+
+  .ticket {
+    width: 72mm;
+    margin: 10px auto 0;
+    padding: 4mm 4mm 10mm;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  .center { text-align: center; }
+  .line { border-top: 1px dashed #000; margin: 6px 0; }
+  .row { display:flex; justify-content:space-between; }
+  .small { font-size: 12px; }
+
+  /* Barra de botones superior (solo para pantalla) */
+  .toolbar {
+    width: 100%;
+    padding: 8px 0;
+    background: #111827;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+
+  .toolbar-btn {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    border-radius: 999px;
+    border: none;
+    padding: 6px 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+  }
+
+  .toolbar-btn span.icon {
+    font-size: 14px;
+  }
+
+  .toolbar-btn.back {
+    background: #4f46e5;
+  }
+
+  .toolbar-btn.print {
+    background: #16a34a;
+  }
+
+  .toolbar-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  }
+
+  .toolbar-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  /* Ocultar barra en la impresión */
+  @media print {
+    body { background: #ffffff; }
+    .toolbar { display: none; }
+    .ticket {
+      margin-top: 0;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+
+<body data-autoprint>
+
+<!-- Barra de acciones -->
+<div class="toolbar">
+  <button
+    type="button"
+    class="toolbar-btn back"
+    data-href="{% url 'reservas:admin_mapa_sucursal' orden.sucursal.id %}">
+    <span class="icon">⬅</span>
+    <span>Regresar al mapa</span>
+  </button>
+
+  <button
+    type="button"
+    class="toolbar-btn print"
+    data-print>
+    <span class="icon">🖨</span>
+    <span>Imprimir nuevamente</span>
+  </button>
+</div>
+
+<!-- Ticket térmico -->
+<div class="ticket">
+  <div class="center">
+    <strong>{{ orden.sucursal.nombre }}</strong><br>
+    RFC: {{ orden.sucursal.rfc|default:"XAXX010101000" }}<br>
+    {{ orden.sucursal.direccion|default:"" }}<br>
+    ------------------------------<br>
+    Ticket: #{{ orden.id }}<br>
+    Fecha: {{ orden.created_at|date:"Y-m-d H:i" }}<br>
+    Mesa: {% if orden.mesa %}{{ orden.mesa.nombre }}{% else %}N/A{% endif %}<br>
+  </div>
+
+  <div class="line"></div>
+
+  {% for it in orden.orderitem_set.all %}
+    {% if not it.cancelado %}
+      <div class="row">
+        <div>{{ it.cantidad }} x {{ it.nombre }}{% if it.notas %} ({{ it.notas }}){% endif %}</div>
+        <div>${{ it.importe }}</div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <div class="line"></div>
+  <div class="row"><div>Artículos:</div><div>{{ orden.orderitem_set.all|length }}</div></div>
+  <div class="row"><div>Sub-total:</div><div>${{ totals.subtotal_base }}</div></div>
+  <div class="row"><div>IVA 16%:</div><div>${{ totals.iva_total }}</div></div>
+  <div class="row"><div>Total:</div><div>${{ totals.total_bruto }}</div></div>
+
+  {% if orden.propina and orden.propina|floatformat:2 != "0.00" %}
+    <div class="row"><div>Propina:</div><div>${{ orden.propina }}</div></div>
+    <div class="row">
+      <div><strong>TOTAL A PAGAR</strong></div>
+      <div><strong>${{ totals.total_con_propina }}</strong></div>
+    </div>
+  {% endif %}
+
+  <div class="line"></div>
+  <div class="center small">
+    *** Comprobante de consumo ***<br>
+    Para factura solicítela con su folio #{{ orden.id }}<br>
+    ¡Gracias por su visita!
+  </div>
+</div>
+
+<script src="{% static 'reservas/js/ticket.js' %}"></script>
+</body>
+</html>

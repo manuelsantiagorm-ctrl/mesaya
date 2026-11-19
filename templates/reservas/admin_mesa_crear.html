@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Nueva mesa" %} · {{ sucursal.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width:720px">
+  <nav class="small mb-2">
+    <a href="{% url 'reservas:admin_sucursales' %}">{% trans "Sucursales" %}</a> /
+    <a href="{% url 'reservas:admin_mapa_sucursal' sucursal.id %}">{{ sucursal.nombre }}</a> /
+    <span class="text-muted">{% trans "Nueva mesa" %}</span>
+  </nav>
+  <h1 class="h4 mb-3">{% trans "Nueva mesa" %}</h1>
+
+  <form method="post" class="card card-body shadow-sm">
+    {% csrf_token %}
+    <div class="row g-3">
+      <div class="col-sm-4">
+        <label class="form-label" for="numero">{% trans "Número" %}</label>
+        <input class="form-control" type="number" min="1" id="numero" name="numero" required>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label" for="capacidad">{% trans "Capacidad" %}</label>
+        <input class="form-control" type="number" min="1" max="30" id="capacidad" name="capacidad" value="4" required>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label" for="zona">{% trans "Zona" %}</label>
+        <select class="form-select" id="zona" name="zona">
+          <option value="interior">{% trans "Interior" %}</option>
+          <option value="terraza">{% trans "Terraza" %}</option>
+          <option value="exterior">{% trans "Exterior" %}</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="ubicacion">{% trans "Ubicación (opcional)" %}</label>
+        <input class="form-control" id="ubicacion" name="ubicacion" placeholder="{% trans 'Junto a la ventana' %}">
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="notas">{% trans "Notas (opcional)" %}</label>
+        <textarea class="form-control" id="notas" name="notas" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="d-flex gap-2 mt-3">
+      <a class="btn btn-outline-secondary" href="{% url 'reservas:admin_mapa_sucursal' sucursal.id %}">{% trans "Cancelar" %}</a>
+      <button class="btn btn-primary" type="submit">{% trans "Crear mesa" %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

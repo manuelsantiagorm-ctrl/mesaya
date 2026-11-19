@@ -1,0 +1,9 @@
+{% extends "account/_auth.html" %}
+{% load i18n %}
+{% block title %}{% trans "Revisa tu correo" %}{% endblock %}
+{% block auth_icon %}bi-envelope-paper{% endblock %}
+{% block auth %}
+  <h1>{% trans "Revisa tu correo" %}</h1>
+  <p class="text-muted">{% trans "Te enviamos un mensaje para confirmar tu cuenta. Abre el enlace para continuar." %}</p>
+  <a class="btn btn-primary w-100" href="{% url 'account_login' %}">{% trans "Ir a entrar" %}</a>
+{% endblock %}

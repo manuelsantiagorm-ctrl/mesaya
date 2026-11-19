@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Cocina" %}{% endblock %}
+{% block nav_cocina %}active{% endblock %}
+
+{% block extra_css %}<link rel="stylesheet" href="{% static 'reservas/css/kds.css' %}">{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+    <div>
+      <div class="text-muted small fw-semibold text-uppercase">{% trans "Operación" %}</div><h1 class="mb-0">{% trans "Cocina" %}</h1>
+      <small class="text-muted">
+        {% blocktrans with m=minutes_visible %}
+          Se actualiza sola cada 3 s · muestra lo servido en los últimos {{ m }} min
+        {% endblocktrans %}
+      </small>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <label for="kdsMesaFilter" class="small text-muted mb-0">{% trans "Mesa" %}:</label>
+      <select id="kdsMesaFilter" class="form-select form-select-sm" style="width:auto;">
+        <option value="">{% trans "Todas" %}</option>
+        {% for m in mesas_disponibles %}
+          <option value="{{ m.numero }}" {% if mesa_filtro == m.numero|stringformat:"s" %}selected{% endif %}>
+            Mesa {{ m.numero }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <label for="kdsTimeFilter" class="small text-muted mb-0 ms-3">{% trans "Rango" %}:</label>
+      <select id="kdsTimeFilter" class="form-select form-select-sm" style="width:auto;">
+        <option value="">{% trans "Todas las horas" %}</option>
+        <option value="30"  {% if rango_filtro == "30" %}selected{% endif %}>{% trans "Últimos 30 min" %}</option>
+        <option value="60"  {% if rango_filtro == "60" %}selected{% endif %}>{% trans "Última 1 h" %}</option>
+        <option value="120" {% if rango_filtro == "120" %}selected{% endif %}>{% trans "Últimas 2 h" %}</option>
+        <option value="hoy" {% if rango_filtro == "hoy" %}selected{% endif %}>{% trans "Hoy" %}</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="kds-grid"
+       class="row g-3"
+       data-data-url="{% url 'reservas:kds_data' %}"
+       data-update-url-pattern="{% url 'reservas:kds_update_status' 0 %}"
+       data-refresh-ms="3000">
+
+    {# fallback por si JS está apagado #}
+    {% if not orders %}
+      <div class="col-12">
+        <div class="alert alert-info mb-0">
+          {% trans "No hay platillos en preparación." %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="{% static 'reservas/js/kds.js' %}?v=20251202"></script>
+{% endblock %}

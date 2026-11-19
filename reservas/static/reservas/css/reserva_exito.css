@@ -1,0 +1,95 @@
+/* Cabecera */
+.ticket-logo { height: 28px; }
+.ticket-title { font-size: clamp(1.4rem, 2vw + 1rem, 2rem); line-height: 1.1; }
+.ticket-folio .folio-text {
+  font-weight: 800;
+  font-size: clamp(1.2rem, 2vw + 1rem, 2rem);
+  color: var(--brand); /* azul bonito */
+  letter-spacing: .5px;
+}
+
+/* Instrucciones (amarillo siempre visible) */
+.ticket-instructions {
+  background: #fff7d6;
+  border-color: #f0d770;
+}
+
+/* Código de barras al final */
+.ticket-barcode { margin-top: 12px; }
+.ticket-barcode .barcode { width: 320px; height: 80px; }
+.barcode-text { margin-top: 4px; }
+
+/* Botón imprimir discreto */
+.ticket-actions .print-btn { color: var(--muted); text-decoration: none; }
+.ticket-actions .print-btn:hover { color: var(--ink); }
+
+/* Reglas de impresión */
+@media print {
+  /* quita navbar, footer y botones */
+  .navbar, .messages, .ticket-actions, .btn, .toast, footer, .site-footer { display: none !important; }
+  body { background: #fff !important; }
+  .ticket-wrap { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+  .ticket-title { font-size: 1.4rem !important; }
+  .ticket-folio .folio-text { font-size: 1.2rem !important; }
+
+  /* Asegura que las instrucciones y el código de barras se impriman SIEMPRE */
+  .ticket-instructions, .ticket-barcode { display: block !important; break-inside: avoid; }
+
+  /* Evita cortes feos */
+  .card { break-inside: avoid; }
+}
+.ticket-logo{height:26px;}
+.ticket-title{font-weight:700;}
+.folio-text{font-size:1.9rem;font-weight:800;color:var(--brand);}
+.ticket-instructions{
+  background:#fff7d6;border:1px solid #ffe083;border-radius:8px;padding:10px 14px;
+}
+.ticket-instructions ol{margin-bottom:0;}
+.ticket-barcode .barcode{width:300px;height:80px;}
+.print-btn{color:var(--muted);text-decoration:none;}
+.print-btn:hover{color:#000;}
+
+@media print{
+  .navbar,.footer,.btn,.breadcrumb,.print-btn{display:none !important;}
+  body{background:#fff !important;}
+  .ticket-wrap{max-width:700px;margin:0 auto;}
+  .ticket-instructions,.ticket-barcode{display:block !important;break-inside:avoid;}
+}
+.ticket-qr-wrap .qr-box {
+  display: inline-flex;
+  padding: 8px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+@media print {
+  .ticket-qr-wrap { break-inside: avoid; }
+}
+.ticket-qr-wrap .qr-box {
+  display: inline-flex;
+  padding: 10px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.ticket-instructions {
+  background: #fff8e1;
+  border-left: 4px solid #ffcc00;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+.ticket-logo {
+  height: 32px;
+}
+
+.ticket-title {
+  font-weight: 700;
+}
+
+@media print {
+  .print-btn { display: none !important; }
+  .btn { display: none !important; }
+  .ticket-qr-wrap { page-break-inside: avoid; }
+}

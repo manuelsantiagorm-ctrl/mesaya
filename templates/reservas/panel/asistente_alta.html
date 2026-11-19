@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Configura tu sucursal" %}{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width:860px">
+  <div class="page-head">
+    <div>
+      <div class="text-muted small fw-semibold text-uppercase"><i class="bi bi-stars"></i> {% trans "Asistente de alta" %} · {{ suc.nombre }}</div>
+      <h1>{% trans "Cuéntale a la IA cómo es tu restaurante" %}</h1>
+      <p class="text-muted mb-0">{% trans "5 respuestas y listo. La IA arranca con lo que tú sabes y cada noche lo ajusta con lo que pasa de verdad en esta sucursal." %}</p>
+    </div>
+    {% if sucs|length > 1 %}
+    <form method="get"><select name="s" class="form-select" data-autosubmit aria-label="{% trans 'Sucursal' %}">
+      {% for s in sucs %}<option value="{{ s.pk }}" {% if s.pk == suc.pk %}selected{% endif %}>{{ s.nombre }}</option>{% endfor %}
+    </select></form>
+    {% endif %}
+  </div>
+
+  <form method="post" class="card p-4 wizard" id="wizard">
+    {% csrf_token %}<input type="hidden" name="s" value="{{ suc.pk }}">
+
+    <div class="wz-step">
+      <div class="wz-n">1</div>
+      <div class="flex-grow-1">
+        <h2 class="h5" style="font-family:var(--font-ui);font-weight:800">{% trans "¿Qué tipo de restaurante es?" %}</h2>
+        <div class="tipo-grid">
+          {% for k, nombre, ps, pf, g4, g6 in tipos %}
+            <label class="tipo">
+              <input type="radio" name="tipo" value="{{ k }}" data-ps="{{ ps }}" data-pf="{{ pf }}" data-g4="{{ g4 }}" data-g6="{{ g6 }}" {% if resp.tipo == k %}checked{% endif %}>
+              <span>{{ nombre }}</span>
+            </label>
+          {% endfor %}
+        </div>
+        {% if errores.tipo %}<div class="text-danger small mt-1">{{ errores.tipo }}</div>{% endif %}
+        <div class="small text-muted mt-2">{% trans "Al elegir, te proponemos tiempos típicos. Cámbialos a lo que pasa en tu restaurante." %}</div>
+      </div>
+    </div>
+
+    <div class="wz-step">
+      <div class="wz-n">2</div>
+      <div class="flex-grow-1">
+        <h2 class="h5" style="font-family:var(--font-ui);font-weight:800">{% trans "¿Cuánto se queda una pareja?" %}</h2>
+        <div class="row g-3">
+          <div class="col-sm-6"><label class="form-label small">{% trans "Entre semana (minutos)" %}</label>
+            <input type="number" name="pareja_semana" id="ps" class="form-control" min="15" max="240" value="{{ resp.pareja_semana|default:'' }}" required>
+            {% if errores.pareja_semana %}<div class="text-danger small">{{ errores.pareja_semana }}</div>{% endif %}</div>
+          <div class="col-sm-6"><label class="form-label small">{% trans "Viernes y fin de semana (minutos)" %}</label>
+            <input type="number" name="pareja_finde" id="pf" class="form-control" min="15" max="240" value="{{ resp.pareja_finde|default:'' }}" required>
+            {% if errores.pareja_finde %}<div class="text-danger small">{{ errores.pareja_finde }}</div>{% endif %}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wz-step">
+      <div class="wz-n">3</div>
+      <div class="flex-grow-1">
+        <h2 class="h5" style="font-family:var(--font-ui);font-weight:800">{% trans "¿Y los grupos?" %}</h2>
+        <div class="row g-3">
+          <div class="col-sm-6"><label class="form-label small">{% trans "Grupo de 4 (minutos)" %}</label>
+            <input type="number" name="grupo4" id="g4" class="form-control" min="15" max="240" value="{{ resp.grupo4|default:'' }}" required>
+            {% if errores.grupo4 %}<div class="text-danger small">{{ errores.grupo4 }}</div>{% endif %}</div>
+          <div class="col-sm-6"><label class="form-label small">{% trans "Grupo de 6 o más (minutos)" %}</label>
+            <input type="number" name="grupo6" id="g6" class="form-control" min="15" max="240" value="{{ resp.grupo6|default:'' }}" required>
+            {% if errores.grupo6 %}<div class="text-danger small">{{ errores.grupo6 }}</div>{% endif %}</div>
+        </div>
+        <div class="alert alert-warning small mt-3 mb-0 d-none" id="wz-warn"></div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 align-items-center mt-2">
+      <button class="btn btn-primary btn-lg"><i class="bi bi-magic"></i> {% trans "Guardar y que la IA empiece a aprender" %}</button>
+      <a class="btn btn-light btn-lg" href="{% url 'reservas:ia_sucursal' %}?s={{ suc.pk }}">{% trans "Cancelar" %}</a>
+    </div>
+    <div class="small text-muted mt-3"><i class="bi bi-shield-check"></i> {% trans "Límites de seguridad: entre 15 y 240 min. Desayunos se calculan un poco más cortos y cenas un poco más largas. Puedes cambiarlo cuando quieras." %}</div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'reservas/js/asistente_alta.js' %}"></script>
+{% endblock %}

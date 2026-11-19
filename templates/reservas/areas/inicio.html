@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "¿Dónde trabajas hoy?" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h1 class="h3">{% trans "Hola" %}, {{ user.get_short_name|default:user.first_name|default:user.email }} 👋</h1>
+    <p class="text-muted">{% trans "Elige el área en la que vas a trabajar." %}</p>
+  </div>
+  <div class="area-grid">
+    {% for a in menu %}
+    <a class="area-tile reveal" href="{% url a.url %}" style="--area:{{ a.color }}">
+      <span class="area-ico"><i class="bi {{ a.icono }}"></i></span>
+      <span class="area-nombre">{{ a.nombre }}</span>
+      <span class="area-desc">{{ a.que_hace }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

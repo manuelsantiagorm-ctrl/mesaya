@@ -1,0 +1,365 @@
+{% load static i18n %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ brand.nombre }} · AI reservations for restaurants</title>
+  <meta name="description" content="Online bookings, a 24/7 WhatsApp AI assistant and an AI that learns how each location works. No per-cover fees.">
+  <meta property="og:title" content="{{ brand.nombre }} · Your restaurant full, your phone quiet">
+  <meta property="og:description" content="24/7 WhatsApp bookings with AI, a live panel and an AI that learns your restaurant.">
+  <meta name="theme-color" content="#1E1B18">
+  <link rel="icon" href="{% static 'reservas/img/favicon.svg' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'reservas/css/app.css' %}?v=7">
+  <link rel="stylesheet" href="{% static 'reservas/css/landing.css' %}?v=2">
+</head>
+<body class="layout lp">
+
+<nav class="lp-nav brand-nav navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+      <img src="{% static 'reservas/img/logo-mark.svg' %}" alt="" width="36" height="36">
+      <span class="wordmark">mesa<span>ya</span></span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#lpNav" aria-label="Open menu"><i class="bi bi-list fs-2"></i></button>
+    <div class="collapse navbar-collapse" id="lpNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#ia">The AI</a></li>
+        <li class="nav-item"><a class="nav-link" href="#funciones">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#calculadora">How much you gain</a></li>
+        <li class="nav-item"><a class="nav-link" href="#precios">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+      </ul>
+      <div class="d-flex gap-2 py-2 py-lg-0">
+        <form action="{% url 'set_language' %}" method="post" class="lang-switch" data-no-lock>{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">{% get_current_language as LC %}<button name="language" value="es" class="{% if LC|slice:':2' == 'es' %}on{% endif %}" aria-label="Español">ES</button><button name="language" value="en" class="{% if LC|slice:':2' == 'en' %}on{% endif %}" aria-label="English">EN</button></form>
+        <a class="btn btn-light" href="/account/login/">Log in</a>
+        <a class="btn btn-primary" href="#demo">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+{# =================== HERO =================== #}
+<header class="lp-hero">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="container position-relative">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <span class="lp-chip"><span class="ia-dot"></span> New · an AI that learns every location</span>
+        <h1 class="lp-h1">Your restaurant, full.<br><em>Your phone, quiet.</em></h1>
+        <p class="lp-lead">Online bookings, an AI assistant that answers WhatsApp 24/7 and a floor panel that reshuffles tables before anyone waits. With your brand. No per-cover fees.</p>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <a href="#demo" class="btn btn-primary btn-lg px-4">Book your free demo <i class="bi bi-arrow-right"></i></a>
+          {% if demo %}<a href="{% url 'reservas:reservar_publico' demo.slug %}" class="btn btn-glass btn-lg"><i class="bi bi-phone"></i> Try it as a guest</a>{% endif %}
+        </div>
+        <div class="lp-trust">
+          <span><i class="bi bi-check-circle-fill"></i> Live in 1 day</span>
+          <span><i class="bi bi-check-circle-fill"></i> No lock-in contract</span>
+          <span><i class="bi bi-check-circle-fill"></i> Local pricing</span>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="hero-stage">
+          <div class="photo-card"><img data-fallback src="https://unsplash.com/photos/RSCNMt6cG9U/download?force=true&w=1200" alt="Restaurant dining room with warm light" loading="eager"></div>
+
+          <div class="phone">
+            <div class="phone-top"><span class="avatar"><img src="{% static 'reservas/img/logo-mark.svg' %}" alt=""></span><div><strong>La Terraza</strong><small>Assistant · online</small></div><i class="bi bi-whatsapp ms-auto"></i></div>
+            <div class="chat" id="hero-chat" aria-live="polite"></div>
+          </div>
+
+          <div class="float-card fc-ia">
+            <div class="d-flex align-items-center gap-2"><span class="ia-dot"></span><strong>Floor AI</strong></div>
+            <div class="small">Table 7 is still occupied (+18 min).<br><b>Ana's booking moved to table 12</b> ✓</div>
+          </div>
+          <div class="float-card fc-kpi">
+            <div class="small text-muted">Bookings made by the AI today</div>
+            <div class="d-flex align-items-end gap-2"><span class="big">14</span><span class="up"><i class="bi bi-arrow-up-right"></i> after hours: 6</span></div>
+          </div>
+        </div>
+        <div class="text-end small text-white-50 mt-2">Illustrative example with demo data</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{# =================== STRIP =================== #}
+<section class="lp-strip">
+  <div class="container">
+    <div class="row g-3 text-center">
+      <div class="col-6 col-md-3"><i class="bi bi-whatsapp"></i><strong>Book 24/7</strong><span>via WhatsApp and web</span></div>
+      <div class="col-6 col-md-3"><i class="bi bi-cpu"></i><strong>Learns</strong><span>from every location</span></div>
+      <div class="col-6 col-md-3"><i class="bi bi-cash-coin"></i><strong>$0 fees</strong><span>per cover</span></div>
+      <div class="col-6 col-md-3"><i class="bi bi-lightning-charge"></i><strong>Ready in 1 day</strong><span>with your menu and tables</span></div>
+    </div>
+  </div>
+</section>
+
+{# =================== DOLORES =================== #}
+<section class="lp-sec">
+  <div class="container">
+    <div class="lp-head reveal"><span class="pill">Sound familiar?</span><h2>What costs your restaurant money every night</h2></div>
+    <div class="row g-3">
+      <div class="col-md-4 reveal"><div class="pain">
+        <div class="pain-q"><i class="bi bi-telephone-x"></i> “The phone rings right at rush hour and nobody picks up.”</div>
+        <div class="pain-a"><b>With {{ brand.nombre }}:</b> the AI assistant answers WhatsApp and the web, checks real tables and confirms in seconds, at any hour.</div>
+      </div></div>
+      <div class="col-md-4 reveal reveal-d1"><div class="pain">
+        <div class="pain-q"><i class="bi bi-person-x"></i> “They booked, never showed up, and the table sat empty.”</div>
+        <div class="pain-a"><b>With {{ brand.nombre }}:</b> automatic reminders, one-click cancellation and an AI that spots which bookings are most likely to no-show.</div>
+      </div></div>
+      <div class="col-md-4 reveal reveal-d2"><div class="pain">
+        <div class="pain-q"><i class="bi bi-hourglass-split"></i> “The guest arrived and their table was still taken.”</div>
+        <div class="pain-a"><b>With {{ brand.nombre }}:</b> the floor AI sees which tables are running long and moves the next booking before the guest arrives.</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+{# =================== IA =================== #}
+<section class="lp-sec lp-dark" id="ia">
+  <div class="glow g3"></div>
+  <div class="container position-relative">
+    <div class="lp-head reveal"><span class="pill pill-dark"><i class="bi bi-stars"></i> Artificial intelligence</span>
+      <h2>It's not just a booking system.<br><em>It's a manager that never sleeps.</em></h2>
+      <p>Four agents working for your restaurant: one talks to your guests, one watches the floor, one learns and one advises you.</p></div>
+
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3 reveal"><div class="agent"><div class="agent-ico"><i class="bi bi-chat-heart"></i></div><h3>24/7 assistant</h3><p>Understands “table for 4 tomorrow around 2”, offers real times, books, cancels and hands special cases to your team.</p><span class="tag">WhatsApp · Web</span></div></div>
+      <div class="col-md-6 col-lg-3 reveal reveal-d1"><div class="agent"><div class="agent-ico"><i class="bi bi-grid-3x3-gap"></i></div><h3>Floor AI</h3><p>Knows where every table is at. If one runs long, it moves the next booking to another table or warns the guest before they leave home.</p><span class="tag">Every 5 minutes</span></div></div>
+      <div class="col-md-6 col-lg-3 reveal reveal-d2"><div class="agent"><div class="agent-ico"><i class="bi bi-cpu"></i></div><h3>Learning AI</h3><p>Every night it learns how long a table really lasts at <b>that</b> location, when it fills up and who tends to no-show.</p><span class="tag">Machine learning per location</span></div></div>
+      <div class="col-md-6 col-lg-3 reveal reveal-d3"><div class="agent"><div class="agent-ico"><i class="bi bi-lightbulb"></i></div><h3>Owner advisor</h3><p>Shows you, with your own numbers, where you are losing tables and what to adjust to earn more.</p><span class="tag">One-click suggestions</span></div></div>
+    </div>
+
+    <div class="row g-4 align-items-center mt-4">
+      <div class="col-lg-5 reveal">
+        <h3 class="lp-h3">Every location is different. The AI knows it.</h3>
+        <p class="text-white-50">A couple downtown on a Friday night doesn't stay as long as a family in the suburbs at Tuesday lunch. Instead of one fixed time for everyone, {{ brand.nombre }} learns from the real tables of each location and adjusts the times it offers.</p>
+        <ul class="lp-steps">
+          <li><b>Day 1:</b> starts from what you tell it.</li>
+          <li><b>Every night:</b> learns from real tables, with safety limits.</li>
+          <li><b>Always:</b> you decide whether to apply what it learned.</li>
+        </ul>
+      </div>
+      <div class="col-lg-7 reveal reveal-d1">
+        <div class="learn-card">
+          <div class="d-flex justify-content-between align-items-center mb-3"><strong><i class="bi bi-cpu"></i> What it learned · La Terraza Polanco</strong><span class="pill">Example</span></div>
+          <div class="learn-row"><span>Mon–Thu · lunch · 1–2 guests</span><div class="bar"><i style="width:56%"></i><em style="left:75%"></em></div><b>58 min</b><small>set 90</small></div>
+          <div class="learn-row"><span>Friday · dinner · 3–4 guests</span><div class="bar"><i style="width:82%"></i><em style="left:70%"></em></div><b>118 min</b><small>set 105</small></div>
+          <div class="learn-row"><span>Saturday · dinner · 5–6 guests</span><div class="bar"><i style="width:94%"></i><em style="left:80%"></em></div><b>136 min</b><small>set 120</small></div>
+          <div class="learn-row"><span>Sunday · breakfast · 3–4 guests</span><div class="bar"><i style="width:64%"></i><em style="left:75%"></em></div><b>72 min</b><small>set 90</small></div>
+          <div class="learn-tip"><i class="bi bi-lightbulb"></i> “On weekdays couples leave 32 min earlier. Adjusting opens ~6 more bookings per week.”</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# =================== PANEL =================== #}
+<section class="lp-sec">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 reveal">
+        <span class="pill">For your team</span>
+        <h2 class="mt-2">The whole night on one screen</h2>
+        <p class="text-muted">Your host sees who arrived, who's coming, which tables are freeing up and who's on the waitlist. One tap for “Arrived”, “Asked for the bill” or “Free table”. Works on tablet, phone or computer.</p>
+        <ul class="check-list">
+          <li>Alerts when a table won't be free in time</li>
+          <li>Waitlist with WhatsApp alerts</li>
+          <li>No-show risk on every booking</li>
+          <li>Table map, walk-ins and kitchen</li>
+        </ul>
+      </div>
+      <div class="col-lg-7 reveal reveal-d1">
+        <div class="mock-panel">
+          <div class="mp-top"><span></span><span></span><span></span><div class="mp-url">{{ brand.nombre|lower }}.app/staff/hoy</div></div>
+          <div class="p-3">
+            <div class="row g-2 mb-2">
+              <div class="col-3"><div class="kpi accent p-2"><div class="lbl">Bookings</div><div class="val fs-3">48</div></div></div>
+              <div class="col-3"><div class="kpi p-2"><div class="lbl">Arrived</div><div class="val fs-3">31</div></div></div>
+              <div class="col-3"><div class="kpi p-2"><div class="lbl">Free</div><div class="val fs-3">5</div></div></div>
+              <div class="col-3"><div class="kpi p-2"><div class="lbl">Waitlist</div><div class="val fs-3">3</div></div></div>
+            </div>
+            <div class="card ia-alert p-2 mb-2"><div class="d-flex align-items-center gap-2 small"><span class="ia-dot"></span><b>Table 7 over by 18 min</b><span class="text-muted">· 9:45 pm booking</span><span class="btn btn-sm btn-primary ms-auto py-0">Move to table 12</span></div></div>
+            <div class="res-row px-1"><div class="hora">21:30</div><div><b>Mariana G.</b> <span class="small text-muted">· 4 · Table 3</span> <span class="pill"><i class="bi bi-stars"></i> IA</span></div><span class="estado CONF">Confirmed</span></div>
+            <div class="res-row px-1"><div class="hora">21:45</div><div><b>Ana R.</b> <span class="small text-muted">· 2 · Table 12</span> <span class="estado NOSH">22% risk</span></div><span class="estado PEND">Pending</span></div>
+            <div class="res-row px-1 border-0"><div class="hora">22:00</div><div><b>Ortiz family</b> <span class="small text-muted">· 8 · Patio</span></div><span class="estado CONF">Confirmed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# =================== FUNCIONES =================== #}
+<section class="lp-sec lp-soft" id="funciones">
+  <div class="container">
+    <div class="lp-head reveal"><span class="pill">All included</span><h2>Everything your restaurant needs, with no per-cover fees</h2></div>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature lift"><div class="ico"><i class="bi bi-calendar2-check"></i></div><strong>Guest booking, no account</strong><p class="small text-muted mb-0">Guests book in seconds and get a code, QR and calendar file.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal reveal-d1"><div class="feature lift"><div class="ico"><i class="bi bi-code-slash"></i></div><strong>Button for your website and Instagram</strong><p class="small text-muted mb-0">Paste a snippet and take bookings from your site, Google or bio.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal reveal-d2"><div class="feature lift"><div class="ico"><i class="bi bi-bell"></i></div><strong>Automatic reminders</strong><p class="small text-muted mb-0">Email and WhatsApp before the visit, with a cancel button.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature lift"><div class="ico"><i class="bi bi-hourglass-split"></i></div><strong>Waitlist</strong><p class="small text-muted mb-0">Add walk-ins and text them on WhatsApp when their table is ready.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal reveal-d1"><div class="feature lift"><div class="ico"><i class="bi bi-grid-3x3-gap"></i></div><strong>Table map and zones</strong><p class="small text-muted mb-0">Indoor, patio, large tables. Blocks for events or maintenance.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal reveal-d2"><div class="feature lift"><div class="ico"><i class="bi bi-fire"></i></div><strong>Orders and kitchen</strong><p class="small text-muted mb-0">Per-table orders and kitchen display included.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature lift"><div class="ico"><i class="bi bi-graph-up-arrow"></i></div><strong>Owner dashboard</strong><p class="small text-muted mb-0">Bookings, covers, peak hours, no-shows and returning guests.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal reveal-d1"><div class="feature lift"><div class="ico"><i class="bi bi-buildings"></i></div><strong>One location or a thousand</strong><p class="small text-muted mb-0">Each location with its own tables, hours and rules. All together for the owner.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal reveal-d2"><div class="feature lift"><div class="ico"><i class="bi bi-palette"></i></div><strong>Your brand</strong><p class="small text-muted mb-0">Your logo, colors and domain. Guests see your restaurant, not ours.</p></div></div>
+    </div>
+  </div>
+</section>
+
+{# =================== FOTO =================== #}
+<section class="lp-photo-band">
+  <img data-fallback src="https://unsplash.com/photos/lEWUbYHSDnk/download?force=true&w=1800" alt="Restaurant table set for guests" loading="lazy">
+  <div class="container position-relative">
+    <div class="band-quote reveal"><span class="pill pill-dark">Made in Mexico</span>
+      <p>Built for the way restaurants in Latin America work: WhatsApp-first, bilingual and with local pricing.</p></div>
+  </div>
+</section>
+
+{# =================== CALCULADORA =================== #}
+<section class="lp-sec" id="calculadora">
+  <div class="container">
+    <div class="lp-head reveal"><span class="pill">Calculator</span><h2>How much money are you leaving on the table?</h2><p class="text-muted">Enter your restaurant's numbers. You choose the assumptions.</p></div>
+    <div class="row g-4">
+      <div class="col-lg-6 reveal">
+        <div class="calc card p-4">
+          <label class="calc-row">Bookings per week <output id="o-res">80</output><input type="range" id="c-res" min="10" max="600" step="5" value="80"></label>
+          <label class="calc-row">Guests per table <output id="o-per">3</output><input type="range" id="c-per" min="1" max="8" step="0.5" value="3"></label>
+          <label class="calc-row">Average spend per guest (MXN) <output id="o-tic">$350</output><input type="range" id="c-tic" min="80" max="2000" step="10" value="350"></label>
+          <label class="calc-row">% of bookings that no-show today <output id="o-ns">12%</output><input type="range" id="c-ns" min="0" max="40" step="1" value="12"></label>
+          <label class="calc-row">Assumption: no-shows avoided with reminders <output id="o-red">30%</output><input type="range" id="c-red" min="0" max="80" step="5" value="30"></label>
+          <label class="calc-row">Assumption: extra bookings per week (after-hours WhatsApp) <output id="o-ext">5</output><input type="range" id="c-ext" min="0" max="60" step="1" value="5"></label>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal reveal-d1">
+        <div class="calc-out">
+          <div class="small text-white-50 text-uppercase fw-semibold">Estimated extra revenue per month</div>
+          <div class="calc-big" id="r-total">$0</div>
+          <div class="calc-split">
+            <div><span id="r-ns">$0</span><small>tables no longer lost</small></div>
+            <div><span id="r-ext">$0</span><small>bookings you miss today</small></div>
+          </div>
+          <div class="calc-roi"><i class="bi bi-graph-up-arrow"></i> <span id="r-roi">—</span></div>
+          <a href="#demo" class="btn btn-light btn-lg w-100 mt-3">I want this in my restaurant</a>
+          <div class="small text-white-50 mt-2">Estimate based on the assumptions above; not a guarantee. Compared against the Pro with AI plan (MXN ${{ precios.pro }} + tax per month).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# =================== COMPARATIVA =================== #}
+<section class="lp-sec lp-soft">
+  <div class="container">
+    <div class="lp-head reveal"><span class="pill">Comparison</span><h2>More than a booking diary</h2></div>
+    <div class="table-responsive reveal">
+      <table class="table cmp">
+        <thead><tr><th></th><th class="me">{{ brand.nombre }}</th><th>Notebook and phone</th><th>Traditional booking apps</th></tr></thead>
+        <tbody>
+          <tr><td>24/7 online booking</td><td class="me"><i class="bi bi-check-circle-fill"></i></td><td><i class="bi bi-x-circle"></i></td><td><i class="bi bi-check-circle"></i></td></tr>
+          <tr><td>AI assistant that answers WhatsApp and books</td><td class="me"><i class="bi bi-check-circle-fill"></i></td><td><i class="bi bi-x-circle"></i></td><td>Uncommon</td></tr>
+          <tr><td>Learns how long a table lasts at each location</td><td class="me"><i class="bi bi-check-circle-fill"></i></td><td><i class="bi bi-x-circle"></i></td><td>Uncommon</td></tr>
+          <tr><td>Reshuffles bookings when a table runs long</td><td class="me"><i class="bi bi-check-circle-fill"></i></td><td><i class="bi bi-x-circle"></i></td><td>Uncommon</td></tr>
+          <tr><td>No-show risk per booking</td><td class="me"><i class="bi bi-check-circle-fill"></i></td><td><i class="bi bi-x-circle"></i></td><td>Varies</td></tr>
+          <tr><td>Per-cover fee</td><td class="me"><b>$0</b></td><td>$0</td><td>Common</td></tr>
+          <tr><td>Your brand, your domain, local pricing</td><td class="me"><i class="bi bi-check-circle-fill"></i></td><td>—</td><td>Varies</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{# =================== PRECIOS =================== #}
+<section class="lp-sec" id="precios">
+  <div class="container">
+    <div class="lp-head reveal"><span class="pill">Pricing</span><h2>Simple, local and fee-free</h2><p class="text-muted">Monthly prices in MXN + tax. Cancel anytime.</p></div>
+    <div class="row g-3 align-items-stretch">
+      <div class="col-lg-4 reveal"><div class="price-card">
+        <h3 class="h5 lp-plan">Essential</h3><div class="price">${{ precios.basico }}</div><div class="text-muted small">per month · 1 location</div>
+        <ul><li>Unlimited online bookings</li><li>Button for your website and Instagram</li><li>Email reminders</li><li>Today panel and waitlist</li><li>Your logo and colors</li></ul>
+        <a href="#demo" class="btn btn-light w-100">Get started</a></div></div>
+      <div class="col-lg-4 reveal reveal-d1"><div class="price-card featured">
+        <span class="badge-top">Most popular</span>
+        <h3 class="h5 lp-plan">Pro with AI</h3><div class="price">${{ precios.pro|stringformat:"d" }}</div><div class="text-muted small">per month · 1 location</div>
+        <ul><li>Everything in Essential</li><li><b>AI assistant on WhatsApp and web</b></li><li><b>Floor AI and automatic reshuffling</b></li><li><b>AI that learns your location</b></li><li>WhatsApp confirmations and alerts</li><li>Dashboard with charts</li></ul>
+        <a href="#demo" class="btn btn-primary w-100">I want Pro</a></div></div>
+      <div class="col-lg-4 reveal reveal-d2"><div class="price-card">
+        <h3 class="h5 lp-plan">Chain</h3><div class="price">${{ precios.cadena }}</div><div class="text-muted small">per location per month · from 3</div>
+        <ul><li>Everything in Pro with AI</li><li>Multiple locations and countries</li><li>Roles: owner, manager, host</li><li>Custom domain</li><li>Priority support</li></ul>
+        <a href="#demo" class="btn btn-ink w-100">Talk to sales</a></div></div>
+    </div>
+  </div>
+</section>
+
+{# =================== FAQ =================== #}
+<section class="lp-sec lp-soft" id="faq">
+  <div class="container" style="max-width:860px">
+    <div class="lp-head reveal"><span class="pill">FAQ</span><h2>What restaurant owners ask us</h2></div>
+    <div class="accordion lp-acc" id="faqAcc">
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f1">Do I need to install anything?</button></h3><div id="f1" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">No. It runs in the browser on any computer, tablet or phone. Your guests don't install anything either.</div></div></div>
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">Does the assistant use my WhatsApp number?</button></h3><div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Yes. We connect your restaurant's number to WhatsApp Business (Meta) and the assistant answers there. While it's being approved, you can use the chat on your website.</div></div></div>
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f3">What if the AI makes a mistake?</button></h3><div id="f3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">The AI never makes up availability: every booking goes through the system's exact rules. You can set it to “propose only” so your host approves each booking, and you can read every conversation from your panel. Special cases go to your team.</div></div></div>
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f4">How does the AI learn my location?</button></h3><div id="f4" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Every night it analyzes that location's real tables: how long they took, when it filled up and who didn't show. It starts from what you tell it and gradually adjusts to reality, with safety limits. You decide whether to apply what it learned.</div></div></div>
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f5">Is my data safe?</button></h3><div id="f5" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Each restaurant only sees its own data; your team signs in with two-step verification. Your guests' data is yours and is never used for other restaurants.</div></div></div>
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f6">How long does it take to go live?</button></h3><div id="f6" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">Usually one day: we set up your locations, tables, hours and brand. WhatsApp depends on Meta's approval.</div></div></div>
+      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f7">Is there a lock-in contract?</button></h3><div id="f7" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body">No. You pay month to month and cancel anytime.</div></div></div>
+    </div>
+  </div>
+</section>
+
+{# =================== DEMO =================== #}
+<section class="lp-sec lp-dark" id="demo">
+  <div class="glow g1"></div>
+  <div class="container position-relative">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 reveal">
+        <span class="pill pill-dark">Free demo · 20 minutes</span>
+        <h2 class="mt-2">We'll show you {{ brand.nombre }} running with <em>your</em> restaurant</h2>
+        <p class="text-white-50">Leave your details and we'll message you on WhatsApp to schedule. No commitment.</p>
+        <ul class="check-list light"><li>We set up your tables and hours</li><li>You watch the AI assistant take bookings</li><li>We walk you through pricing for your case</li></ul>
+        {% if ventas_whatsapp %}<a class="btn btn-glass mt-2" href="https://wa.me/{{ ventas_whatsapp }}?text=Hi%2C%20I%27d%20like%20a%20demo%20of%20{{ brand.nombre }}" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> Message us on WhatsApp</a>{% endif %}
+        {% if demo %}<div class="mt-3 small"><a class="link-light" href="{% url 'reservas:reservar_publico' demo.slug %}">Try the demo as a guest <i class="bi bi-arrow-right"></i></a>{% if demo.empresa.agente_ia_activo %} · <a class="link-light" href="{% url 'reservas:asistente_chat' demo.empresa.slug %}">Chat with the assistant</a>{% endif %}</div>{% endif %}
+      </div>
+      <div class="col-lg-7 reveal reveal-d1">
+        <div class="card demo-form p-4">
+          {% if gracias %}
+            <div class="text-center py-4 pop"><div class="tf-ico mx-auto mb-3"><i class="bi bi-check2"></i></div><h3>Done! We'll be in touch soon.</h3><p class="text-muted mb-0">Keep an eye on your WhatsApp in the next few hours.</p></div>
+          {% else %}
+          <form method="post" action="{% url 'reservas:solicitar_demo' %}" novalidate>
+            {% csrf_token %}{{ form.website }}
+            {% if form.errors %}<div class="alert alert-warning py-2 small">Please check the highlighted fields.</div>{% endif %}
+            <div class="row g-3">
+              {% for f in form.visible_fields %}
+              <div class="{% if f.name == 'mensaje' %}col-12{% elif f.name == 'sucursales' or f.name == 'ciudad' %}col-md-6{% else %}col-md-6{% endif %}">
+                <label class="form-label small" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}
+                {% for e in f.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+              </div>
+              {% endfor %}
+            </div>
+            <button class="btn btn-primary btn-lg w-100 mt-3" type="submit">Get my demo <i class="bi bi-arrow-right"></i></button>
+            <div class="small text-muted mt-2 text-center">We only use your details to contact you about {{ brand.nombre }}.</div>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="lp-footer">
+  <div class="container d-flex flex-column flex-md-row justify-content-between gap-3">
+    <div class="d-flex align-items-center gap-2"><img src="{% static 'reservas/img/logo-mark.svg' %}" alt="" width="28" height="28"><span class="wordmark small-w">mesa<span>ya</span></span><span class="text-white-50 small ms-2">© {% now "Y" %} · AI reservations for restaurants</span></div>
+    <div class="small d-flex gap-3 flex-wrap"><a href="#precios">Pricing</a><a href="{% url 'reservas:aviso_privacidad' %}">Privacy notice</a><a href="/account/login/">Log in</a><span class="text-white-50">Photos: Unsplash</span></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'reservas/js/main.js' %}"></script>
+<script src="{% static 'reservas/js/landing.js' %}?v=2"></script>
+</body>
+</html>
